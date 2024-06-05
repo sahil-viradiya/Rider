@@ -283,27 +283,24 @@ class HomeScreen extends GetView<HomeController> {
             ),
             _commonListtile(
                 context: context,
-                icon: AppImage.USER,
-                title: 'Edit Profile',
+                icon: AppImage.NOTIFICTION,
+                title: 'Notification',
                 fun: () async {
-                  Navigator.pop(context);
-                  // resate(context);
+                  Get.toNamed(AppRoutes.NOTIFICATION);
                 }),
             _commonListtile(
                 context: context,
-                icon: AppImage.ADDRESS,
-                title: 'Addresses',
+                icon: AppImage.Document,
+                title: 'Order History',
                 fun: () async {
-                  Navigator.pop(context);
-                  // Get.toNamed(AppRoutes.ADDRESS);
+                  Get.toNamed(AppRoutes.ORDERHISTORY);
                 }),
             _commonListtile(
                 context: context,
-                icon: AppImage.WALLET,
-                title: 'Payment & Refunds',
+                icon: AppImage.WELLET,
+                title: 'Wallet',
                 fun: () async {
-                  Navigator.pop(context);
-                  // Get.toNamed(AppRoutes.PAYMENTOPTION);
+                  Get.toNamed(AppRoutes.WALLET);
 
                   // showErrorMessage(
                   //   context: context,

@@ -11,15 +11,28 @@ import 'package:rider/screens/customer_address/customer_address_binding.dart';
 import 'package:rider/screens/customer_address/customer_address_screen.dart';
 import 'package:rider/screens/home/home_binding.dart';
 import 'package:rider/screens/home/home_screen.dart';
+import 'package:rider/screens/notification/notifiction_binding.dart';
+import 'package:rider/screens/order_history/order_history_binding.dart';
+import 'package:rider/screens/order_history/order_history_screen.dart';
+import 'package:rider/screens/order_history/order_status/order_status_binding.dart';
 import 'package:rider/screens/orders/orders_binding.dart';
 import 'package:rider/screens/orders/orders_screen.dart';
 import 'package:rider/screens/request/request_binding.dart';
 import 'package:rider/screens/request/request_screen.dart';
+import 'package:rider/screens/wallet/wallet_binding.dart';
+
+import '../screens/notification/notifiction_screen.dart';
+import '../screens/order_history/order_status/order_status_screen.dart';
+import '../screens/wallet/wallet_screen.dart';
 
 class AppRoutes {
   static String SPLASHSCREEN = '/splash_screen';
 
   static String LOGIN = '/login_screen';
+  static String NOTIFICATION = '/notification_screen';
+  static String WALLET = '/wallet_screen';
+  static String ORDERHISTORY = '/orderhistory_screen';
+  static String ORDERSTATUS = '/orderstatus_screen';
   static String FORGOTPASSWORD = '/forgot_password';
   static String FORGOTOTP = '/forgot_otp';
   static String RESATEPASSWORD = '/resate_password';
@@ -32,6 +45,7 @@ class AppRoutes {
   static String CUSTOMER_ADDRESS = '/customer_address';
 
   static List<GetPage> pages = [
+
     // GetPage(
     //   name: splashScreen,
     //   page: () => const SplashScreen(),
@@ -93,11 +107,40 @@ class AppRoutes {
       bindings: const [
         // SplashBinding(),
       ],
-    ),GetPage(
+    ),
+    GetPage(
       name: HOMESCREEN,
       page: () => const HomeScreen(),
       bindings:  [
         HomeBinding(),
+      ],
+    ),
+    GetPage(
+      name: NOTIFICATION,
+      page: () => const NotificationScreen(),
+      bindings:  [
+        NotificationBinding(),
+      ],
+    ),
+    GetPage(
+      name: WALLET,
+      page: () => const WalletScreen(),
+      bindings:  [
+        WalletBinding(),
+      ],
+    ),
+    GetPage(
+      name: ORDERHISTORY,
+      page: () => const OrderHistoryScreen(),
+      bindings:  [
+        OrderHistoryBinding(),
+      ],
+    ),
+ GetPage(
+      name: ORDERSTATUS,
+      page: () => const OrdersStatusScreen(),
+      bindings:  [
+        OrdersStatusBinding(),
       ],
     ),
 

@@ -22,8 +22,11 @@ class AppImage {
   static String GOOGLEPAY = "assets/images/png/googlePay.png";
   static String PAYTM = "assets/images/png/paytm.png";
   static String ADDRESS = "assets/images/svg/address.svg";
+  static String WELLET = "assets/images/svg/wall.svg";
+  static String Document = "assets/images/svg/Document.svg";
   static String LOGOUT = "assets/images/svg/logout.svg";
   static String USER = "assets/images/svg/user.svg";
+  static String NOTIFICTION = "assets/images/svg/notifications.svg";
   static String USERDUMMY = "assets/images/png/user-dummy.png";
   static String RUPAY = "assets/images/png/rupay.png";
   static String AMERICAN_EXPRESS = "assets/images/png/american-express.png";
