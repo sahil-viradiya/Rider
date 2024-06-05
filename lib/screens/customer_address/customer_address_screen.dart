@@ -43,8 +43,7 @@ class CustomerAddressScreen extends GetView<CustomerAddressController> {
               borderCircular: 6,
               text: "Start Delivery",
               fun: () {
-                _showBottomSheet(context);
-                // _showStartDeliveryDialog(context);
+                _showStartDeliveryDialog(context);
               },
             ),
           ),

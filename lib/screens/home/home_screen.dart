@@ -29,6 +29,8 @@ class HomeScreen extends GetView<HomeController> {
       title4: "Star rating" ?? "",
     );
     return Scaffold(
+      backgroundColor: white,
+
       drawer: drawer(context),
       appBar: AppBar(
         backgroundColor: white,
