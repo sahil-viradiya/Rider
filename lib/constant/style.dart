@@ -135,6 +135,11 @@ class Styles {
     fontSize: 20,
     fontFamily: FontFamily.primary,
     fontWeight: FontWeight.w700,
+  );static TextStyle white740 = TextStyle(
+    color: primaryWhite,
+    fontSize: 40,
+    fontFamily: FontFamily.primary,
+    fontWeight: FontWeight.w700,
   );
   static TextStyle white715 = TextStyle(
     color: primaryWhite,
@@ -392,6 +397,11 @@ class Styles {
   static TextStyle boldWhite718 = TextStyle(
     color: primaryWhite,
     fontSize: 18,
+    fontFamily: FontFamily.primary,
+    fontWeight: FontWeight.w700,
+  );static TextStyle boldWhite712 = TextStyle(
+    color: primaryWhite,
+    fontSize: 12,
     fontFamily: FontFamily.primary,
     fontWeight: FontWeight.w700,
   );

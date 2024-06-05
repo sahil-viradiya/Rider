@@ -4,6 +4,7 @@ class AppImage {
   static String FACEBOOK = "assets/images/svg/facebook.svg";
   static String GOOGLE = "assets/images/svg/google.svg";
   static String LOCATION = "assets/images/svg/location.svg";
+  static String PHONE = "assets/images/svg/phone.svg";
   static String PACKAGE = "assets/images/svg/package.svg";
   static String SLIDE = "assets/images/png/slide.png";
   static String ORDER = "assets/images/svg/order.svg";
@@ -13,6 +14,7 @@ class AppImage {
   static String BOX = "assets/images/svg/box.svg";
   static String HEAT = "assets/images/svg/heat.svg";
   static String INFO = "assets/images/svg/info.svg";
+  static String INFO_BIG = "assets/images/svg/info-big.svg";
   static String LOCATION2 = "assets/images/svg/location2.svg";
   static String RIGHTARROW = "assets/images/svg/rightarrow.svg";
   static String WALLET = "assets/images/svg/wallet.svg";
@@ -28,6 +30,11 @@ class AppImage {
   static String MASTER_CARD = "assets/images/png/master-card.png";
   static String VISA = "assets/images/png/visa.png";
   static String MOBIKWIK = "assets/images/png/mobikwik.png";
+  static String COURIER = "assets/images/svg/courier.svg";
+  static String MONEY = "assets/images/svg/money.svg";
+  static String RATING = "assets/images/svg/rating.svg";
+  static String REQUEST = "assets/images/svg/request.svg";
+  static String STAR = "assets/images/svg/star.svg";
 
 
 }

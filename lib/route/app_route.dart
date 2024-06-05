@@ -7,6 +7,14 @@ import 'package:rider/screens/auth/forgot_password/forgot_password_screen.dart';
 import 'package:rider/screens/auth/otp/otp_screen.dart';
 import 'package:rider/screens/auth/resate_password/resate_password_screen.dart';
 import 'package:rider/screens/auth/signIn/signIn_Screen.dart';
+import 'package:rider/screens/customer_address/customer_address_binding.dart';
+import 'package:rider/screens/customer_address/customer_address_screen.dart';
+import 'package:rider/screens/home/home_binding.dart';
+import 'package:rider/screens/home/home_screen.dart';
+import 'package:rider/screens/orders/orders_binding.dart';
+import 'package:rider/screens/orders/orders_screen.dart';
+import 'package:rider/screens/request/request_binding.dart';
+import 'package:rider/screens/request/request_screen.dart';
 
 class AppRoutes {
   static String SPLASHSCREEN = '/splash_screen';
@@ -19,21 +27,9 @@ class AppRoutes {
   static String initialRoute = '/login_screen';
   static String OTPSCREEN = '/otp_screen';
   static String HOMESCREEN = '/home_screen';
-  static String PICKUPSCREEN = '/pickUp_screen';
-  static String SETCURRENTLOCATION = '/set_CURRENT_location';
-  static String SETCURRENTDROPTLOCATION = '/set_CURRENT_drop_location';
-  static String SETPICKUPLOCATION = '/set_pickUp_location';
-  static String SETDROPLOCATION = '/set_drop_location';
-  static String ADDRESSDETAILS = '/address_details';
-  static String DROPADDRESSDETAILS = '/drop_address_details';
-  static String DROPSCREEN = '/drop_screen';
-  static String PICKUPORSENDANYTHING = '/pickup_or_send_any';
-  static String CHECKOUT = '/checkout';
-  static String PAYMENT = '/payment';
-  static String ADDRESS = '/address';
-  static String PAYMENTOPTION = '/payment_option';
-  static String ADDNEWCARD = '/add_new_card';
-  static String LINKACCOUNTSCREEN = '/link_account_screen';
+  static String REQUEST = '/request';
+  static String ORDER = '/order';
+  static String CUSTOMER_ADDRESS = '/customer_address';
 
   static List<GetPage> pages = [
     // GetPage(
@@ -50,6 +46,24 @@ class AppRoutes {
         // SplashBinding(),
       ],
     ),GetPage(
+      name: CUSTOMER_ADDRESS,
+      page: () => const CustomerAddressScreen(),
+      bindings:  [
+        CustomerAddressBinding(),
+      ],
+    ),GetPage(
+      name: ORDER,
+      page: () => const OrdersScreen(),
+      bindings:  [
+        OrdersBinding(),
+      ],
+    ),GetPage(
+      name: REQUEST,
+      page: () => const RequestScreen(),
+      bindings:  [
+        RequestBinding(),
+      ],
+    ),GetPage(
       name: FORGOTPASSWORD,
       page: () => ForgotPasswordScreen(),
       bindings: const [
@@ -63,7 +77,7 @@ class AppRoutes {
       ],
     ),GetPage(
       name: RESATEPASSWORD,
-      page: () => ResetPasswordScreen(),
+      page: () => const ResetPasswordScreen(),
       bindings: const [
         // SplashBinding(),
       ],
@@ -78,6 +92,12 @@ class AppRoutes {
       page: () => OtpScreen(),
       bindings: const [
         // SplashBinding(),
+      ],
+    ),GetPage(
+      name: HOMESCREEN,
+      page: () => const HomeScreen(),
+      bindings:  [
+        HomeBinding(),
       ],
     ),
 
