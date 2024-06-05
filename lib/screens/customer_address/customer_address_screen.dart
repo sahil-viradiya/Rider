@@ -6,6 +6,7 @@ import 'package:rider/constant/app_color.dart';
 import 'package:rider/constant/app_image.dart';
 import 'package:rider/constant/style.dart';
 import 'package:rider/route/app_route.dart';
+import 'package:rider/widget/app_text_field.dart';
 import 'package:rider/widget/auth_app_bar_widget.dart';
 import 'package:rider/widget/custom_button.dart';
 
@@ -231,7 +232,6 @@ class CustomerAddressScreen extends GetView<CustomerAddressController> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Gap(8),
-
                     Expanded(
                       child: CustomButton(
                         height: 32,
@@ -241,7 +241,7 @@ class CustomerAddressScreen extends GetView<CustomerAddressController> {
                         style: Styles.boldwhite712,
                         fun: () {
                           Navigator.of(context).pop(); // Close the dialog
-                          _showBottomSheet(context); // Show the bottom sheet
+                          _deliver(context);
                         },
                       ),
                     ),
@@ -255,12 +255,11 @@ class CustomerAddressScreen extends GetView<CustomerAddressController> {
                         style: Styles.boldwhite712,
                         fun: () {
                           Navigator.of(context).pop(); // Close the dialog
-                          _showBottomSheet(context); // Show the bottom sheet
+                          _issue(context);
                         },
                       ),
                     ),
                     Gap(8),
-                    
                     Expanded(
                       child: CustomButton(
                         height: 32,
@@ -269,17 +268,184 @@ class CustomerAddressScreen extends GetView<CustomerAddressController> {
                         text: "Delay",
                         style: Styles.boldwhite712,
                         fun: () {
-                          Navigator.of(context).pop(); // Close the dialog
-                          _showBottomSheet(context); // Show the bottom sheet
+                          Navigator.of(context).pop();
+                          _delay(context);// Close the dialog
                         },
                       ),
                     ),
                     Gap(8),
-
-
                   ],
                 ),
                 Gap(8),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  void _deliver(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          // contentPadding: EdgeInsets.all(0),
+          insetPadding: EdgeInsets.all(8),
+          backgroundColor: white,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15),
+          ),
+          // title: const Text("Start Delivery"),
+          content: Container(
+            decoration: BoxDecoration(
+                border: Border.all(color: primary),
+                borderRadius: BorderRadius.circular(7)),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Gap(10),
+                SvgPicture.asset(AppImage.INFO_BIG),
+                Gap(14),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  child: Text(
+                    "Are you Sure you want to mark this Order as Delivered?",
+                    style: Styles.lable414,
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+                Divider(),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    CustomButton(
+                      height: 32,
+                      width: 100,
+                      borderCircular: 6,
+                      text: "Confirm",
+                      style: Styles.boldwhite712,
+                      fun: () {
+                        Navigator.of(context).pop(); // Close the dialog
+                      },
+                    ),
+                    Gap(12),
+                    CustomButton(
+                      height: 32,
+                      width: 100,
+                      color: Color(0xFFE5E5E5),
+                      borderCircular: 6,
+                      text: "Cancle",
+                      style: Styles.boldBlack712,
+                      fun: () {},
+                    ),
+                  ],
+                ),
+                Gap(12)
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  void _issue(BuildContext context) {
+    final titles = [
+      'Heavy Traffic Delivery Time Issue',
+      'Address Not Found',
+      'Customer Door Closed',
+      'Customer Not Accepting the Order',
+      'Customer Blames He Didn’t Place an Order',
+      'Other'
+    ];
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          // contentPadding: EdgeInsets.all(0),
+          insetPadding: EdgeInsets.all(8),
+          backgroundColor: white,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15),
+          ),
+          // title: const Text("Start Delivery"),
+          content: Container(
+            decoration: BoxDecoration(
+                border: Border.all(color: primary),
+                borderRadius: BorderRadius.circular(7)),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: List<Widget>.generate(6, (int index) {
+                    return Obx(() => RadioListTile<int>(
+                          activeColor: primary,
+                          controlAffinity: ListTileControlAffinity.trailing,
+                          title: Text(
+                            titles[index],
+                            style: Styles.lable414,
+                          ),
+                          value: index,
+                          groupValue: controller.selectedRadio.value,
+                          onChanged: (int? value) {
+                            controller.selectedRadio.value = value!;
+                          },
+                        ));
+                  }),
+                ),
+                Gap(8),
+
+                Align(
+                  alignment: Alignment.topLeft,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 14.0),
+                    child: Text(
+                      "Description",
+                      style: Styles.boldBlack612,
+                    ),
+                  ),
+                ),
+                Gap(8),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 14.0),
+
+                  child: CustomTextFormFieldWidget(
+                    minLine: 5,
+                    maxLine: 5,
+                  ),
+                ),
+
+                Divider(),
+                Gap(8),
+
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    CustomButton(
+                      height: 32,
+                      width: 100,
+                      borderCircular: 6,
+                      text: "Confirm",
+                      style: Styles.boldwhite712,
+                      fun: () {
+                        Navigator.of(context).pop(); // Close the dialog
+                      },
+                    ),
+                    Gap(12),
+                    CustomButton(
+                      height: 32,
+                      width: 100,
+                      color: Color(0xFFE5E5E5),
+                      borderCircular: 6,
+                      text: "Back",
+                      style: Styles.boldBlack712,
+                      fun: () {},
+                    ),
+                  ],
+                ),
+                Gap(12)
 
               ],
             ),
@@ -288,4 +454,109 @@ class CustomerAddressScreen extends GetView<CustomerAddressController> {
       },
     );
   }
+
+  void _delay(BuildContext context) {
+    final titles = [
+      'Stuck in Traffic',
+      'Road Closed Divert New Route',
+      'New Delivery Address Diverted By Customer',
+      'Other',
+
+    ];
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          // contentPadding: EdgeInsets.all(0),
+          insetPadding: EdgeInsets.all(8),
+          backgroundColor: white,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15),
+          ),
+          // title: const Text("Start Delivery"),
+          content: Container(
+            decoration: BoxDecoration(
+                border: Border.all(color: primary),
+                borderRadius: BorderRadius.circular(7)),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: List<Widget>.generate(4, (int index) {
+                    return Obx(() => RadioListTile<int>(
+                      activeColor: primary,
+                      controlAffinity: ListTileControlAffinity.trailing,
+                      title: Text(
+                        titles[index],
+                        style: Styles.lable414,
+                      ),
+                      value: index,
+                      groupValue: controller.selectedRadio.value,
+                      onChanged: (int? value) {
+                        controller.selectedRadio.value = value!;
+                      },
+                    ));
+                  }),
+                ),
+                Gap(8),
+
+                Align(
+                  alignment: Alignment.topLeft,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 14.0),
+                    child: Text(
+                      "Description",
+                      style: Styles.boldBlack612,
+                    ),
+                  ),
+                ),
+                Gap(8),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 14.0),
+
+                  child: CustomTextFormFieldWidget(
+                    minLine: 5,
+                    maxLine: 5,
+                  ),
+                ),
+
+                Divider(),
+                Gap(8),
+
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    CustomButton(
+                      height: 32,
+                      width: 100,
+                      borderCircular: 6,
+                      text: "Confirm",
+                      style: Styles.boldwhite712,
+                      fun: () {
+                        Navigator.of(context).pop(); // Close the dialog
+                      },
+                    ),
+                    Gap(12),
+                    CustomButton(
+                      height: 32,
+                      width: 100,
+                      color: Color(0xFFE5E5E5),
+                      borderCircular: 6,
+                      text: "Back",
+                      style: Styles.boldBlack712,
+                      fun: () {},
+                    ),
+                  ],
+                ),
+                Gap(12)
+
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
 }
