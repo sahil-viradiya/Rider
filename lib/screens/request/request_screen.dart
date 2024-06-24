@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
+import 'package:rider/animation/fade_in.dart';
 import 'package:rider/constant/app_color.dart';
 import 'package:rider/constant/my_size.dart';
 import 'package:rider/constant/style.dart';
@@ -24,7 +25,7 @@ class RequestScreen extends GetView<RequestController> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const Divider(),
-            Gap(14),
+            const Gap(14),
             Row(
               children: [
                 Text(
@@ -53,17 +54,36 @@ class RequestScreen extends GetView<RequestController> {
                 ),
               ],
             ),
-            Expanded(
-              child: AnimatedList(
-                initialItemCount: 15,
-                shrinkWrap: true,
-                physics: BouncingScrollPhysics(),
-                
-                itemBuilder: (context, index, animation) {
-                  return RequestItemWidget();
-                },
-              ),
-            )
+            Obx(() {
+              if (controller.isLoading.value == true) {
+                return Center(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Gap(Get.height/3),
+                      const CircularProgressIndicator(
+                          color: primary,
+                        ),
+                    ],
+                  ),
+                );
+              } else {
+                return Expanded(
+                      child: FadeInAnimation(
+                        delay: .5,
+                        child: AnimatedList(
+                          initialItemCount: 15,
+                          shrinkWrap: true,
+                          physics: const BouncingScrollPhysics(),
+                          itemBuilder: (context, index, animation) {
+                            return const RequestItemWidget();
+                          },
+                        ),
+                      ),
+                    );
+              }
+            })
           ],
         ),
       ),

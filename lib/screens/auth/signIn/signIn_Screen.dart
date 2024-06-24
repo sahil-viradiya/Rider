@@ -9,15 +9,20 @@ import 'package:rider/constant/my_size.dart';
 import 'package:rider/constant/style.dart';
 import 'package:rider/constant/validation.dart';
 import 'package:rider/route/app_route.dart';
+import 'package:rider/screens/auth/signIn/signIn_controller.dart';
 import 'package:rider/widget/app_text_field.dart';
 import 'package:rider/widget/auth_app_bar_widget.dart';
 import 'package:rider/widget/custom_button.dart';
+
+import '../../../constant/const.dart';
 
 
 class SignInScreen extends StatelessWidget {
   SignInScreen({super.key});
 
   final _formKey = GlobalKey<FormState>();
+  final SignInController _controller = Get.put(SignInController());
+
 
   @override
   Widget build(BuildContext context) {
@@ -86,7 +91,7 @@ class SignInScreen extends StatelessWidget {
                   Align(
                     alignment: Alignment.topLeft,
                     child: Text(
-                      "Username",
+                      "Email",
                       style: Styles.boldBlack614,
                       textAlign: TextAlign.left,
                     ),
@@ -94,9 +99,9 @@ class SignInScreen extends StatelessWidget {
                   Gap(MySize.size4!),
 
                   CustomTextFormFieldWidget(
-                    controller: TextEditingController(text: "sahil"),
+                    controller: _controller.emailCon,
                     validator: ((value) {
-                      return Validator.validateFirstName(value!);
+                      return Validator.validateEmails(value!);
                     }),
                     // controller: loginBloc.usernameCon,
                     hintRpadding: 17.76,
@@ -114,7 +119,8 @@ class SignInScreen extends StatelessWidget {
                   Gap(MySize.size4!),
 
                   CustomPasswordTextFormFieldWidget(
-                    controller: TextEditingController(text: "123456789"),
+
+                    controller: _controller.passCon,
                     validator: ((value) {
                       return Validator.validatePassword(value!);
                     }),
@@ -135,7 +141,7 @@ class SignInScreen extends StatelessWidget {
                             activeColor: primary,
                             visualDensity: const VisualDensity(horizontal: -4),
                             materialTapTargetSize:
-                                MaterialTapTargetSize.shrinkWrap,
+                            MaterialTapTargetSize.shrinkWrap,
                             side: const BorderSide(color: primary),
                             // value: boolValue,
                             onChanged: (bool? value) {},
@@ -166,18 +172,22 @@ class SignInScreen extends StatelessWidget {
                   ),
                   Gap(MySize.size10!),
                   //-------------------------------------sign in button------------------
-                  CustomButton(
-                      text: 'Sign In',
-                      fun: () {
-                        if (_formKey.currentState!.validate()) {
-                          Get.toNamed(AppRoutes.HOMESCREEN);
-                        }
-                        // Navigator.push(
-                        //   context,
-                        //   MaterialPageRoute(
-                        //       builder: (context) => BottomBarScreen()),
-                        // );
-                      }),
+                  Obx(() {
+                    return CustomButton(
+                        isLoading: _controller.isLoading.value,
+                        text: 'Sign In',
+                        fun: () {
+                          if (_formKey.currentState!.validate()) {
+                            debugPrint("TOKEN____________$token");
+                            _controller.signIn();
+                          }
+                          // Navigator.push(
+                          //   context,
+                          //   MaterialPageRoute(
+                          //       builder: (context) => BottomBarScreen()),
+                          // );
+                        });
+                  }),
                   Gap(MySize.size24!),
                   InkWell(
                     onTap: () {

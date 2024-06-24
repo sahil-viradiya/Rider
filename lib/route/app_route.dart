@@ -91,7 +91,7 @@ class AppRoutes {
       ],
     ),GetPage(
       name: RESATEPASSWORD,
-      page: () => const ResetPasswordScreen(),
+      page: () =>  ResetPasswordScreen(),
       bindings: const [
         // SplashBinding(),
       ],

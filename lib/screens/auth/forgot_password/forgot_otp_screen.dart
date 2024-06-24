@@ -11,16 +11,19 @@ import 'package:rider/widget/auth_app_bar_widget.dart';
 import 'package:rider/widget/custom_button.dart';
 import 'package:rider/widget/otp_widget.dart';
 
+import 'forgot_password_controller.dart';
 
 class ForgotOtpScreen extends StatelessWidget {
   ForgotOtpScreen({
     super.key,
   });
+
   final _formKey = GlobalKey<FormState>();
+  final ForgotPasswordController _controller =
+      Get.put(ForgotPasswordController());
 
   @override
   Widget build(BuildContext context) {
-
     MySize().init(context);
     return WillPopScope(
       onWillPop: () async {
@@ -60,18 +63,16 @@ class ForgotOtpScreen extends StatelessWidget {
                     validator: ((value) {
                       return Validator.validateMobileOtp(value!);
                     }),
-                    // controller: otpBloc.otpController,
+                    controller: _controller.otpCon,
                   ),
                   Gap(MySize.size10!),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       InkWell(
-                        onTap: () {
-
-                        },
+                        onTap: () {},
                         child: Text(
-                       'Resend?',
+                          'Resend?',
                           style: Styles.normalBlue612U,
                         ),
                       ),
@@ -79,12 +80,11 @@ class ForgotOtpScreen extends StatelessWidget {
                   ),
                   Gap(MySize.size35!),
                   CustomButton(
-
                       text: 'Submit',
                       fun: () {
-                        Get.toNamed(AppRoutes.RESATEPASSWORD);
+                        // Get.toNamed(AppRoutes.RESATEPASSWORD);
                         if (_formKey.currentState!.validate()) {
-
+                          _controller.verifyForgotOtp();
                         }
                         // Navigator.push(
                         //   context,
@@ -100,7 +100,6 @@ class ForgotOtpScreen extends StatelessWidget {
                       style: Styles.normalBlue612U,
                     ),
                   )
-                  
                 ],
               ),
             ),

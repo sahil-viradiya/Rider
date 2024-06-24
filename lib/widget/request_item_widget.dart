@@ -3,6 +3,7 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:rider/constant/style.dart';
 import 'package:rider/route/app_route.dart';
+import 'package:rider/screens/request/request_controller.dart';
 import 'package:rider/widget/custom_button.dart';
 
 class RequestItemWidget extends StatelessWidget {
@@ -10,6 +11,7 @@ class RequestItemWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+   var _con = Get.put(RequestController());
     return   Container(
       margin: EdgeInsets.only(bottom: 34),
       child: Column(

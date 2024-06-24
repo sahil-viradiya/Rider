@@ -103,7 +103,7 @@ class _GetLocationScreenState extends State<GetLocationScreen> {
   getNearByLocations() async {
     String url =
         "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=$lat,$lng" +
-            "&radius=100&key=${Common.apiKey}";
+            "&radius=100&key=${Config.apiKey}";
     print('url:$url');
     http.Response response = await http.get(Uri.parse(url));
     print(response.statusCode);

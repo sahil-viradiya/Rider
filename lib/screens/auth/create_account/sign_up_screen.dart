@@ -1,6 +1,5 @@
 // ignore_for_file: must_be_immutable
 
-
 import 'package:dotted_line/dotted_line.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -11,16 +10,20 @@ import 'package:rider/constant/my_size.dart';
 import 'package:rider/constant/style.dart';
 import 'package:rider/constant/validation.dart';
 import 'package:rider/route/app_route.dart';
+import 'package:rider/screens/auth/create_account/sign_up_controller.dart';
+import 'package:rider/utils/network_client.dart';
 import 'package:rider/widget/app_text_field.dart';
 import 'package:rider/widget/auth_app_bar_widget.dart';
 import 'package:rider/widget/custom_button.dart';
 
 import '../../../constant/app_image.dart';
 
-class SignUpScreen extends StatelessWidget {
+class SignUpScreen extends GetView<SignUpController> {
   SignUpScreen({super.key});
 
   final _formKey = GlobalKey<FormState>();
+  final SignUpController controller = Get.put(SignUpController());
+
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +38,7 @@ class SignUpScreen extends StatelessWidget {
           physics: const BouncingScrollPhysics(),
           child: Padding(
             padding:
-                EdgeInsets.symmetric(horizontal: MySize.getScaledSizeWidth(25)),
+            EdgeInsets.symmetric(horizontal: MySize.getScaledSizeWidth(25)),
             child: Column(
               // crossAxisAlignment: CrossAxisAlignment.center,
               children: [
@@ -96,33 +99,18 @@ class SignUpScreen extends StatelessWidget {
                 ),
                 Gap(MySize.size4!),
                 CustomTextFormFieldWidget(
-                  // controller: signUpBloc.fnameCon,
+                  controller: controller.fullName,
                   keyboardType: TextInputType.name,
                   hintRpadding: 17.76,
+                  onchanged: (val) {
+                    controller.createAccountModel?.fullName = val ?? "";
+                  },
                   validator: ((value) {
                     return Validator.validateFirstName(value!);
                   }),
                 ),
                 Gap(MySize.size12!),
-                //-------------------------------lname------=--------------------------
-                Align(
-                  alignment: Alignment.topLeft,
-                  child: Text(
-                    "Username",
-                    style: Styles.boldBlack614,
-                    textAlign: TextAlign.left,
-                  ),
-                ),
-                Gap(MySize.size4!),
-                CustomTextFormFieldWidget(
-                  keyboardType: TextInputType.name,
-                  validator: ((value) {
-                    return Validator.validateLastName(value!);
-                  }),
-                  // controller: signUpBloc.lnameCon,
-                  hintRpadding: 17.76,
-                ),
-                Gap(MySize.size12!),
+
                 //-------------------------------email------=--------------------------
                 Align(
                   alignment: Alignment.topLeft,
@@ -134,6 +122,10 @@ class SignUpScreen extends StatelessWidget {
                 ),
                 Gap(MySize.size4!),
                 CustomTextFormFieldWidget(
+                  onchanged: (val) {
+                    controller.createAccountModel?.email = val ?? "";
+                  },
+                  controller: controller.email,
                   keyboardType: TextInputType.emailAddress,
                   validator: ((value) {
                     return Validator.validateEmails(value!);
@@ -151,9 +143,13 @@ class SignUpScreen extends StatelessWidget {
                 ),
                 Gap(MySize.size4!),
                 CustomTextFormFieldWidget(
-                  // keyboardType: TextInputType.emailAddress,
+                  onchanged: (val) {
+                    controller.createAccountModel?.mobileNo = val ?? "";
+                  },
+                  keyboardType: TextInputType.number,
+                  controller: controller.mobileNo,
                   validator: ((value) {
-                    // return Validator.validateEmails(value!);
+                    return Validator.validateMobile(value!);
                   }),
 
                   hintRpadding: 17.76,
@@ -172,7 +168,10 @@ class SignUpScreen extends StatelessWidget {
                 ),
                 Gap(MySize.size4!),
                 CustomPasswordTextFormFieldWidget(
-                  // controller: signUpBloc.passwordCon,
+                  onchanged: (val) {
+                    controller.createAccountModel?.password = val ?? "";
+                  },
+                  controller: controller.password,
                   validator: ((value) {
                     return Validator.validatePassword(value!);
                   }),
@@ -192,26 +191,35 @@ class SignUpScreen extends StatelessWidget {
                 ),
                 Gap(MySize.size4!),
                 CustomPasswordTextFormFieldWidget(
-                  validator: ((value) {}),
-                  // controller: signUpBloc.confrimCon,
+                  onchanged: (val) {
+                    controller.createAccountModel?.confirmPassword = val ?? "";
+                  },
+                  validator: ((value) {
+                    return Validator.validateConfirmPassword(
+                        value!, controller.password.text);
+                  }),
+                  controller: controller.conformPassword,
 
                   obscureText: true,
                   suffixTap: () {},
                 ),
-                Gap(MySize.size24!),
 
                 //////////////////////////////////////////////////////////////////////////////////////////// check box------------------
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    Checkbox(
-                      activeColor: primary,
-                      visualDensity: const VisualDensity(horizontal: -4),
-                      materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                      side: const BorderSide(color: primary),
-                      value: false,
-                      onChanged: (bool? value) {},
-                    ),
+                    Obx(() {
+                      return Checkbox(
+                        activeColor: primary,
+                        visualDensity: const VisualDensity(horizontal: -4),
+                        materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                        side: const BorderSide(color: primary),
+                        value: controller.checkTC.value,
+                        onChanged: (bool? value) {
+                          controller.checkTC.value = value ?? false;
+                        },
+                      );
+                    }),
                     Text(
                       ' I agree with the ',
                       style: Styles.hint610,
@@ -224,15 +232,27 @@ class SignUpScreen extends StatelessWidget {
                 ),
                 Gap(MySize.size10!),
                 //----------------------------------------sign up button---------------------------
-                CustomButton(
-                    text: 'Sign up',
-                    fun: () {
-                      Get.toNamed(AppRoutes.OTPSCREEN);
+                Obx(() {
+                  return CustomButton(
+                      isLoading: controller.isLoading.value,
+                      text: 'Sign up',
+                      fun: () {
+                        if (_formKey.currentState!.validate()) {
+                          if (controller.checkTC.value != true) {
+                            DioExceptions.showErrorMessage(
+                                context, "Please Check terms and conditions");
+                          } else {
+                            controller.signUp();
+                          }
+                        }
 
-                      // Navigator.push(context, MaterialPageRoute(builder: (context) => OtpScreen(),));
-                      // if (_formKey.currentState!.validate()) {}
-                      // ;
-                    }),
+                        // Get.toNamed(AppRoutes.OTPSCREEN);
+
+                        // Navigator.push(context, MaterialPageRoute(builder: (context) => OtpScreen(),));
+                        // if (_formKey.currentState!.validate()) {}
+                        // ;
+                      });
+                }),
 
                 Gap(MySize.size24!),
                 GestureDetector(

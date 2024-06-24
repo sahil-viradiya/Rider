@@ -168,7 +168,7 @@ class _SearchLocationOnMapScreenState extends State<SearchLocationOnMapScreen> {
   Future<void> _handlePressButton() async {
     Prediction? p = await PlacesAutocomplete.show(
       context: context,
-      apiKey: Common.apiKey!,
+      apiKey: Config.apiKey!,
       onError: onError,
       mode: Mode.overlay,
       language: "en-us",
@@ -193,7 +193,7 @@ class _SearchLocationOnMapScreenState extends State<SearchLocationOnMapScreen> {
 
   Future<void> displayPrediction(Prediction p, ScaffoldState scaffold) async {
     GoogleMapsPlaces _places = GoogleMapsPlaces(
-      apiKey: Common.apiKey!,
+      apiKey: Config.apiKey!,
       apiHeaders: await const GoogleApiHeaders().getHeaders(),
     );
     PlacesDetailsResponse detail =
@@ -218,7 +218,7 @@ class _SearchLocationOnMapScreenState extends State<SearchLocationOnMapScreen> {
 
   void getAddress() async {
     GeoData fetchGeocoder = await Geocoder2.getDataFromCoordinates(
-        latitude: lat!, longitude: lng!, googleMapApiKey: Common.apiKey!);
+        latitude: lat!, longitude: lng!, googleMapApiKey: Config.apiKey!);
     Get.back(result: [fetchGeocoder.address, lat.toString(), lng.toString()]);
   }
 }
