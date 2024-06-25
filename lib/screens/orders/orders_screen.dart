@@ -13,16 +13,16 @@ class OrdersScreen extends GetView<OrdersController> {
 
   @override
   Widget build(BuildContext context) {
+    int? id = Get.arguments;
     return Scaffold(
       backgroundColor: white,
       appBar: appbarSmall1(context, "Orders"),
       body: Column(
         children: [
           const Divider(),
-          Gap(14),
+          const Gap(14),
           Container(
-            margin: EdgeInsets.symmetric(horizontal: 14),
-
+            margin: const EdgeInsets.symmetric(horizontal: 14),
             decoration: BoxDecoration(
               border: Border.all(color: primary),
               borderRadius: BorderRadius.circular(10),
@@ -30,29 +30,28 @@ class OrdersScreen extends GetView<OrdersController> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Gap(14),
-
+                const Gap(14),
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 14),
-
+                  padding: const EdgeInsets.symmetric(horizontal: 14),
                   child: Row(
                     children: [
                       Text(
                         "Order ID",
                         style: Styles.boldBlack614,
                       ),
-                      Gap(48),
+                      const Gap(48),
                       Text(
-                        "9872589963188985",
+                        controller.rideAcceptModel.orderID.toString(),
                         style: Styles.lable414,
                       ),
                     ],
                   ),
                 ),
-                Gap(14),
+                const Gap(14),
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 14,),
-
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 14,
+                  ),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -60,13 +59,13 @@ class OrdersScreen extends GetView<OrdersController> {
                         "Rider Status",
                         style: Styles.boldBlack614,
                       ),
-                      Gap(30),
+                      const Gap(30),
                       Expanded(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              "Collected and delivery in Progress",
+                              controller.rideAcceptModel.riderStatus.toString(),
                               style: Styles.lable414,
                             ),
                             CustomButton(
@@ -83,17 +82,18 @@ class OrdersScreen extends GetView<OrdersController> {
                     ],
                   ),
                 ),
-                Gap(14),
+                const Gap(14),
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 14,),
-
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 14,
+                  ),
                   child: Row(
                     children: [
                       Text(
                         "Order Status",
                         style: Styles.boldBlack614,
                       ),
-                      Gap(30),
+                      const Gap(30),
                       Text(
                         "Assign to Rider",
                         style: Styles.boldBlue716,
@@ -101,12 +101,11 @@ class OrdersScreen extends GetView<OrdersController> {
                     ],
                   ),
                 ),
-                Gap(6),
-
-                Divider(),
+                const Gap(6),
+                const Divider(),
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 14,vertical: 6),
-
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 14, vertical: 6),
                   child: Row(
                     children: [
                       Column(
@@ -116,20 +115,20 @@ class OrdersScreen extends GetView<OrdersController> {
                             "Delivery Time",
                             style: Styles.boldBlack614,
                           ),
-                          Gap(6),
+                          const Gap(6),
                           Text(
-                            "Mon, 26 Feb 2024",
+                            controller.rideAcceptModel.deliveryTime.toString(),
                             style: Styles.lable414,
                           ),
-                          Gap(4),
-
-                          Text(
-                            "04:00 PM to 04:30 PM",
-                            style: Styles.lable414,
-                          ),
+                          // Gap(4),
+                          //
+                          // Text(
+                          //   "04:00 PM to 04:30 PM",
+                          //   style: Styles.lable414,
+                          // ),
                         ],
                       ),
-                      Spacer(),
+                      const Spacer(),
                       CustomButton(
                         height: 22,
                         width: 100,
@@ -141,60 +140,56 @@ class OrdersScreen extends GetView<OrdersController> {
                     ],
                   ),
                 ),
-                Gap(6),
-
+                const Gap(6),
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 14),
-
+                  padding: const EdgeInsets.symmetric(horizontal: 14),
                   child: Text(
                     "Delivery Address",
                     style: Styles.boldBlack614,
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 14,vertical: 6),
-
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 14, vertical: 6),
                   child: Text(
-                    "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy",
+                    controller.rideAcceptModel.deliveryAddress.toString(),
                     style: Styles.lable414,
                   ),
                 ),
-
-
-
-
-
-
-
-                Divider(),
+                const Divider(),
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 14,vertical: 6),
-
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 14, vertical: 6),
                   child: Text(
                     "Item Details",
                     style: Styles.boldBlack614,
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 14,),
-
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 14,
+                  ),
                   child: Text(
-                    "1 Curler",
+                    controller.rideAcceptModel.itemDetails.toString(),
                     style: Styles.lable414,
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 14,vertical: 14),
-
-                  child: CustomButton(
-                    height: 35,
-                    borderCircular: 6,
-                    width: double.infinity,
-                    text: "Start Delivery",
-                    fun: () {
-                      Get.toNamed(AppRoutes.CUSTOMER_ADDRESS);
-                    },
-                  ),
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 14, vertical: 14),
+                  child: Obx(() {
+                    return CustomButton(
+                      isLoading: controller.isLoading.value,
+                      height: 35,
+                      borderCircular: 6,
+                      width: double.infinity,
+                      text: "Start Delivery",
+                      fun: () {
+                        controller.startDelivery(id: id ?? 0);
+                        // Get.toNamed(AppRoutes.CUSTOMER_ADDRESS);
+                      },
+                    );
+                  }),
                 )
               ],
             ),

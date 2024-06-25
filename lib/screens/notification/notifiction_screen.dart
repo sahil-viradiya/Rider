@@ -24,7 +24,7 @@ class NotificationScreen extends GetView<NotificationController> {
         child: Column(
           children: [
             const Divider(),
-            Gap(14),
+            const Gap(14),
             CustomButton(
                 height: MySize.size44,
                 width: double.infinity,

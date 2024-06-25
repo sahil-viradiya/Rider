@@ -63,7 +63,7 @@ class DioClient {
     } on FormatException catch (_) {
       throw const FormatException("Unable to process the data");
     } catch (e) {
-      throw e;
+      rethrow;
     }
   }
 
@@ -92,7 +92,7 @@ class DioClient {
     } on FormatException catch (_) {
       throw const FormatException("Unable to process the data");
     } catch (e) {
-      throw e;
+      rethrow;
     }
   }
 }

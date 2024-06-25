@@ -4,7 +4,9 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:rider/constant/app_color.dart';
+import 'package:rider/screens/auth/signIn/signIn_Screen.dart';
 
 class DioExceptions {
   static void showErrorMessage(BuildContext context, String message) {
@@ -70,6 +72,7 @@ DioExceptions.fromDioError(
       case 400:
         return 'Bad request';
       case 401:
+        Get.offAll(SignInScreen());
         return 'Unauthorized';
       case 403:
         return 'Forbidden';
@@ -89,7 +92,7 @@ DioExceptions.fromDioError(
   int errorStatusCode() => statusCode;
 
   void _prettyPrintError(
-      {required DioError dioError, required String? errorFrom}) {
+      {required DioException dioError, required String? errorFrom}) {
     debugPrint(
         '\x1B[31m${"********************************************************"}\x1B[0m');
     debugPrint('\x1B[31m${"🚨 ERROR exception from: $errorFrom"}\x1B[0m');

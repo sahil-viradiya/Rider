@@ -55,6 +55,8 @@ dependencies:
   geolocator: ^12.0.0
   dio: ^5.4.3+1
 
+  google_maps_webservice: any
+  http: any
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -81,6 +83,7 @@ flutter:
   assets:
     - assets/images/svg/
     - assets/images/png/
+    - "assets/images/png/location-marker.png"
     #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

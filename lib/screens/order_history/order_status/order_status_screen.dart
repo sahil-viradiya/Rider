@@ -22,7 +22,7 @@ class OrdersStatusScreen extends GetView<OrdersStatusController> {
           child: Column(
             children: [
               const Divider(),
-              Gap(14),
+              const Gap(14),
               Container(
                 decoration: BoxDecoration(
                   border: Border.all(color: primary),
@@ -31,9 +31,9 @@ class OrdersStatusScreen extends GetView<OrdersStatusController> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Gap(14),
+                    const Gap(14),
                     Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 14),
+                      padding: const EdgeInsets.symmetric(horizontal: 14),
           
                       child: Row(
                         children: [
@@ -41,7 +41,7 @@ class OrdersStatusScreen extends GetView<OrdersStatusController> {
                             "Order ID",
                             style: Styles.boldBlack614,
                           ),
-                          Gap(48),
+                          const Gap(48),
                           Text(
                             "9872589963188985",
                             style: Styles.lable414,
@@ -49,9 +49,9 @@ class OrdersStatusScreen extends GetView<OrdersStatusController> {
                         ],
                       ),
                     ),
-                    Gap(10),
+                    const Gap(10),
                     Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 14,),
+                      padding: const EdgeInsets.symmetric(horizontal: 14,),
           
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -60,7 +60,7 @@ class OrdersStatusScreen extends GetView<OrdersStatusController> {
                             "Order Status",
                             style: Styles.boldBlack614,
                           ),
-                          Gap(25),
+                          const Gap(25),
                           Text(
                             "Delivered",
                             style: Styles.boldBlack614.copyWith(color: primary),
@@ -68,11 +68,11 @@ class OrdersStatusScreen extends GetView<OrdersStatusController> {
                         ],
                       ),
                     ),
-                    Gap(4),
+                    const Gap(4),
           
-                    Divider(),
+                    const Divider(),
                     Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 14,vertical: 4),
+                      padding: const EdgeInsets.symmetric(horizontal: 14,vertical: 4),
           
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -81,12 +81,12 @@ class OrdersStatusScreen extends GetView<OrdersStatusController> {
                             "Order Time",
                             style: Styles.boldBlack614,
                           ),
-                          Gap(6),
+                          const Gap(6),
                           Text(
                             "Mon, 26 Feb 2024",
                             style: Styles.lable414,
                           ),
-                          Gap(4),
+                          const Gap(4),
           
                           Text(
                             "04:00 PM to 04:30 PM",
@@ -95,10 +95,10 @@ class OrdersStatusScreen extends GetView<OrdersStatusController> {
                         ],
                       ),
                     ),
-                    Gap(4),
+                    const Gap(4),
           
                     Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 14),
+                      padding: const EdgeInsets.symmetric(horizontal: 14),
           
                       child: Text(
                         "Delivery Address",
@@ -106,7 +106,7 @@ class OrdersStatusScreen extends GetView<OrdersStatusController> {
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 14,vertical: 4),
+                      padding: const EdgeInsets.symmetric(horizontal: 14,vertical: 4),
           
                       child: Text(
                         "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy",
@@ -114,10 +114,10 @@ class OrdersStatusScreen extends GetView<OrdersStatusController> {
                       ),
                     ),
           
-                    Divider(),
-                    Gap(4),
+                    const Divider(),
+                    const Gap(4),
                     Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 14),
+                      padding: const EdgeInsets.symmetric(horizontal: 14),
           
                       child: Row(
                         children: [
@@ -125,7 +125,7 @@ class OrdersStatusScreen extends GetView<OrdersStatusController> {
                             "Order Pick Up Time",
                             style: Styles.boldBlack614,
                           ),
-                          Gap(25),
+                          const Gap(25),
                           Text(
                             "10:45 PM",
                             style: Styles.lable414,
@@ -133,9 +133,9 @@ class OrdersStatusScreen extends GetView<OrdersStatusController> {
                         ],
                       ),
                     ),
-                    Gap(10),
+                    const Gap(10),
                     Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 14,),
+                      padding: const EdgeInsets.symmetric(horizontal: 14,),
           
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -144,7 +144,7 @@ class OrdersStatusScreen extends GetView<OrdersStatusController> {
                             "Order Picked Up at",
                             style: Styles.boldBlack614,
                           ),
-                          Gap(25),
+                          const Gap(25),
                           Text(
                             "12:00 PM",
                             style: Styles.lable414,
@@ -152,14 +152,14 @@ class OrdersStatusScreen extends GetView<OrdersStatusController> {
                         ],
                       ),
                     ),
-                    Gap(4),
+                    const Gap(4),
           
           
           
           
-                    Divider(color: primary,),
+                    const Divider(color: primary,),
                     Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 14,vertical: 4),
+                      padding: const EdgeInsets.symmetric(horizontal: 14,vertical: 4),
           
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -168,12 +168,12 @@ class OrdersStatusScreen extends GetView<OrdersStatusController> {
                             "Delivery Time",
                             style: Styles.boldBlack614,
                           ),
-                          Gap(6),
+                          const Gap(6),
                           Text(
                             "Mon, 26 Feb 2024",
                             style: Styles.lable414,
                           ),
-                          Gap(4),
+                          const Gap(4),
           
                           Text(
                             "04:00 PM to 04:30 PM",
@@ -184,7 +184,7 @@ class OrdersStatusScreen extends GetView<OrdersStatusController> {
                     ),
           
                     Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 14),
+                      padding: const EdgeInsets.symmetric(horizontal: 14),
           
                       child: Text(
                         "Delivery Address",
@@ -192,7 +192,7 @@ class OrdersStatusScreen extends GetView<OrdersStatusController> {
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 14,vertical: 4),
+                      padding: const EdgeInsets.symmetric(horizontal: 14,vertical: 4),
           
                       child: Text(
                         "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy",
@@ -200,9 +200,9 @@ class OrdersStatusScreen extends GetView<OrdersStatusController> {
                       ),
                     ),
           
-                    Divider(),
+                    const Divider(),
                     Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 14,vertical: 4),
+                      padding: const EdgeInsets.symmetric(horizontal: 14,vertical: 4),
           
                       child: Text(
                         "Item Details",
@@ -210,7 +210,7 @@ class OrdersStatusScreen extends GetView<OrdersStatusController> {
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 14,),
+                      padding: const EdgeInsets.symmetric(horizontal: 14,),
           
                       child: Text(
                         "1 Curler",
@@ -218,7 +218,7 @@ class OrdersStatusScreen extends GetView<OrdersStatusController> {
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 14,vertical: 10),
+                      padding: const EdgeInsets.symmetric(horizontal: 14,vertical: 10),
           
                       child: CustomButton(
                         height: 35,

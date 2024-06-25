@@ -13,10 +13,6 @@ class ResatePasswordController extends GetxController {
   RxBool isLoading = false.obs;
   TextEditingController passCon = TextEditingController();
   TextEditingController conPassCon = TextEditingController();
-  @override
-  void onInit() {
-    super.onInit();
-  }
 
   @override
   void onReady() {}
@@ -40,7 +36,7 @@ class ResatePasswordController extends GetxController {
           // model = respo['data'].map<CreateAccountModel>((json){
           //   return CreateAccountModel.fromJson(json);
           // }).toList();
-          print('object=============${respo}');
+          print('object=============$respo');
           var message = respo['message'];
           try {
             if (respo['status'] == false) {

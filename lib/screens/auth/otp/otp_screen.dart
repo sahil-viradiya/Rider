@@ -1,8 +1,6 @@
 import 'dart:developer';
 
-import 'package:dotted_line/dotted_line.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:rider/constant/app_color.dart';
@@ -11,7 +9,6 @@ import 'package:rider/constant/style.dart';
 import 'package:rider/constant/validation.dart';
 import 'package:rider/route/app_route.dart';
 import 'package:rider/screens/auth/otp/otp_controller.dart';
-import 'package:rider/widget/app_text_field.dart';
 import 'package:rider/widget/auth_app_bar_widget.dart';
 import 'package:rider/widget/custom_button.dart';
 import 'package:rider/widget/otp_widget.dart';
@@ -30,7 +27,7 @@ class OtpScreen extends StatelessWidget {
 
     // Extract the 'userId' from the arguments
     final userId = arguments['userId'];
-    log(" id --  ${userId}");
+    log(" id --  $userId");
     MySize().init(context);
     return WillPopScope(
       onWillPop: () async {

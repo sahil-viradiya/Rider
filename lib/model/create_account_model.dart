@@ -17,12 +17,12 @@
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['user_id'] = this.userId;
-    data['usertype'] = this.usertype;
-    data['fullname'] = this.fullname;
-    data['email'] = this.email;
-    data['mobileNo'] = this.mobileNo;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['user_id'] = userId;
+    data['usertype'] = usertype;
+    data['fullname'] = fullname;
+    data['email'] = email;
+    data['mobileNo'] = mobileNo;
     return data;
   }
 }
@@ -54,12 +54,12 @@ class PostCreateModel {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['fullName'] = this.fullName;
-    data['email'] = this.email;
-    data['mobileNo'] = this.mobileNo;
-    data['password'] = this.password;
-    data['confirmPassword'] = this.confirmPassword;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['fullName'] = fullName;
+    data['email'] = email;
+    data['mobileNo'] = mobileNo;
+    data['password'] = password;
+    data['confirmPassword'] = confirmPassword;
     return data;
   }
 }

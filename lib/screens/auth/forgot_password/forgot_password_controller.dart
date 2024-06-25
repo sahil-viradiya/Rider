@@ -1,9 +1,7 @@
-import 'dart:convert';
 import 'package:dio/dio.dart' as dio;
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_rx/get_rx.dart';
 import 'package:rider/utils/pref.dart';
 
 import '../../../constant/api_key.dart';
@@ -21,10 +19,6 @@ class ForgotPasswordController extends GetxController {
   TextEditingController otpCon = TextEditingController();
 
 
-  @override
-  void onInit() {
-    super.onInit();
-  }
 
   @override
   void onReady() {}
@@ -47,7 +41,7 @@ class ForgotPasswordController extends GetxController {
           // model = respo['data'].map<CreateAccountModel>((json){
           //   return CreateAccountModel.fromJson(json);
           // }).toList();
-          print('object=============${respo}');
+          print('object=============$respo');
           var message = respo['message'];
           try {
             if (respo['status'] == false) {
@@ -102,7 +96,7 @@ class ForgotPasswordController extends GetxController {
           // model = respo['data'].map<CreateAccountModel>((json){
           //   return CreateAccountModel.fromJson(json);
           // }).toList();
-          print('object=============${respo}');
+          print('object=============$respo');
           var message = respo['message'];
           try {
             if (respo['status'] == false) {
@@ -158,7 +152,7 @@ class ForgotPasswordController extends GetxController {
           // model = respo['data'].map<CreateAccountModel>((json){
           //   return CreateAccountModel.fromJson(json);
           // }).toList();
-          print('object=============${respo}');
+          print('object=============$respo');
           var message = respo['message'];
           try {
             if (respo['status'] == false) {

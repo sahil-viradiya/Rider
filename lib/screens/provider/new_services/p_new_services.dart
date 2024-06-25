@@ -10,7 +10,7 @@ import 'package:rider/widget/auth_app_bar_widget.dart';
 
 
 class PAddNewServices extends StatelessWidget {
-  PAddNewServices({super.key});
+  const PAddNewServices({super.key});
   @override
   Widget build(BuildContext context) {
 var selectedIndex = 0;
@@ -36,7 +36,7 @@ var selectedIndex = 0;
                 //     .add(PageChange(page: index));
               },
               itemBuilder: (context, index) {
-                return WidgetAddNewServices();
+                return const WidgetAddNewServices();
               },
             ),
           ),

@@ -14,7 +14,7 @@ import 'package:rider/constant/app_color.dart';
 
 
 class SearchLocationOnMapScreen extends StatefulWidget {
-  const SearchLocationOnMapScreen({Key? key}) : super(key: key);
+  const SearchLocationOnMapScreen({super.key});
 
   @override
   State<SearchLocationOnMapScreen> createState() =>
@@ -67,7 +67,7 @@ class _SearchLocationOnMapScreenState extends State<SearchLocationOnMapScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
-        title: Text("Select Location"),
+        title: const Text("Select Location"),
 
         // textUtils.poppinsMediumText(
         //     'Select Location', 22.0, Colors.black, TextAlign.center),
@@ -192,12 +192,12 @@ class _SearchLocationOnMapScreenState extends State<SearchLocationOnMapScreen> {
   }
 
   Future<void> displayPrediction(Prediction p, ScaffoldState scaffold) async {
-    GoogleMapsPlaces _places = GoogleMapsPlaces(
+    GoogleMapsPlaces places = GoogleMapsPlaces(
       apiKey: Config.apiKey!,
       apiHeaders: await const GoogleApiHeaders().getHeaders(),
     );
     PlacesDetailsResponse detail =
-        await _places.getDetailsByPlaceId(p.placeId.toString());
+        await places.getDetailsByPlaceId(p.placeId.toString());
     lat = detail.result.geometry!.location.lat;
     lng = detail.result.geometry!.location.lng;
     final GoogleMapController controller = await mapController.future;

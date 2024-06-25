@@ -63,26 +63,26 @@ class Ride {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['ride_id'] = this.rideId;
-    data['pickUpLatitude'] = this.pickUpLatitude;
-    data['pickUpLongitude'] = this.pickUpLongitude;
-    data['pickup_address'] = this.pickupAddress;
-    data['sender_landmark'] = this.senderLandmark;
-    data['sender_name'] = this.senderName;
-    data['sender_mobile_no'] = this.senderMobileNo;
-    data['dropOffLatitude'] = this.dropOffLatitude;
-    data['dropOffLongitude'] = this.dropOffLongitude;
-    data['drop_address'] = this.dropAddress;
-    data['receiver_landmark'] = this.receiverLandmark;
-    data['receiver_name'] = this.receiverName;
-    data['receiver_mobile_no'] = this.receiverMobileNo;
-    data['address_type'] = this.addressType;
-    data['totalDistance'] = this.totalDistance;
-    data['totalTime'] = this.totalTime;
-    data['unit_charge'] = this.unitCharge;
-    data['totalCharges'] = this.totalCharges;
-    data['createdDateTime'] = this.createdDateTime;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['ride_id'] = rideId;
+    data['pickUpLatitude'] = pickUpLatitude;
+    data['pickUpLongitude'] = pickUpLongitude;
+    data['pickup_address'] = pickupAddress;
+    data['sender_landmark'] = senderLandmark;
+    data['sender_name'] = senderName;
+    data['sender_mobile_no'] = senderMobileNo;
+    data['dropOffLatitude'] = dropOffLatitude;
+    data['dropOffLongitude'] = dropOffLongitude;
+    data['drop_address'] = dropAddress;
+    data['receiver_landmark'] = receiverLandmark;
+    data['receiver_name'] = receiverName;
+    data['receiver_mobile_no'] = receiverMobileNo;
+    data['address_type'] = addressType;
+    data['totalDistance'] = totalDistance;
+    data['totalTime'] = totalTime;
+    data['unit_charge'] = unitCharge;
+    data['totalCharges'] = totalCharges;
+    data['createdDateTime'] = createdDateTime;
     return data;
   }
 }

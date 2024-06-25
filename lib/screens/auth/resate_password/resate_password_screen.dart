@@ -1,6 +1,4 @@
-import 'package:dotted_line/dotted_line.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:rider/constant/app_color.dart';
@@ -43,7 +41,7 @@ class ResetPasswordScreen extends StatelessWidget {
                 ),
                 Gap(MySize.size20!),
                 Text(
-                  'Welcome to Genie! We are here to help with your work requirements',
+                  'Welcome to Redda Driver! We are here to help with your work requirements',
                   style: Styles.noramalBlack411,
                   textAlign: TextAlign.center,
                 ),

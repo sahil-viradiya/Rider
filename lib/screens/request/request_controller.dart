@@ -6,18 +6,22 @@ import 'package:dio/dio.dart' as dio;
 import 'package:rider/constant/api_key.dart';
 import 'package:rider/constant/const.dart';
 import 'package:rider/main.dart';
+import 'package:rider/model/ride_accept_model.dart';
 import 'package:rider/model/ride_model.dart';
+import 'package:rider/route/app_route.dart';
+import 'package:rider/screens/orders/orders_controller.dart';
 import 'package:rider/utils/network_client.dart';
 
 class RequestController extends GetxController {
+  final orderController = Get.put(OrdersController());
   final count = 0.obs;
   RxBool isLoading = false.obs;
-
-  late List<Ride> ride;
+  var acceptLoading = <int, bool>{}.obs;
+  var rejectLoading = <int, bool>{}.obs;
+  late List<Ride> ride = [];
 
   @override
   void onInit() {
-    ride = [];
     super.onInit();
     getAllRide();
   }
@@ -30,9 +34,9 @@ class RequestController extends GetxController {
           options: dio.Options(headers: {
             'Authorization': 'Bearer $token',
           }));
-      print('Response type: ${response}');
+      print('Response type: $response');
 
-      ride = response['data'].map<Ride>((json){
+      ride = response['data'].map<Ride>((json) {
         return Ride.fromJson(json);
       }).toList();
       debugPrint("============${ride[0].senderName}================");
@@ -64,6 +68,104 @@ class RequestController extends GetxController {
       }
     } finally {
       isLoading(false);
+    }
+  }
+
+  Future<dynamic> rideAccept({required final id, required final index}) async {
+    await getToken();
+    dio.FormData formData = dio.FormData.fromMap({
+      'ride_id': id,
+    });
+    acceptLoading[index] = true;
+    try {
+      var response = await dioClient.post(
+        '${Config.baseUrl}ride_accept.php',
+        data: formData,
+        options: dio.Options(
+          headers: {
+            'Authorization': 'Bearer $token',
+          },
+        ),
+      );
+      print('Response type: $response');
+
+      // var response = jsonDecode(response);
+      var message = response['message'];
+      try {
+        if (response['status'] == false) {
+          DioExceptions.showErrorMessage(Get.context!, message);
+          print('Message: $message');
+        } else {
+          orderController.rideAcceptModel =
+              RideAcceptModel.fromJson(response['data']);
+          log(" orderController   ${orderController.rideAcceptModel.itemDetails}");
+          Get.toNamed(AppRoutes.ORDER, arguments: id);
+
+          DioExceptions.showMessage(Get.context!, message);
+        }
+      } catch (e) {
+        print('Error parsing JSON or accessing message: $e');
+      }
+    } on dio.DioException catch (e) {
+      print("status Code ${e.response?.statusCode}");
+      print('Error $e');
+      DioExceptions.showErrorMessage(
+          Get.context!,
+          DioExceptions.fromDioError(dioError: e, errorFrom: "All Ride")
+              .errorMessage());
+      acceptLoading[index] = false;
+    } catch (e) {
+      acceptLoading[index] = false;
+      if (kDebugMode) {
+        print("Accept Ride $e");
+      }
+    } finally {
+      acceptLoading[index] = false;
+    }
+  }
+
+  Future<dynamic> rideReject({required final id, required final index}) async {
+    await getToken();
+    dio.FormData formData = dio.FormData.fromMap({
+      'ride_id': id,
+    });
+    rejectLoading[index] = true;
+    try {
+      var response = await dioClient.post('${Config.baseUrl}ride_reject.php',
+          data: formData,
+          options: dio.Options(headers: {
+            'Authorization': 'Bearer $token',
+          }));
+      print('Response type: $response');
+
+      // var response = jsonDecode(response);
+      var message = response['message'];
+      try {
+        if (response['status'] == false) {
+          DioExceptions.showErrorMessage(Get.context!, message);
+          print('Message: $message');
+        } else {
+          DioExceptions.showMessage(Get.context!, message);
+          log(" id   $response");
+        }
+      } catch (e) {
+        print('Error parsing JSON or accessing message: $e');
+      }
+    } on dio.DioException catch (e) {
+      print("status Code ${e.response?.statusCode}");
+      print('Error $e');
+      DioExceptions.showErrorMessage(
+          Get.context!,
+          DioExceptions.fromDioError(dioError: e, errorFrom: "reject Ride")
+              .errorMessage());
+      rejectLoading[index] = false;
+    } catch (e) {
+      rejectLoading[index] = false;
+      if (kDebugMode) {
+        print("Reject Ride $e");
+      }
+    } finally {
+      rejectLoading[index] = false;
     }
   }
 

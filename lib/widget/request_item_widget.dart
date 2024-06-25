@@ -1,52 +1,91 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
+import 'package:rider/constant/app_color.dart';
 import 'package:rider/constant/style.dart';
-import 'package:rider/route/app_route.dart';
-import 'package:rider/screens/request/request_controller.dart';
 import 'package:rider/widget/custom_button.dart';
 
-class RequestItemWidget extends StatelessWidget {
-  const RequestItemWidget({super.key});
+import '../screens/request/request_controller.dart';
+
+class RequestItemWidget extends GetView<RequestController> {
+  const RequestItemWidget({super.key, required this.index});
+
+  final index;
 
   @override
   Widget build(BuildContext context) {
-   var _con = Get.put(RequestController());
-    return   Container(
-      margin: EdgeInsets.only(bottom: 34),
+    return Container(
+      padding: const EdgeInsets.all(8),
+      decoration: BoxDecoration(
+          border: Border.all(color: primary),
+          borderRadius: BorderRadius.circular(8)
+      ),
+
+      margin: const EdgeInsets.only(bottom: 34),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            "Delivery Parcel...",
+            "Distance : ${controller.ride[index].totalDistance}",
             style: Styles.boldBlack616,
           ),
-          Gap(12),
+          const Gap(12),
           Text(
-            "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer",
-            style: Styles.boldBlack612,),
-          Gap(14),
+            "Amount : ${controller.ride[index].totalCharges}",
+            style: Styles.boldBlack612,
+          ),
+          Text(
+            "Time : ${controller.ride[index].totalTime}",
+            style: Styles.boldBlack612,
+          ),
+          Text(
+            "Landmark : ${controller.ride[index].senderLandmark}",
+            style: Styles.boldBlack612,
+          ),
+          Text(
+            "Name : ${controller.ride[index].senderName}",
+            style: Styles.boldBlack612,
+          ),
+          Text(
+            "Address : ${controller.ride[index].pickupAddress}",
+            style: Styles.boldBlack612,
+          ),
+          const Gap(14),
           Row(
             children: [
               Expanded(
-                child: CustomButton(
-                  color: Color(0xFFFA5E5E),
-                  height: 35,
-                  borderCircular: 6,
-                  text: "Reject",
-                  fun: () {},
-                ),
+                child: Obx(() {
+                  return CustomButton(
+                    isLoading: controller.rejectLoading[index]??false,
+                    color: const Color(0xFFFA5E5E),
+                    height: 35,
+                    borderCircular: 6,
+                    text: "Reject",
+                    fun: () {
+                      controller.rideReject(id: controller.ride[index].rideId,index: index);
+
+                    },
+                  );
+                }),
               ),
-              Gap(16),
+              const Gap(16),
               Expanded(
-                child: CustomButton(
-                  borderCircular: 6,
-                  height: 35,
-                  text: "Accept",
-                  fun: () {
-                    Get.toNamed(AppRoutes.ORDER);
-                  },
-                ),
+                child: Obx(() {
+                  return CustomButton(
+                    isLoading: controller.acceptLoading[index] ?? false,
+                    borderCircular: 6,
+                    height: 35,
+                    text: "Accept",
+                    fun: () {
+                      log("RIDE ID +++++++++++++++++++ ${controller.ride[index]
+                          .rideId}");
+                      controller.rideAccept(id: controller.ride[index].rideId,
+                          index: index);
+                    },
+                  );
+                }),
               ),
             ],
           )

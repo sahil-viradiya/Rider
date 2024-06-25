@@ -4,6 +4,7 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:rider/constant/app_color.dart';
 import 'package:rider/constant/app_image.dart';
+import 'package:rider/constant/const.dart';
 import 'package:rider/constant/my_size.dart';
 import 'package:rider/constant/style.dart';
 import 'package:rider/route/app_route.dart';
@@ -14,6 +15,7 @@ class HomeScreen extends GetView<HomeController> {
 
   @override
   Widget build(BuildContext context) {
+    MySize().init(context);
     StringTitle myTitle = StringTitle(
       img1: AppImage.REQUEST,
       img2: AppImage.COURIER,
@@ -161,7 +163,7 @@ class HomeScreen extends GetView<HomeController> {
             //============================RECENT ORDER===============================
             Expanded(
               child: AnimatedList(
-                physics: BouncingScrollPhysics(),
+                physics: const BouncingScrollPhysics(),
                 shrinkWrap: true,
                 initialItemCount: 15,
                 itemBuilder: (context, index, animation) {
@@ -321,7 +323,7 @@ class HomeScreen extends GetView<HomeController> {
                   //   message: 'Your account has been deleted.',
                   //   backgroundColor: green,
                   // );
-                  // resate(context);
+                  resate(context);
                   // delet(context);
                 }),
           ],

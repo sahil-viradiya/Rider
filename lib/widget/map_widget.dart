@@ -4,7 +4,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:geolocator/geolocator.dart';
 
 class MapWidget extends StatefulWidget {
-  const MapWidget({Key? key}) : super(key: key);
+  const MapWidget({super.key});
 
   @override
   State<MapWidget> createState() => MapWidgetState();
@@ -80,6 +80,6 @@ class MapWidgetState extends State<MapWidget> {
       myLocationEnabled: true,
       myLocationButtonEnabled: true,
     )
-        : Center(child: CircularProgressIndicator());
+        : const Center(child: CircularProgressIndicator());
   }
 }

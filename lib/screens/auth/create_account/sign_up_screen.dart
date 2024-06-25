@@ -22,6 +22,7 @@ class SignUpScreen extends GetView<SignUpController> {
   SignUpScreen({super.key});
 
   final _formKey = GlobalKey<FormState>();
+  @override
   final SignUpController controller = Get.put(SignUpController());
 
 
@@ -49,7 +50,7 @@ class SignUpScreen extends GetView<SignUpController> {
                 ),
                 Gap(MySize.size20!),
                 Text(
-                  'Welcome to Genie! We are here to help with your work requirements',
+                  'Welcome to Redda Driver! We are here to help with your work requirements',
                   style: Styles.noramalBlack411,
                   textAlign: TextAlign.center,
                 ),

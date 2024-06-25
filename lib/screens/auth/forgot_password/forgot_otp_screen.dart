@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:get/get_navigation/get_navigation.dart';
 import 'package:rider/constant/app_color.dart';
 import 'package:rider/constant/my_size.dart';
 import 'package:rider/constant/style.dart';

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/src/simple/get_view.dart';
 
 import '../../constant/app_color.dart';
 import '../../constant/my_size.dart';
@@ -23,8 +22,8 @@ class OrderHistoryScreen extends GetView<OrderHistoryController> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-             Divider(),
-            Gap(14),
+             const Divider(),
+            const Gap(14),
             Row(
               children: [
                 Text(
@@ -37,7 +36,7 @@ class OrderHistoryScreen extends GetView<OrderHistoryController> {
                 ),
               ],
             ),
-            Gap(10),
+            const Gap(10),
             Expanded(
               child: ListView.builder(
                 itemCount: 15,
@@ -60,12 +59,12 @@ class OrderHistoryScreen extends GetView<OrderHistoryController> {
 
 Widget transcation(context) {
   return Container(
-    padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-    margin: EdgeInsets.only(bottom: 6),
+    padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+    margin: const EdgeInsets.only(bottom: 6),
     decoration: BoxDecoration(
       color: white,
       borderRadius: BorderRadius.circular(8),
-      border: Border.all(color: Color(0xFFA78430)),
+      border: Border.all(color: const Color(0xFFA78430)),
       boxShadow: const [
         BoxShadow(
           color: Colors.white60,

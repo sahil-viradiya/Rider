@@ -1,6 +1,5 @@
 // ignore_for_file: deprecated_member_use
 
-import 'dart:developer';
 
 import 'package:dotted_border/dotted_border.dart';
 import 'package:easy_date_timeline/easy_date_timeline.dart';
@@ -16,7 +15,7 @@ import 'package:rider/widget/custom_button.dart';
 
 
 class WidgetAddNewServices extends StatefulWidget {
-  WidgetAddNewServices({super.key});
+  const WidgetAddNewServices({super.key});
 
   @override
   State<WidgetAddNewServices> createState() => _WidgetAddNewServicesState();
@@ -52,20 +51,20 @@ class _WidgetAddNewServicesState extends State<WidgetAddNewServices> {
             Gap(MySize.size24!),
 
             //--------------------------enter service-----------------------------
-            CustomTextFormFieldWidget(
+            const CustomTextFormFieldWidget(
               lblTxt: '',
             ),
 
             //--------------------------enter Location-----------------------------
-            CustomTextFormFieldWidget(
+            const CustomTextFormFieldWidget(
               lblTxt: "AppString.location",
             ),
             //--------------------------enter fix prices-----------------------------
-            CustomTextFormFieldWidget(
+            const CustomTextFormFieldWidget(
               lblTxt: "AppString.enterFixPrice",
             ),
             //--------------------------enter description-----------------------------
-            CustomTextFormFieldWidget(
+            const CustomTextFormFieldWidget(
               lblTxt: "AppString.description",
             ),
 

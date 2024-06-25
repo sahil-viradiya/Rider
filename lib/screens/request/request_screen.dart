@@ -7,7 +7,6 @@ import 'package:rider/constant/my_size.dart';
 import 'package:rider/constant/style.dart';
 import 'package:rider/widget/app_text_field.dart';
 import 'package:rider/widget/auth_app_bar_widget.dart';
-import 'package:rider/widget/custom_button.dart';
 import 'package:rider/widget/request_item_widget.dart';
 import 'request_controller.dart';
 
@@ -73,11 +72,11 @@ class RequestScreen extends GetView<RequestController> {
                       child: FadeInAnimation(
                         delay: .5,
                         child: AnimatedList(
-                          initialItemCount: 15,
+                          initialItemCount: controller.ride.length,
                           shrinkWrap: true,
                           physics: const BouncingScrollPhysics(),
                           itemBuilder: (context, index, animation) {
-                            return const RequestItemWidget();
+                            return  RequestItemWidget(index: index,);
                           },
                         ),
                       ),

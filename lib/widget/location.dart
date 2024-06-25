@@ -17,7 +17,7 @@ import 'package:rider/model/nearby_place.dart';
 import 'package:rider/widget/search_location_on_map_screen.dart';
 
 class GetLocationScreen extends StatefulWidget {
-  const GetLocationScreen({Key? key}) : super(key: key);
+  const GetLocationScreen({super.key});
 
   @override
   State<GetLocationScreen> createState() => _GetLocationScreenState();
@@ -50,7 +50,7 @@ class _GetLocationScreenState extends State<GetLocationScreen> {
     try {
       var status = await Permission.locationWhenInUse.request();
 
-      print("location:-${status}");
+      print("location:-$status");
 
       var accuracy = await Geolocator.getLocationAccuracy();
       bool isLocationServiceEnabled =
@@ -80,8 +80,8 @@ class _GetLocationScreenState extends State<GetLocationScreen> {
                 needlePosition = LatLng(
                     lat!, lng!); // Initial position for the "needle" marker.
 
-                print('latititue${lat}');
-                print('longitude${lng}');
+                print('latititue$lat');
+                print('longitude$lng');
                 getNearByLocations();
               });
             });
@@ -102,8 +102,7 @@ class _GetLocationScreenState extends State<GetLocationScreen> {
 
   getNearByLocations() async {
     String url =
-        "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=$lat,$lng" +
-            "&radius=100&key=${Config.apiKey}";
+        "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=$lat,$lng" "&radius=100&key=${Config.apiKey}";
     print('url:$url');
     http.Response response = await http.get(Uri.parse(url));
     print(response.statusCode);
@@ -118,8 +117,8 @@ class _GetLocationScreenState extends State<GetLocationScreen> {
   //Future<void> getAddressFromLatLong(Position position) async {
   Future<void> getAddressFromLatLong(
       {required double latitude, required double longitude}) async {
-    print("latitude=============>:-${latitude}");
-    print("longitude==============>:-${longitude}");
+    print("latitude=============>:-$latitude");
+    print("longitude==============>:-$longitude");
     latlng.value = LatLng(latitude, longitude);
     //markerId.value = position.timestamp.toString();
     List<Placemark> placemarks =
@@ -193,13 +192,13 @@ class _GetLocationScreenState extends State<GetLocationScreen> {
 
               /// if you uncomment below marker and comment the current markers then user cant be seelcted location on map
               //markers: markers,
-              markers: <Marker>[
+              markers: <Marker>{
                 Marker(
                   markerId: const MarkerId('needleNew'),
                   position: needlePosition, // Use the updated position here.
                   icon: BitmapDescriptor.defaultMarker,
                 ),
-              ].toSet(),
+              },
             ),
           ),
           Expanded(
@@ -384,7 +383,7 @@ class _GetLocationScreenState extends State<GetLocationScreen> {
     if (result != null) {
       getAddressFromLatLong(latitude: result[1], longitude: result[2]);
       //Get.back(result: ['', result[1], result[2]]);
-      debugPrint("Selected " + result.toString());
+      debugPrint("Selected $result");
     }
   }
 

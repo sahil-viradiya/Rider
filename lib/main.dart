@@ -1,7 +1,6 @@
 import 'dart:developer';
 
 import 'package:dio/dio.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -54,10 +53,18 @@ class MyApp extends StatelessWidget {
         child: GetMaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'Redda customer',
-          initialRoute: AppRoutes.initialRoute,
+          initialRoute: _getInitialRoute(),
           getPages: AppRoutes.pages,
         ),
       ),
     );
+  }
+  String _getInitialRoute() {
+    log("message=========${token.toString()} ");
+    if (token != null && token!.isNotEmpty) {
+      return AppRoutes.HOMESCREEN; // Home route
+    } else {
+      return AppRoutes.LOGIN; // Login route
+    }
   }
 }

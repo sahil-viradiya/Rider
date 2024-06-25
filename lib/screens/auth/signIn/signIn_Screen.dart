@@ -48,7 +48,7 @@ class SignInScreen extends StatelessWidget {
                   ),
                   Gap(MySize.size20!),
                   Text(
-                    'Welcome to Genie! We are here to help with your work requirements',
+                    'Welcome to Redda Driver! We are here to help with your work requirements',
                     style: Styles.noramalBlack411,
                     textAlign: TextAlign.center,
                   ),
@@ -299,6 +299,8 @@ class SignInScreen extends StatelessWidget {
 }
 
 class DynamicTextFieldRow extends StatefulWidget {
+  const DynamicTextFieldRow({super.key});
+
   @override
   _DynamicTextFieldRowState createState() => _DynamicTextFieldRowState();
 }
@@ -334,12 +336,12 @@ class _DynamicTextFieldRowState extends State<DynamicTextFieldRow> {
               color: Colors.blue,
               borderRadius: BorderRadius.circular(2),
             ),
-            child: Icon(Icons.add, color: Colors.white, size: 12),
+            child: const Icon(Icons.add, color: Colors.white, size: 12),
           ),
         ),
-        SizedBox(width: 5),
+        const SizedBox(width: 5),
         Text(textFieldCount.toString()),
-        SizedBox(width: 5),
+        const SizedBox(width: 5),
         InkWell(
           onTap: removeTextField,
           child: Container(
@@ -349,10 +351,10 @@ class _DynamicTextFieldRowState extends State<DynamicTextFieldRow> {
               color: Colors.blue,
               borderRadius: BorderRadius.circular(2),
             ),
-            child: Icon(Icons.remove, color: Colors.white, size: 12),
+            child: const Icon(Icons.remove, color: Colors.white, size: 12),
           ),
         ),
-        SizedBox(width: 12),
+        const SizedBox(width: 12),
         Expanded(
           child: ListView.builder(
             shrinkWrap: true,

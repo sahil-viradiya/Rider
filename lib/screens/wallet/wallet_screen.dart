@@ -4,12 +4,10 @@ import 'package:get/get_state_manager/src/simple/get_view.dart';
 import 'package:rider/screens/wallet/wallet_controller.dart';
 
 import '../../constant/app_color.dart';
-import '../../constant/app_image.dart';
 import '../../constant/font-family.dart';
 import '../../constant/my_size.dart';
 import '../../constant/style.dart';
 import '../../widget/auth_app_bar_widget.dart';
-import '../../widget/custom_button.dart';
 
 class WalletScreen extends GetView<WalletController> {
   const WalletScreen({super.key});
@@ -34,7 +32,7 @@ class WalletScreen extends GetView<WalletController> {
           ),
           Expanded(
             child: ListView.builder(
-              padding: EdgeInsets.all(12),
+              padding: const EdgeInsets.all(12),
               itemCount: 15,
               physics: const BouncingScrollPhysics(),
               shrinkWrap: true,
@@ -78,7 +76,7 @@ class WalletScreen extends GetView<WalletController> {
                     'Total Revenue',
                     style: Styles.boldWhite414,
                   ),
-                  Spacer(),
+                  const Spacer(),
                   Text(
                     'Hello, Denny',
                     style: Styles.boldWhite614,
@@ -106,7 +104,7 @@ class WalletScreen extends GetView<WalletController> {
               color: primary, // Assuming primary is defined somewhere
               borderRadius: BorderRadius.only(
                   bottomLeft: Radius.circular(10),
-                  bottomRight: const Radius.circular(10)),
+                  bottomRight: Radius.circular(10)),
             ),
             child: Center(
                 child: Text(
@@ -123,8 +121,8 @@ class WalletScreen extends GetView<WalletController> {
 }
 Widget   transcationWallet(context) {
   return Container(
-    padding: EdgeInsets.symmetric(vertical: 10,horizontal: 18),
-    margin: EdgeInsets.only(bottom: 6),
+    padding: const EdgeInsets.symmetric(vertical: 10,horizontal: 18),
+    margin: const EdgeInsets.only(bottom: 6),
     decoration: BoxDecoration(
       color: white,
       borderRadius: BorderRadius.circular(8),
