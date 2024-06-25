@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_google_places/flutter_google_places.dart';
 import 'package:flutter_svg/svg.dart';
@@ -16,6 +17,7 @@ import 'package:rider/constant/api_key.dart';
 import 'package:rider/constant/app_color.dart';
 import 'package:rider/constant/app_image.dart';
 import 'package:http/http.dart' as http;
+import 'package:location/location.dart' as location;
 
 import 'package:rider/constant/style.dart';
 import 'package:rider/screens/customer_address/customer_address_controller.dart';
@@ -33,8 +35,9 @@ class CustomerAddressWidget extends StatefulWidget {
 class _CustomerAddressWidgetState extends State<CustomerAddressWidget> {
   Completer<GoogleMapController> mapController = Completer();
 
-  Set<Marker> markers = {};
+  var markers = <Marker>{}.obs;
   double? lat, lng;
+  RxDouble updateLat = 0.0.obs, updateLng = 0.0.obs;
   final homeScaffoldKey = GlobalKey<ScaffoldState>();
   String address = '';
   String cityName = '';
@@ -49,9 +52,8 @@ class _CustomerAddressWidgetState extends State<CustomerAddressWidget> {
     startProcess();
   }
 
-  startProcess()async{
-   await requestLocationPermission();
-
+  startProcess() async {
+    await requestLocationPermission();
   }
 
   Future<void> requestLocationPermission() async {
@@ -119,8 +121,10 @@ class _CustomerAddressWidgetState extends State<CustomerAddressWidget> {
       ),
     );
   }
-
+location.LocationData? currentLoc;
   void getUserCurrentLocation() async {
+    location.Location fetchLocation = location.Location();
+
     var status = await Permission.location.request();
     bool isLocationServiceEnabled = await Geolocator.isLocationServiceEnabled();
 
@@ -128,23 +132,35 @@ class _CustomerAddressWidgetState extends State<CustomerAddressWidget> {
       if (isLocationServiceEnabled) {
         await Geolocator.getCurrentPosition().then((value) async {
           final GoogleMapController controller = await mapController.future;
+          fetchLocation.onLocationChanged.listen((location.LocationData newLoc) {
+            log("mew LOCCCCC ${newLoc}");
+
+            updateLat.value = newLoc.latitude!;
+            updateLng.value = newLoc.longitude!;
+            setState(() {
+
+            });
+          });
           setState(() {
+
             controller.animateCamera(CameraUpdate.newCameraPosition(
                 CameraPosition(
-                    target: LatLng(value.latitude, value.longitude),
+                    target: LatLng(updateLat.value, updateLng.value),
                     zoom: 17)));
+
             markers.add(Marker(
                 markerId: const MarkerId("newLocation"),
-                position: LatLng(value.latitude, value.longitude)));
+                position: LatLng(updateLat.value, updateLng.value)));
             address = address;
-            pickupLocation = LatLng(value.latitude, value.longitude);
-            dropLocation =  LatLng(_controller.dropLat.value,_controller.dropLng.value);
+            pickupLocation = LatLng(23.067500899205974, 72.54201456684024);
+            dropLocation = LatLng(23.027536553610663, 72.56078011102028);
             getIcons();
-            lat = value.latitude;
-            lng = value.longitude;
+            lat = updateLat.value;
+            lng = updateLng.value;
           });
           await getAddress();
         });
+
       } else {
         Fluttertoast.showToast(msg: "You need to allow location Service");
       }
@@ -269,25 +285,28 @@ class _CustomerAddressWidgetState extends State<CustomerAddressWidget> {
       body: Stack(
         alignment: Alignment.bottomCenter,
         children: [
-          GoogleMap(
-            compassEnabled: false,
-            mapToolbarEnabled: false,
-            onMapCreated: onMapCreated,
-            initialCameraPosition:
-                const CameraPosition(target: LatLng(0.0, 0.0), zoom: 17),
-            zoomControlsEnabled: false,
-            myLocationEnabled: true,
-            myLocationButtonEnabled: false,
-            markers: markers,
-            polylines: polylines,
-            onTap: (LatLng pos) {
-              setState(() {
-                lat = pos.latitude;
-                lng = pos.longitude;
-                markers.add(Marker(
-                    markerId: const MarkerId("newLocation"), position: pos));
-              });
-            },
+          Obx(()
+            => GoogleMap(
+              compassEnabled: false,
+              mapToolbarEnabled: true,
+              onMapCreated: onMapCreated,
+              buildingsEnabled: true,
+              initialCameraPosition:
+                  const CameraPosition(target: LatLng(0.0, 0.0), zoom: 17),
+              zoomControlsEnabled: false,
+              myLocationEnabled: true,
+              myLocationButtonEnabled: true,
+              markers: markers.value,
+              polylines: polylines,
+              onTap: (LatLng pos) {
+                setState(() {
+                  lat = pos.latitude;
+                  lng = pos.longitude;
+                  // markers.add(Marker(
+                  //     markerId: const MarkerId("newLocation"), position: pos));
+                });
+              },
+            ),
           ),
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 18),

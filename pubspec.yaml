@@ -57,6 +57,7 @@ dependencies:
 
   google_maps_webservice: any
   http: any
+  location: ^6.0.2
 dev_dependencies:
   flutter_test:
     sdk: flutter
