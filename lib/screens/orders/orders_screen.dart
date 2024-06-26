@@ -13,7 +13,7 @@ class OrdersScreen extends GetView<OrdersController> {
 
   @override
   Widget build(BuildContext context) {
-    int? id = Get.arguments;
+  var id = Get.arguments;
     return Scaffold(
       backgroundColor: white,
       appBar: appbarSmall1(context, "Orders"),

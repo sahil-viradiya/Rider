@@ -19,8 +19,7 @@ class OrdersController extends GetxController {
   RideAcceptModel rideAcceptModel = RideAcceptModel();
   CustomerAddressController customerAddressController =
       Get.put(CustomerAddressController());
-
-  Future<dynamic> startDelivery({required int id}) async {
+  Future<dynamic> startDelivery({required var id}) async {
     isLoading(true);
     try {
       dio.FormData formData = dio.FormData.fromMap({
@@ -49,11 +48,11 @@ class OrdersController extends GetxController {
             } else {
               customerAddressController.startRideModel =
                   StartRideModel.fromJson(respo['data']);
-              customerAddressController.dropLng.value =double.parse( customerAddressController.startRideModel.dropOffLatitude.toString());
-              customerAddressController.dropLng.value =double.parse( customerAddressController.startRideModel.dropOffLongitude.toString());
+              customerAddressController.pickupLat.value =double.parse( customerAddressController.startRideModel.pickUpLatitude.toString());
+              customerAddressController.pickupLng.value =double.parse( customerAddressController.startRideModel.pickUpLongitude.toString());
               DioExceptions.showMessage(Get.context!, message);
               log("================================${customerAddressController.startRideModel.deliveryAddress}===============");
-              Get.toNamed(AppRoutes.CUSTOMER_ADDRESS);
+              Get.toNamed(AppRoutes.CUSTOMER_ADDRESS,arguments: [double.parse( customerAddressController.startRideModel.pickUpLatitude.toString()),double.parse( customerAddressController.startRideModel.pickUpLongitude.toString())]);
 
             }
           } catch (e) {

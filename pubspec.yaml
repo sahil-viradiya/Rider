@@ -58,6 +58,8 @@ dependencies:
   google_maps_webservice: any
   http: any
   location: ^6.0.2
+  flutter_polyline_points: ^1.0.0
+  url_launcher: ^6.3.0
 dev_dependencies:
   flutter_test:
     sdk: flutter

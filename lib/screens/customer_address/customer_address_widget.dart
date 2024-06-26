@@ -20,13 +20,22 @@ import 'package:http/http.dart' as http;
 import 'package:location/location.dart' as location;
 
 import 'package:rider/constant/style.dart';
+import 'package:rider/route/app_route.dart';
 import 'package:rider/screens/customer_address/customer_address_controller.dart';
+import 'package:rider/screens/orders/orders_controller.dart';
 import 'package:rider/widget/app_text_field.dart';
 import 'package:rider/widget/auth_app_bar_widget.dart';
 import 'package:rider/widget/custom_button.dart';
+import 'package:url_launcher/url_launcher.dart';
+
+const double CAMERA_ZOOM = 16;
 
 class CustomerAddressWidget extends StatefulWidget {
-  const CustomerAddressWidget({super.key});
+  const CustomerAddressWidget(
+      {super.key, required this.pickUpLat, required this.pickUpLng});
+
+  final double pickUpLat;
+  final double pickUpLng;
 
   @override
   State<CustomerAddressWidget> createState() => _CustomerAddressWidgetState();
@@ -43,15 +52,21 @@ class _CustomerAddressWidgetState extends State<CustomerAddressWidget> {
   String cityName = '';
   var _controller = CustomerAddressController();
   late LatLng dropLocation;
-  late LatLng pickupLocation;
+  location.LocationData? currentLocation;
+  LatLng? pickupLocation;
   var icon;
+  OrdersController _ordersController = Get.put(OrdersController());
 
   @override
   void initState() {
     super.initState();
     startProcess();
   }
-
+  @override
+  void dispose() {
+    stopListeningToLocation();
+    super.dispose();
+  }
   startProcess() async {
     await requestLocationPermission();
   }
@@ -121,7 +136,17 @@ class _CustomerAddressWidgetState extends State<CustomerAddressWidget> {
       ),
     );
   }
-location.LocationData? currentLoc;
+  void stopListeningToLocation() {
+    if (locationSubscription != null) {
+      locationSubscription!.cancel();
+      locationSubscription = null;
+    }}
+
+  location.LocationData? currentLoc;
+  StreamSubscription<location.LocationData>? locationSubscription;
+
+  Set<Polyline> polylines = {};
+
   void getUserCurrentLocation() async {
     location.Location fetchLocation = location.Location();
 
@@ -132,33 +157,25 @@ location.LocationData? currentLoc;
       if (isLocationServiceEnabled) {
         await Geolocator.getCurrentPosition().then((value) async {
           final GoogleMapController controller = await mapController.future;
-          fetchLocation.onLocationChanged.listen((location.LocationData newLoc) {
-            log("mew LOCCCCC ${newLoc}");
 
+          locationSubscription =  fetchLocation.onLocationChanged
+              .listen((location.LocationData newLoc) {
+            log("new LOCCCCC ${newLoc}");
+            currentLocation = newLoc;
             updateLat.value = newLoc.latitude!;
             updateLng.value = newLoc.longitude!;
-            setState(() {
-
-            });
-          });
-          setState(() {
-
-            controller.animateCamera(CameraUpdate.newCameraPosition(
-                CameraPosition(
-                    target: LatLng(updateLat.value, updateLng.value),
-                    zoom: 17)));
-
-            markers.add(Marker(
-                markerId: const MarkerId("newLocation"),
-                position: LatLng(updateLat.value, updateLng.value)));
+            pickupLocation = LatLng(newLoc.latitude!, newLoc.longitude!);
             address = address;
-            pickupLocation = LatLng(23.067500899205974, 72.54201456684024);
-            dropLocation = LatLng(23.027536553610663, 72.56078011102028);
+            dropLocation = LatLng(widget.pickUpLat, widget.pickUpLng);
             getIcons();
+
+          });
+
+          setState(() {
             lat = updateLat.value;
             lng = updateLng.value;
           });
-          await getAddress();
+
         });
 
       } else {
@@ -169,8 +186,6 @@ location.LocationData? currentLoc;
           msg: "You need to allow location permission in order to continue");
     }
   }
-
-  Set<Polyline> polylines = {};
 
   getIcons() async {
     var icon = await BitmapDescriptor.fromAssetImage(
@@ -183,21 +198,20 @@ location.LocationData? currentLoc;
   }
 
   void setMarkersAndPolyline() async {
-    markers.add(Marker(
+    markers.value.add(Marker(
       markerId: const MarkerId('pickup'),
-      position: dropLocation,
-      icon: icon,
+      position: pickupLocation!,
       infoWindow: const InfoWindow(title: 'Pickup Location'),
     ));
-    markers.add(Marker(
+    markers.value.add(Marker(
       markerId: const MarkerId('drop'),
       icon: icon,
-      position: pickupLocation,
+      position: dropLocation,
       infoWindow: const InfoWindow(title: 'Drop Location'),
     ));
 
     String url =
-        "https://maps.googleapis.com/maps/api/directions/json?origin=${pickupLocation.latitude},${pickupLocation.longitude}&destination=${dropLocation.latitude},${dropLocation.longitude}&key=${Config.apiKey}";
+        "https://maps.googleapis.com/maps/api/directions/json?origin=${pickupLocation!.latitude},${pickupLocation!.longitude}&destination=${dropLocation.latitude},${dropLocation.longitude}&key=${Config.apiKey}";
     http.Response response = await http.get(Uri.parse(url));
     Map<String, dynamic> data = jsonDecode(response.body);
 
@@ -219,19 +233,19 @@ location.LocationData? currentLoc;
       final GoogleMapController controller = await mapController.future;
       LatLngBounds bounds = LatLngBounds(
         southwest: LatLng(
-          (pickupLocation.latitude < dropLocation.latitude)
-              ? pickupLocation.latitude
+          (pickupLocation!.latitude < dropLocation.latitude)
+              ? pickupLocation!.latitude
               : dropLocation.latitude,
-          (pickupLocation.longitude < dropLocation.longitude)
-              ? pickupLocation.longitude
+          (pickupLocation!.longitude < dropLocation.longitude)
+              ? pickupLocation!.longitude
               : dropLocation.longitude,
         ),
         northeast: LatLng(
-          (pickupLocation.latitude > dropLocation.latitude)
-              ? pickupLocation.latitude
+          (pickupLocation!.latitude > dropLocation.latitude)
+              ? pickupLocation!.latitude
               : dropLocation.latitude,
-          (pickupLocation.longitude > dropLocation.longitude)
-              ? pickupLocation.longitude
+          (pickupLocation!.longitude > dropLocation.longitude)
+              ? pickupLocation!.longitude
               : dropLocation.longitude,
         ),
       );
@@ -276,6 +290,7 @@ location.LocationData? currentLoc;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: true,
       backgroundColor: white,
       appBar: appbarSmall1(
         context,
@@ -285,17 +300,21 @@ location.LocationData? currentLoc;
       body: Stack(
         alignment: Alignment.bottomCenter,
         children: [
-          Obx(()
-            => GoogleMap(
-              compassEnabled: false,
-              mapToolbarEnabled: true,
+          Obx(
+            () => GoogleMap(
               onMapCreated: onMapCreated,
+              mapToolbarEnabled: true,
+              padding: const EdgeInsets.only(
+                bottom: 80,
+              ),
+              mapType: MapType.normal,
               buildingsEnabled: true,
+              myLocationButtonEnabled: true,
+              myLocationEnabled: true,
+              zoomControlsEnabled: true,
+              zoomGesturesEnabled: true,
               initialCameraPosition:
                   const CameraPosition(target: LatLng(0.0, 0.0), zoom: 17),
-              zoomControlsEnabled: false,
-              myLocationEnabled: true,
-              myLocationButtonEnabled: true,
               markers: markers.value,
               polylines: polylines,
               onTap: (LatLng pos) {
@@ -312,10 +331,11 @@ location.LocationData? currentLoc;
             padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 18),
             // height: 120,
 
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               color: white,
-              borderRadius: BorderRadius.circular(20),
-              boxShadow: const [
+              borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(20), topRight: Radius.circular(20)),
+              boxShadow: [
                 BoxShadow(
                   blurRadius: 8,
                   spreadRadius: 4,
@@ -328,9 +348,11 @@ location.LocationData? currentLoc;
               height: 35,
               borderCircular: 6,
               text: "Start Delivery",
-              fun: () {
-                _showStartDeliveryDialog(context);
-              },
+              fun: currentLocation?.latitude == null
+                  ? () {}
+                  : () {
+                      _showStartDeliveryDialog(context);
+                    },
             ),
           ),
           Align(
@@ -363,78 +385,6 @@ location.LocationData? currentLoc;
     setState(() {
       mapController.complete(controller);
     });
-  }
-
-  Future<void> _handlePressButton() async {
-    Prediction? p = await PlacesAutocomplete.show(
-      context: context,
-      apiKey: Config.apiKey!,
-      onError: onError,
-      mode: Mode.overlay,
-      language: "en-us",
-      types: [""],
-      strictbounds: false,
-      decoration: InputDecoration(
-        hintText: 'Search',
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(20),
-          borderSide: const BorderSide(
-            color: Colors.white,
-          ),
-        ),
-      ),
-      components: [
-        Component(Component.country, "pk"),
-        Component(Component.country, "in")
-      ],
-    );
-    displayPrediction(p!, homeScaffoldKey.currentState!);
-  }
-
-  Future<void> displayPrediction(Prediction p, ScaffoldState scaffold) async {
-    GoogleMapsPlaces places = GoogleMapsPlaces(
-      apiKey: Config.apiKey!,
-      apiHeaders: await const GoogleApiHeaders().getHeaders(),
-    );
-    PlacesDetailsResponse detail =
-        await places.getDetailsByPlaceId(p.placeId.toString());
-    lat = detail.result.geometry!.location.lat;
-    lng = detail.result.geometry!.location.lng;
-    final GoogleMapController controller = await mapController.future;
-    controller.animateCamera(CameraUpdate.newCameraPosition(
-        CameraPosition(target: LatLng(lat!, lng!), zoom: 17)));
-    setState(() {
-      markers.add(Marker(
-          markerId: const MarkerId("newLocation"),
-          position: LatLng(lat!, lng!)));
-    });
-    await getAddress();
-  }
-
-  void onError(PlacesAutocompleteResponse response) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text(response.errorMessage.toString())),
-    );
-  }
-
-  getAddress() async {
-    GeoData fetchGeocoder = await Geocoder2.getDataFromCoordinates(
-        latitude: lat!, longitude: lng!, googleMapApiKey: Config.apiKey!);
-    setState(() {
-      address = fetchGeocoder.address;
-      cityName = extractCity(fetchGeocoder.address);
-      print("==========add========${fetchGeocoder.address}");
-    });
-    // Get.back(result: [fetchGeocoder.address]);
-    // Get.back(result: [fetchGeocoder.address, lat.toString(), lng.toString()]);
-  }
-
-  String extractCity(String fullAddress) {
-    List<String> addressParts = fullAddress.split(',');
-    if (addressParts.length >= 2) {
-      return addressParts[addressParts.length - 3].trim();
-    }
-    return "Unknown";
   }
 
   void _showStartDeliveryDialog(BuildContext context) {
@@ -478,6 +428,7 @@ location.LocationData? currentLoc;
                       text: "Confirm",
                       style: Styles.boldwhite712,
                       fun: () {
+                        // _controller.sta
                         Navigator.of(context).pop(); // Close the dialog
                         _showBottomSheet(context); // Show the bottom sheet
                       },
@@ -501,6 +452,24 @@ location.LocationData? currentLoc;
         );
       },
     );
+  }
+
+  void _launchMaps() async {
+    // Assuming locations contains at least two points: start and destination
+    if (currentLocation!.latitude != null) {
+      // URL scheme for Google Maps
+      String googleMapsUrl =
+          "https://www.google.com/maps/dir/?api=1&origin=${currentLocation!.latitude!},${currentLocation!.longitude!}&destination=${widget.pickUpLat},${widget.pickUpLng}";
+
+      if (await canLaunch(googleMapsUrl)) {
+        await launch(googleMapsUrl);
+      } else {
+        throw 'Could not launch $googleMapsUrl';
+      }
+    } else {
+      // Handle error for insufficient locations
+      Get.snackbar("Error", "Insufficient locations provided");
+    }
   }
 
   void _showBottomSheet(BuildContext context) {
@@ -539,7 +508,9 @@ location.LocationData? currentLoc;
                       ),
                       const Gap(14),
                       Text(
-                        "9872589963188985",
+                        _ordersController
+                            .customerAddressController.startRideModel.orderID
+                            .toString(),
                         style: Styles.lable414,
                       ),
                       const Spacer(),
@@ -565,7 +536,9 @@ location.LocationData? currentLoc;
                       ),
                       const Gap(14),
                       Text(
-                        "John",
+                        _ordersController.customerAddressController
+                            .startRideModel.customerName
+                            .toString(),
                         style: Styles.lable414,
                       ),
                     ],
@@ -585,32 +558,45 @@ location.LocationData? currentLoc;
                       ),
                       const Gap(6),
                       Text(
-                        "Mon, 26 Feb 2024",
+                        _ordersController.customerAddressController
+                            .startRideModel.deliveryTime
+                            .toString(),
                         style: Styles.lable414,
                       ),
-                      const Gap(4),
-                      Text(
-                        "04:00 PM to 04:30 PM",
-                        style: Styles.lable414,
-                      ),
+                      // const Gap(4),
+                      // Text(
+                      //   "04:00 PM to 04:30 PM",
+                      //   style: Styles.lable414,
+                      // ),
                     ],
                   ),
                 ),
                 const Divider(),
-                Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
-                  child: Text(
-                    "Delivery Address",
-                    style: Styles.boldBlack614,
-                  ),
-                ),
-                Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 14, vertical: 1),
-                  child: Text(
-                    "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy",
-                    style: Styles.lable414,
+                GestureDetector(
+                  onTap: () {
+                    _launchMaps();
+                  },
+                  child: Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 14, vertical: 8),
+                        child: Text(
+                          "Delivery Address",
+                          style: Styles.boldBlack614,
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 14, vertical: 1),
+                        child: Text(
+                          _ordersController.customerAddressController
+                              .startRideModel.deliveryAddress
+                              .toString(),
+                          style: Styles.lable414,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
                 const Divider(),
@@ -712,7 +698,11 @@ location.LocationData? currentLoc;
                       text: "Confirm",
                       style: Styles.boldwhite712,
                       fun: () {
-                        Navigator.of(context).pop(); // Close the dialog
+                        Navigator.of(context).pop();
+                        stopListeningToLocation();
+                        _controller.completeRide(id:  _ordersController
+                            .customerAddressController.startRideModel.orderID
+                            .toString(),);// Close the dialog
                       },
                     ),
                     const Gap(12),
@@ -760,75 +750,88 @@ location.LocationData? currentLoc;
             decoration: BoxDecoration(
                 border: Border.all(color: primary),
                 borderRadius: BorderRadius.circular(7)),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: List<Widget>.generate(6, (int index) {
-                    return Obx(() => RadioListTile<int>(
-                          activeColor: primary,
-                          controlAffinity: ListTileControlAffinity.trailing,
-                          title: Text(
-                            titles[index],
-                            style: Styles.lable414,
-                          ),
-                          value: index,
-                          groupValue: _controller.selectedRadio.value,
-                          onChanged: (int? value) {
-                            _controller.selectedRadio.value = value!;
-                          },
-                        ));
-                  }),
-                ),
-                const Gap(8),
-                Align(
-                  alignment: Alignment.topLeft,
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 14.0),
-                    child: Text(
-                      "Description",
-                      style: Styles.boldBlack612,
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: List<Widget>.generate(6, (int index) {
+                      return Obx(() => RadioListTile<int>(
+                            activeColor: primary,
+                            controlAffinity: ListTileControlAffinity.trailing,
+                            title: Text(
+                              titles[index],
+                              style: Styles.lable414,
+                            ),
+                            value: index,
+                            groupValue: _controller.selectedRadio.value,
+                            onChanged: (int? value) {
+                              _controller.selectedRadio.value = value!;
+                              _controller.issueDes.value = titles[index];
+                              log("issue des ${titles[index]}");
+                            },
+                          ));
+                    }),
+                  ),
+                  const Gap(8),
+                  Align(
+                    alignment: Alignment.topLeft,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 14.0),
+                      child: Text(
+                        "Description",
+                        style: Styles.boldBlack612,
+                      ),
                     ),
                   ),
-                ),
-                const Gap(8),
-                const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 14.0),
-                  child: CustomTextFormFieldWidget(
-                    minLine: 5,
-                    maxLine: 5,
+                  const Gap(8),
+                   Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 14.0),
+                    child: CustomTextFormFieldWidget(
+                      controller: _controller.issueDesdetails,
+                      hintTpadding: 25,
+                      minLine: 5,
+                      maxLine: 5,
+                    ),
                   ),
-                ),
-                const Divider(),
-                const Gap(8),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    CustomButton(
-                      height: 32,
-                      width: 100,
-                      borderCircular: 6,
-                      text: "Confirm",
-                      style: Styles.boldwhite712,
-                      fun: () {
-                        Navigator.of(context).pop(); // Close the dialog
-                      },
-                    ),
-                    const Gap(12),
-                    CustomButton(
-                      height: 32,
-                      width: 100,
-                      color: const Color(0xFFE5E5E5),
-                      borderCircular: 6,
-                      text: "Back",
-                      style: Styles.boldBlack712,
-                      fun: () {},
-                    ),
-                  ],
-                ),
-                const Gap(12)
-              ],
+                  const Divider(),
+                  const Gap(8),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      CustomButton(
+                        height: 32,
+                        width: 100,
+                        borderCircular: 6,
+                        text: "Confirm",
+                        style: Styles.boldwhite712,
+                        fun: () {
+                          _controller.issueRide(id:  _ordersController
+                              .customerAddressController.startRideModel.orderID
+                              .toString(),
+                          );
+                          Navigator.of(context).pop(); // Close the dialog
+                        },
+                      ),
+                      const Gap(12),
+                      CustomButton(
+                        height: 32,
+                        width: 100,
+                        color: const Color(0xFFE5E5E5),
+                        borderCircular: 6,
+                        text: "Back",
+                        style: Styles.boldBlack712,
+                        fun: () {
+                          Navigator.of(context).pop(); // Close the dialog
+
+                        },
+                      ),
+                    ],
+                  ),
+                  const Gap(12)
+                ],
+              ),
             ),
           ),
         );
@@ -875,6 +878,7 @@ location.LocationData? currentLoc;
                           groupValue: _controller.selectedRadio.value,
                           onChanged: (int? value) {
                             _controller.selectedRadio.value = value!;
+                            _controller.delayDes.value=titles[index];
                           },
                         ));
                   }),
@@ -891,9 +895,11 @@ location.LocationData? currentLoc;
                   ),
                 ),
                 const Gap(8),
-                const Padding(
+                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 14.0),
                   child: CustomTextFormFieldWidget(
+                    hintTpadding: 25,
+                    controller: _controller.delayDesdetails,
                     minLine: 5,
                     maxLine: 5,
                   ),
@@ -910,7 +916,11 @@ location.LocationData? currentLoc;
                       text: "Confirm",
                       style: Styles.boldwhite712,
                       fun: () {
-                        Navigator.of(context).pop(); // Close the dialog
+                        _controller.issueRide(id:  _ordersController
+                            .customerAddressController.startRideModel.orderID
+                            .toString(),
+                        );
+                        Navigator.of(context).pop();
                       },
                     ),
                     const Gap(12),
@@ -921,7 +931,10 @@ location.LocationData? currentLoc;
                       borderCircular: 6,
                       text: "Back",
                       style: Styles.boldBlack712,
-                      fun: () {},
+                      fun: () {
+                        Navigator.of(context).pop();
+
+                      },
                     ),
                   ],
                 ),

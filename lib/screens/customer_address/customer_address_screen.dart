@@ -16,7 +16,8 @@ class CustomerAddressScreen extends GetView<CustomerAddressController> {
 
   @override
   Widget build(BuildContext context) {
-    return  const CustomerAddressWidget();
+    var data = Get.arguments;
+    return  CustomerAddressWidget(pickUpLat: data[0]??0.0,pickUpLng: data[1]??0.0,);
     //   Scaffold(
     //   backgroundColor: white,
     //   appBar: appbarSmall1(context, "Customer Address"),
