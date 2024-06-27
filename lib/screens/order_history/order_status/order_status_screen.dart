@@ -17,7 +17,7 @@ class OrdersStatusScreen extends GetView<OrdersStatusController> {
       backgroundColor: white,
       appBar: appbarSmall1(context, "Orders"),
       body: Padding(
-        padding: const EdgeInsets.only(right: 12,left: 12,bottom: 12),
+        padding: const EdgeInsets.only(right: 12, left: 12, bottom: 12),
         child: SingleChildScrollView(
           child: Column(
             children: [
@@ -34,7 +34,6 @@ class OrdersStatusScreen extends GetView<OrdersStatusController> {
                     const Gap(14),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 14),
-          
                       child: Row(
                         children: [
                           Text(
@@ -43,7 +42,7 @@ class OrdersStatusScreen extends GetView<OrdersStatusController> {
                           ),
                           const Gap(48),
                           Text(
-                            "9872589963188985",
+                            "${controller.model.orderId}",
                             style: Styles.lable414,
                           ),
                         ],
@@ -51,8 +50,9 @@ class OrdersStatusScreen extends GetView<OrdersStatusController> {
                     ),
                     const Gap(10),
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 14,),
-          
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 14,
+                      ),
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -62,18 +62,17 @@ class OrdersStatusScreen extends GetView<OrdersStatusController> {
                           ),
                           const Gap(25),
                           Text(
-                            "Delivered",
+                            "${controller.model.rideStatus}",
                             style: Styles.boldBlack614.copyWith(color: primary),
                           ),
                         ],
                       ),
                     ),
                     const Gap(4),
-          
                     const Divider(),
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 14,vertical: 4),
-          
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 14, vertical: 4),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -83,42 +82,33 @@ class OrdersStatusScreen extends GetView<OrdersStatusController> {
                           ),
                           const Gap(6),
                           Text(
-                            "Mon, 26 Feb 2024",
+                            "${controller.model.orderTime}",
                             style: Styles.lable414,
                           ),
                           const Gap(4),
-          
-                          Text(
-                            "04:00 PM to 04:30 PM",
-                            style: Styles.lable414,
-                          ),
                         ],
                       ),
                     ),
                     const Gap(4),
-          
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 14),
-          
                       child: Text(
                         "Delivery Address",
                         style: Styles.boldBlack614,
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 14,vertical: 4),
-          
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 14, vertical: 4),
                       child: Text(
-                        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy",
+                        "${controller.model.deliveryAddress}",
                         style: Styles.lable414,
                       ),
                     ),
-          
                     const Divider(),
                     const Gap(4),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 14),
-          
                       child: Row(
                         children: [
                           Text(
@@ -127,7 +117,7 @@ class OrdersStatusScreen extends GetView<OrdersStatusController> {
                           ),
                           const Gap(25),
                           Text(
-                            "10:45 PM",
+                            "${controller.model.orderPickUpTime}",
                             style: Styles.lable414,
                           ),
                         ],
@@ -135,8 +125,9 @@ class OrdersStatusScreen extends GetView<OrdersStatusController> {
                     ),
                     const Gap(10),
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 14,),
-          
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 14,
+                      ),
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -146,21 +137,19 @@ class OrdersStatusScreen extends GetView<OrdersStatusController> {
                           ),
                           const Gap(25),
                           Text(
-                            "12:00 PM",
+                            "${controller.model.orderPickedUpAt}",
                             style: Styles.lable414,
                           ),
                         ],
                       ),
                     ),
                     const Gap(4),
-          
-          
-          
-          
-                    const Divider(color: primary,),
+                    const Divider(
+                      color: primary,
+                    ),
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 14,vertical: 4),
-          
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 14, vertical: 4),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -170,63 +159,55 @@ class OrdersStatusScreen extends GetView<OrdersStatusController> {
                           ),
                           const Gap(6),
                           Text(
-                            "Mon, 26 Feb 2024",
-                            style: Styles.lable414,
-                          ),
-                          const Gap(4),
-          
-                          Text(
-                            "04:00 PM to 04:30 PM",
+                            "${controller.model.deliveryTime}",
                             style: Styles.lable414,
                           ),
                         ],
                       ),
                     ),
-          
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 14),
-          
                       child: Text(
                         "Delivery Address",
                         style: Styles.boldBlack614,
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 14,vertical: 4),
-          
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 14, vertical: 4),
                       child: Text(
-                        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy",
+                        "${controller.model.deliveryAddress}",
                         style: Styles.lable414,
                       ),
                     ),
-          
                     const Divider(),
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 14,vertical: 4),
-          
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 14, vertical: 4),
                       child: Text(
                         "Item Details",
                         style: Styles.boldBlack614,
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 14,),
-          
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 14,
+                      ),
                       child: Text(
-                        "1 Curler",
+                        "${controller.model.itemDetails}",
                         style: Styles.lable414,
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 14,vertical: 10),
-          
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 14, vertical: 10),
                       child: CustomButton(
                         height: 35,
                         borderCircular: 6,
                         width: double.infinity,
                         text: "Start Delivery",
                         fun: () {
-                          Get.toNamed(AppRoutes.CUSTOMER_ADDRESS);
+                          Get.toNamed(AppRoutes.WITHDRAW_AMOUNT);
                         },
                       ),
                     )

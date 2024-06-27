@@ -19,6 +19,7 @@ class CustomerAddressController extends GetxController {
   var selectedRadio = 0.obs;
 
   RxBool isLoading = false.obs;
+  RxBool switchBtn = true.obs;
   RxString issueDes = 'Heavy Traffic Delivery Time Issue'.obs;
   TextEditingController issueDesdetails = TextEditingController();
   RxString delayDes = 'Stuck in Traffic'.obs;
@@ -137,6 +138,8 @@ class CustomerAddressController extends GetxController {
       isLoading(false);
     }
   }
+
+
  Future<dynamic> delayRide({required var id}) async {
     isLoading(true);
     try {

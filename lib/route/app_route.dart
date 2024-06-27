@@ -20,6 +20,8 @@ import 'package:rider/screens/orders/orders_screen.dart';
 import 'package:rider/screens/request/request_binding.dart';
 import 'package:rider/screens/request/request_screen.dart';
 import 'package:rider/screens/wallet/wallet_binding.dart';
+import 'package:rider/screens/withdrawamount/withdrawamount_binding.dart';
+import 'package:rider/screens/withdrawamount/withdrawamount_screen.dart';
 
 import '../screens/notification/notifiction_screen.dart';
 import '../screens/order_history/order_status/order_status_screen.dart';
@@ -43,6 +45,7 @@ class AppRoutes {
   static String REQUEST = '/request';
   static String ORDER = '/order';
   static String CUSTOMER_ADDRESS = '/customer_address';
+  static String WITHDRAW_AMOUNT = '/withdraw_amount';
 
   static List<GetPage> pages = [
 
@@ -64,6 +67,12 @@ class AppRoutes {
       page: () => const CustomerAddressScreen(),
       bindings:  [
         CustomerAddressBinding(),
+      ],
+    ),GetPage(
+      name: WITHDRAW_AMOUNT,
+      page: () => const WithdrawamountScreen(),
+      bindings:  [
+        WithdrawamountBinding(),
       ],
     ),GetPage(
       name: ORDER,

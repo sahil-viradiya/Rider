@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
+import 'package:rider/model/order_history_model.dart';
 
 import '../../constant/app_color.dart';
 import '../../constant/my_size.dart';
@@ -17,47 +18,93 @@ class OrderHistoryScreen extends GetView<OrderHistoryController> {
     return Scaffold(
       backgroundColor: white,
       appBar: appbarSmall1(context, "Order History"),
-      body: Padding(
-        padding: const EdgeInsets.only(bottom: 13,left: 13,right: 13),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-             const Divider(),
-            const Gap(14),
-            Row(
+      body: GetBuilder<OrderHistoryController>(
+        assignId: true,
+        builder: (logic) {
+          return Padding(
+            padding: const EdgeInsets.only(bottom: 13, left: 13, right: 13),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  'Total Order: ',
-                  style: Styles.boldBlack612,
+                const Divider(),
+                const Gap(14),
+                Row(
+                  children: [
+                    Text(
+                      'Total Order: ',
+                      style: Styles.boldBlack612,
+                    ),
+                    Text(
+                      '122',
+                      style: Styles.boldBlack612.copyWith(color: primary),
+                    ),
+                  ],
                 ),
-                Text(
-                  '122',
-                  style: Styles.boldBlack612.copyWith(color: primary),
-                ),
+                const Gap(10),
+                Obx(() {
+                  return controller.isLoading.value == true
+                      ? Center(
+                          child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Gap(Get.height / 3),
+                            const CircularProgressIndicator(
+                              color: primary,
+                            ),
+                          ],
+                        ))
+                      : controller.model.isEmpty
+                          ? Center(
+                              child: Text(
+                                "Data Is Empty",
+                                textAlign: TextAlign.center,
+                                style: Styles.boldBlue614,
+                              ),
+                            )
+                          : Expanded(
+                              child: ListView.builder(
+                                itemCount: controller.model.length,
+                                physics: const BouncingScrollPhysics(),
+                                shrinkWrap: true,
+                                scrollDirection: Axis.vertical,
+                                itemBuilder: (context, index) => InkWell(
+                                  onTap: () {
+                                    Get.toNamed(AppRoutes.ORDERSTATUS,arguments: controller.model[index]);
+                                  },
+                                  child: transcation(
+                                      context: context,
+                                      model: controller.model[index]),
+                                ),
+                              ),
+                            );
+                }),
               ],
             ),
-            const Gap(10),
-            Expanded(
-              child: ListView.builder(
-                itemCount: 15,
-                physics: const BouncingScrollPhysics(),
-                shrinkWrap: true,
-                scrollDirection: Axis.vertical,
-                itemBuilder: (context, index) =>
-                    InkWell(onTap: () {
-                      Get.toNamed(AppRoutes.ORDERSTATUS);
-
-                    }, child: transcation(context)),
-              ),
-            ),
-          ],
-        ),
+          );
+        },
       ),
     );
   }
 }
 
-Widget transcation(context) {
+Widget transcation(
+    {required OrderHistoryModel model, required BuildContext context}) {
+  Color getRideStatusColor({required String status}) {
+    switch (status.toLowerCase()) {
+      case 'pending':
+        return greenolive;
+      case 'accept':
+        return greenolive;
+      case 'completed':
+        return green;
+      case 'rejected':
+        return red;
+      default:
+        return primary;
+    }
+  }
+
   return Container(
     padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
     margin: const EdgeInsets.only(bottom: 6),
@@ -85,7 +132,7 @@ Widget transcation(context) {
             ),
             Gap(MySize.size6!),
             Text(
-              "9872589963188985",
+              model.orderId.toString(),
               style: Styles.lable414,
             ),
           ],
@@ -93,11 +140,17 @@ Widget transcation(context) {
         Column(
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
-            Text("30 May 2024", style: Styles.lable414.copyWith(fontSize: 10)),
+            Text("${model.rideDate}",
+                style: Styles.lable414.copyWith(fontSize: 10)),
             Gap(MySize.size6!),
-            Text("Pending",
-                style:
-                    Styles.lable414.copyWith(fontSize: 10, color: greenolive)),
+            Text(
+              "${model.rideStatus}",
+              style: Styles.lable414.copyWith(
+                  fontSize: 10,
+                  color:
+                      getRideStatusColor(status: model.rideStatus.toString()),
+                  fontWeight: FontWeight.bold),
+            ),
           ],
         )
       ],
