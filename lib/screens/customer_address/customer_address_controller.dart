@@ -3,8 +3,6 @@ import 'dart:developer';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_rx/get_rx.dart';
-import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:rider/constant/api_key.dart';
 import 'package:rider/constant/const.dart';
 import 'package:rider/main.dart';

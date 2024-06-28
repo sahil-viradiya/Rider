@@ -2,7 +2,6 @@ import 'dart:developer';
 import 'package:dio/dio.dart' as dio;
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
-import 'package:get/get_rx/get_rx.dart';
 import 'package:rider/constant/api_key.dart';
 import 'package:rider/constant/const.dart';
 import 'package:rider/main.dart';
@@ -11,7 +10,6 @@ import 'package:rider/model/start_ride_model.dart';
 import 'package:rider/route/app_route.dart';
 import 'package:rider/screens/customer_address/customer_address_controller.dart';
 import 'package:rider/utils/network_client.dart';
-import 'package:rider/utils/pref.dart';
 
 class OrdersController extends GetxController {
   final count = 0.obs;

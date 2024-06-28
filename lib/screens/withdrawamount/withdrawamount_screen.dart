@@ -23,7 +23,7 @@ class WithdrawamountScreen extends GetView<WithdrawamountController> {
         child: Column(
           children: [
             _withdrawCard(context),
-            Gap(32),
+            const Gap(32),
             //============================Enter Amount For Withdraw======================
             Align(
               alignment: Alignment.topLeft,
@@ -44,7 +44,7 @@ class WithdrawamountScreen extends GetView<WithdrawamountController> {
               obscureText: true,
               suffixTap: () {},
             ),
-            Gap(16),
+            const Gap(16),
 
             //============================Account Holder Name======================
             Align(
@@ -68,7 +68,7 @@ class WithdrawamountScreen extends GetView<WithdrawamountController> {
               suffixTap: () {},
             ),
             //============================Account Number======================
-            Gap(16),
+            const Gap(16),
 
             Align(
               alignment: Alignment.topLeft,
@@ -90,7 +90,7 @@ class WithdrawamountScreen extends GetView<WithdrawamountController> {
               suffixTap: () {},
             ),
             //============================IFSC Code======================
-            Gap(16),
+            const Gap(16),
 
             Align(
               alignment: Alignment.topLeft,
@@ -111,8 +111,8 @@ class WithdrawamountScreen extends GetView<WithdrawamountController> {
               obscureText: true,
               suffixTap: () {},
             ),
-            Gap(16),
-            Gap(16),
+            const Gap(16),
+            const Gap(16),
 
             CustomButton(
               width: double.infinity,

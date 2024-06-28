@@ -3,7 +3,6 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:rider/constant/app_color.dart';
 import 'package:rider/constant/style.dart';
-import 'package:rider/route/app_route.dart';
 import 'package:rider/widget/auth_app_bar_widget.dart';
 import 'package:rider/widget/custom_button.dart';
 import 'orders_controller.dart';

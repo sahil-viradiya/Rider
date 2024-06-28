@@ -923,194 +923,148 @@ import 'package:rider/constant/api_key.dart';
 import 'package:rider/constant/app_color.dart';
 
 class CustomerAddressWidget extends StatefulWidget {
+  const CustomerAddressWidget({super.key});
+
   @override
   _CustomerAddressWidgetState createState() => _CustomerAddressWidgetState();
 }
 
+RxDouble lat = 0.0.obs;
+RxDouble lng = 0.0.obs;
+
 class _CustomerAddressWidgetState extends State<CustomerAddressWidget> {
   final mapsWidgetController = GlobalKey<GoogleMapsWidgetState>();
   Set<Polyline> polylines = {}; // Initialize as an empty set
-  RxDouble lat = 0.0.obs;
-  RxDouble lng = 0.0.obs;
+  StreamSubscription<Position>? positionSubscription;
 
-  @override
   void initState() {
-    getCurrentLocation();
-    // TODO: implement initState
     super.initState();
+    getCurrentLocation();
+    positionSubscription = Geolocator.getPositionStream(
+      locationSettings: const LocationSettings(accuracy: LocationAccuracy.high),
+    ).listen((position) {
+      setState(() {
+        lat.value = position.latitude;
+        lng.value = position.longitude;
+        updatePolylines();
+      });
+    });
   }
+
 
   Future<LatLng?> getCurrentLocation() async {
     try {
-      // Request permission to access location
       LocationPermission permission = await Geolocator.requestPermission();
-
       if (permission == LocationPermission.denied) {
-        // Handle the case where the user denied permission
         print('Location permissions are denied');
         return null;
       }
 
-      // Get the current position
       Position position = await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.best,
       );
-      lat.value = position.latitude;
-      lng.value = position.longitude;
-      // Return LatLng object using position coordinates
+      setState(() {
+        lat.value = position.latitude;
+        lng.value = position.longitude;
+      });
       return LatLng(position.latitude, position.longitude);
     } catch (e) {
       print("Error getting current location: $e");
-
       return null;
     }
   }
 
+  StreamSubscription<Position> positionStream = Geolocator.getPositionStream(
+    locationSettings: const LocationSettings(accuracy: LocationAccuracy.high),
+  ).listen((position) {
+    // Do something with the new position
+      lat.value = position.latitude;
+      lng.value = position.longitude;
+  });
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: SafeArea(
-        child: Scaffold(
-          body: Column(
-            children: [
-              Expanded(
-                child: GoogleMapsWidget(
-                  apiKey: Config.apiKey!,
-                  key: mapsWidgetController,
-                  sourceLatLng: LatLng(23.062757177531008, 72.55032365378294),
-                  destinationLatLng:
-                      LatLng(23.027566175394984, 72.56068355193261),
-                  routeWidth: 2,
-                  sourceMarkerIconInfo: MarkerIconInfo(
-                    infoWindowTitle: "This is source name",
-                    onTapInfoWindow: (_) {
-                      print("Tapped on source info window");
-                    },
-                    assetPath: "assets/images/png/location-marker.png",
-                  ),
-                  destinationMarkerIconInfo: MarkerIconInfo(
-                    assetPath: "assets/images/png/location-marker.png",
-                  ),
-                  driverMarkerIconInfo: MarkerIconInfo(
-                    infoWindowTitle: "Alex",
-                    onTapMarker: (currentLocation) {
-                      print("Driver is currently at $currentLocation");
-                    },
-                    assetMarkerSize: Size.square(125),
-                    rotation: 90,
-                  ),
-                  updatePolylinesOnDriverLocUpdate: true,
-                  onPolylineUpdate: (newPolylines) {
-                    setState(() {
-                      polylines.clear(); // Clear existing polylines
-                      polylines.add(newPolylines); // Add the updated polyline
-                    });
-                    print("Polyline updated");
-                  },
-                  polylines: polylines,
-                  driverCoordinatesStream:
-                      Stream.periodic(Duration(milliseconds: 500), (i) {
-                    // Simulated driver movement
-                    final driverLat = lat.value;
-                    final driverLng =  lng.value;
-                    final driverLocation = LatLng(driverLat, driverLng);
-                    updatePolylines();
-                    return driverLocation;
-                  }),
-                  totalTimeCallback: (time) => print(time),
-                  totalDistanceCallback: (distance) => print(distance),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(10),
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: ElevatedButton(
-                        onPressed: () {
-                          mapsWidgetController.currentState!.setSourceLatLng(
-                            LatLng(
-                              40.484000837597925 * (Random().nextDouble()),
-                              -3.369978368282318,
-                            ),
-                          );
-                          updatePolylines();
-                        },
-                        child: Text('Update source'),
-                      ),
-                    ),
-                    const SizedBox(width: 10),
-                    Expanded(
-                      child: ElevatedButton(
-                        onPressed: () async {
-                          final googleMapsCon = await mapsWidgetController
-                              .currentState!
-                              .getGoogleMapsController();
-                          googleMapsCon.showMarkerInfoWindow(
-                              MarkerIconInfo.sourceMarkerId);
-                        },
-                        child: Text('Show source info'),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
+    debugPrint("ontime lat ${lat.value} === ${lng.value}");
+
+    return Column(
+      children: [
+        Expanded(
+          child: Obx(() => GoogleMapsWidget(
+            apiKey: Config.apiKey!,
+            key: mapsWidgetController,
+            sourceLatLng: const LatLng(23.062757177531008, 72.55032365378294),
+            destinationLatLng: const LatLng(23.027566175394984, 72.56068355193261),
+            routeWidth: 2,
+            showPolyline: true,
+            sourceMarkerIconInfo: MarkerIconInfo(
+              infoWindowTitle: "This is source name",
+              onTapInfoWindow: (_) {
+                print("Tapped on source info window");
+              },
+              assetPath: "assets/images/png/location-marker.png",
+            ),
+            destinationMarkerIconInfo: const MarkerIconInfo(
+              assetPath: "assets/images/png/location-marker.png",
+            ),
+            defaultCameraLocation: LatLng(lat.value, lng.value),
+            driverMarkerIconInfo: MarkerIconInfo(
+              infoWindowTitle: "Alex",
+              icon: Icon(Icons.info, color: Colors.red, size: 35),
+              onTapMarker: (currentLocation) {
+                print("Driver is currently at $currentLocation");
+              },
+              assetMarkerSize: const Size.square(125),
+              rotation: 90,
+            ),
+            updatePolylinesOnDriverLocUpdate: true,
+            routeColor: Colors.blue,
+            onPolylineUpdate: (newPolylines) {
+              setState(() {
+                polylines.clear();
+                polylines.add(newPolylines);
+              });
+              print("Polyline updated");
+            },
+            polylines: polylines,
+            driverCoordinatesStream: Stream.periodic(const Duration(milliseconds: 500), (i) {
+              final driverLat = lat.value;
+              final driverLng = lng.value;
+              final driverLocation = LatLng(driverLat, driverLng);
+              updatePolylines();
+              return driverLocation;
+            }),
+            totalTimeCallback: (time) => print(time),
+            totalDistanceCallback: (distance) => print(distance),
+          )),
         ),
-      ),
+      ],
     );
   }
 
   void updatePolylines() async {
-    // Clear existing polylines
-    polylines.clear();
-
-    // Get driver's current location using geolocator
-    final driverLocation = await _getCurrentLocation();
+    final driverLocation = await getCurrentLocation();
     if (driverLocation != null) {
-      polylines.add(Polyline(
-        polylineId: PolylineId("DriverToSource"),
-        color: primary,
-        points: [
-          driverLocation,
-          LatLng(23.062757177531008, 72.55025928076905),
-        ],
-        width: 2,
-      ));
+      setState(() {
+        polylines.clear();
+        polylines.add(
+          Polyline(
+            polylineId: const PolylineId("DriverToSource"),
+            color: Colors.blue, // Change this to your desired color
+            points: [
+              driverLocation,
+              const LatLng(23.062757177531008, 72.55025928076905),
+            ],
+            width: 2,
+          ),
+        );
+        print("Polyline updated with driver's current location: $driverLocation");
+      });
     }
-
-    // Check if driver has reached pickup location (for example, within a threshold distance)
-    // If reached, add polyline from pickup location to drop location
-    // For demo purpose, let's assume the driver has reached the pickup location
-    final reachedPickupLocation = false;
-    if (reachedPickupLocation) {
-      polylines.add(Polyline(
-        polylineId: PolylineId("PickupToDrop"),
-        color: primary,
-        points: [
-          LatLng(23.062757177531008, 72.55032365378294),
-          LatLng(23.027566175394984, 72.56068355193261),
-        ],
-        width: 2,
-      ));
-    }
-
-    // Update state to reflect new polylines
-    setState(() {
-      polylines = polylines.toSet();
-    });
   }
 
-  Future<LatLng?> _getCurrentLocation() async {
-    try {
-      final position = await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.best,
-      );
-      return LatLng(position.latitude, position.longitude);
-    } catch (e) {
-      print("Error getting current location: $e");
-      return null;
-    }
+  @override
+  void dispose() {
+    positionStream.cancel();
+    super.dispose();
   }
 }

@@ -15,7 +15,7 @@ class OrderHistoryController extends GetxController {
 
   @override
   void onReady() {
-    orderHistory();
+    // orderHistory();
   }
 
   Future<dynamic> orderHistory() async {

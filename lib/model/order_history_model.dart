@@ -33,16 +33,16 @@ class OrderHistoryModel {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['order_id'] = this.orderId;
-    data['ride_status'] = this.rideStatus;
-    data['order_time'] = this.orderTime;
-    data['ride_date'] = this.rideDate;
-    data['delivery_time'] = this.deliveryTime;
-    data['delivery_address'] = this.deliveryAddress;
-    data['order_pick_up_time'] = this.orderPickUpTime;
-    data['order_picked_up_at'] = this.orderPickedUpAt;
-    data['item_details'] = this.itemDetails;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['order_id'] = orderId;
+    data['ride_status'] = rideStatus;
+    data['order_time'] = orderTime;
+    data['ride_date'] = rideDate;
+    data['delivery_time'] = deliveryTime;
+    data['delivery_address'] = deliveryAddress;
+    data['order_pick_up_time'] = orderPickUpTime;
+    data['order_picked_up_at'] = orderPickedUpAt;
+    data['item_details'] = itemDetails;
     return data;
   }
 }

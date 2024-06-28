@@ -30,15 +30,15 @@ class StartRideModel {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['Order ID'] = this.orderID;
-    data['Customer Name'] = this.customerName;
-    data['pickUpLatitude'] = this.pickUpLatitude;
-    data['pickUpLongitude'] = this.pickUpLongitude;
-    data['dropOffLatitude'] = this.dropOffLatitude;
-    data['dropOffLongitude'] = this.dropOffLongitude;
-    data['Delivery Time'] = this.deliveryTime;
-    data['Delivery Address'] = this.deliveryAddress;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['Order ID'] = orderID;
+    data['Customer Name'] = customerName;
+    data['pickUpLatitude'] = pickUpLatitude;
+    data['pickUpLongitude'] = pickUpLongitude;
+    data['dropOffLatitude'] = dropOffLatitude;
+    data['dropOffLongitude'] = dropOffLongitude;
+    data['Delivery Time'] = deliveryTime;
+    data['Delivery Address'] = deliveryAddress;
     return data;
   }
 }

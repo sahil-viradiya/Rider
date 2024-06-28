@@ -377,7 +377,7 @@ packages:
     source: hosted
     version: "0.0.20-nullsafety.5"
   google_maps_widget:
-    dependency: "direct overridden"
+    dependency: "direct main"
     description:
       name: google_maps_widget
       sha256: "20c62ddfcaced246eb6895c7261f21b0ce47e32f5e3c48ff67df946c56b86f14"
