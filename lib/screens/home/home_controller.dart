@@ -2,7 +2,7 @@ import 'package:get/get.dart';
 import 'package:rider/screens/order_history/order_history_controller.dart';
 
 class HomeController extends GetxController {
-  final count = 0.obs;
+  final count = 0.obs;  
 
   final orderHisCon = Get.put(OrderHistoryController());
 

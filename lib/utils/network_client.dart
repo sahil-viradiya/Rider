@@ -6,6 +6,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:rider/constant/app_color.dart';
+import 'package:rider/constant/const.dart';
 import 'package:rider/screens/auth/signIn/signIn_Screen.dart';
 
 class DioExceptions {
@@ -72,7 +73,7 @@ DioExceptions.fromDioError(
       case 400:
         return 'Bad request';
       case 401:
-        Get.offAll(SignInScreen());
+        resate(Get.context!);
         return 'Unauthorized';
       case 403:
         return 'Forbidden';

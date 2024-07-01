@@ -15,10 +15,12 @@ class OrderHistoryController extends GetxController {
 
   @override
   void onReady() {
-    // orderHistory();
+    
+    orderHistory();
   }
 
   Future<dynamic> orderHistory() async {
+    await getToken(); 
     isLoading(true);
     try {
       /*dio.FormData formData = dio.FormData.fromMap({
