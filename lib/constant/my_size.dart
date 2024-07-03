@@ -1135,7 +1135,7 @@ class Shape {
   static dynamic circular(double radius,
       {ShapeTypeFor shapeTypeFor = ShapeTypeFor.container}) {
     BorderRadius borderRadius =
-    BorderRadius.all(Radius.circular(MySize.getScaledSizeHeight(radius)));
+        BorderRadius.all(Radius.circular(MySize.getScaledSizeHeight(radius)));
 
     switch (shapeTypeFor) {
       case ShapeTypeFor.container:

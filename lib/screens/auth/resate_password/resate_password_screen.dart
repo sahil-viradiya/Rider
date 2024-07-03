@@ -17,7 +17,7 @@ class ResetPasswordScreen extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
 
   final ResatePasswordController _controller =
-  Get.put(ResatePasswordController(), permanent: false);
+      Get.put(ResatePasswordController(), permanent: false);
 
   @override
   Widget build(BuildContext context) {
@@ -27,8 +27,8 @@ class ResetPasswordScreen extends StatelessWidget {
       appBar: Appbar(),
       body: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.symmetric(
-              horizontal: MySize.getScaledSizeWidth(25)),
+          padding:
+              EdgeInsets.symmetric(horizontal: MySize.getScaledSizeWidth(25)),
           child: Form(
             key: _formKey,
             child: Column(
@@ -48,34 +48,36 @@ class ResetPasswordScreen extends StatelessWidget {
                 Gap(MySize.size30!),
                 Align(
                   alignment: Alignment.topLeft,
-                  child:
-                  Text("Password", style: Styles.boldBlack614,
-                    textAlign: TextAlign.left,),
-
+                  child: Text(
+                    "Password",
+                    style: Styles.boldBlack614,
+                    textAlign: TextAlign.left,
+                  ),
                 ),
                 Gap(MySize.size4!),
-
-                 CustomTextFormFieldWidget(
+                CustomTextFormFieldWidget(
                   controller: _controller.passCon,
-                   validator: (value) {
-                     return Validator.validatePassword(value!);
-                   },
+                  validator: (value) {
+                    return Validator.validatePassword(value!);
+                  },
                   // lblTxt: AppString.resetPassword,
                 ),
                 Gap(MySize.size12!),
                 Align(
                   alignment: Alignment.topLeft,
-                  child:
-                  Text("Confirm Password", style: Styles.boldBlack614,
-                    textAlign: TextAlign.left,),
-
+                  child: Text(
+                    "Confirm Password",
+                    style: Styles.boldBlack614,
+                    textAlign: TextAlign.left,
+                  ),
                 ),
                 Gap(MySize.size4!),
-                 CustomTextFormFieldWidget(
+                CustomTextFormFieldWidget(
                   controller: _controller.conPassCon,
-                   validator: (value) {
-                     return Validator.validateConfirmPassword(value!,_controller.passCon.text);
-                   },
+                  validator: (value) {
+                    return Validator.validateConfirmPassword(
+                        value!, _controller.passCon.text);
+                  },
                 ),
                 Gap(MySize.size24!),
                 Obx(() {
@@ -84,11 +86,11 @@ class ResetPasswordScreen extends StatelessWidget {
                       text: 'Submit',
                       fun: _controller.isLoading.value != true
                           ? () {
-                        // Get.toNamed(AppRoutes.RESATEPASSWORD);
-                        if (_formKey.currentState!.validate()) {
-                          _controller.resatePassword();
-                        }
-                      }
+                              // Get.toNamed(AppRoutes.RESATEPASSWORD);
+                              if (_formKey.currentState!.validate()) {
+                                _controller.resatePassword();
+                              }
+                            }
                           : () {});
                 }),
                 Gap(MySize.size24!),

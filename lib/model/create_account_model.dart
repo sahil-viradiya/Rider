@@ -1,4 +1,4 @@
-  class CreateAccountModel {
+class CreateAccountModel {
   int? userId;
   String? usertype;
   String? fullname;

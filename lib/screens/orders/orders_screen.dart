@@ -12,7 +12,7 @@ class OrdersScreen extends GetView<OrdersController> {
 
   @override
   Widget build(BuildContext context) {
-  var id = Get.arguments;
+    var id = Get.arguments;
     return Scaffold(
       backgroundColor: white,
       appBar: appbarSmall1(context, "Orders"),
@@ -103,8 +103,8 @@ class OrdersScreen extends GetView<OrdersController> {
                 const Gap(6),
                 const Divider(),
                 Padding(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 14, vertical: 6),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
                   child: Row(
                     children: [
                       Column(
@@ -148,8 +148,8 @@ class OrdersScreen extends GetView<OrdersController> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 14, vertical: 6),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
                   child: Text(
                     controller.rideAcceptModel.deliveryAddress.toString(),
                     style: Styles.lable414,
@@ -157,8 +157,8 @@ class OrdersScreen extends GetView<OrdersController> {
                 ),
                 const Divider(),
                 Padding(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 14, vertical: 6),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
                   child: Text(
                     "Item Details",
                     style: Styles.boldBlack614,
@@ -174,8 +174,8 @@ class OrdersScreen extends GetView<OrdersController> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 14, vertical: 14),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 14, vertical: 14),
                   child: Obx(() {
                     return CustomButton(
                       isLoading: controller.isLoading.value,

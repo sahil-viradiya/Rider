@@ -21,24 +21,24 @@ class Ride {
 
   Ride(
       {this.rideId,
-        this.pickUpLatitude,
-        this.pickUpLongitude,
-        this.pickupAddress,
-        this.senderLandmark,
-        this.senderName,
-        this.senderMobileNo,
-        this.dropOffLatitude,
-        this.dropOffLongitude,
-        this.dropAddress,
-        this.receiverLandmark,
-        this.receiverName,
-        this.receiverMobileNo,
-        this.addressType,
-        this.totalDistance,
-        this.totalTime,
-        this.unitCharge,
-        this.totalCharges,
-        this.createdDateTime});
+      this.pickUpLatitude,
+      this.pickUpLongitude,
+      this.pickupAddress,
+      this.senderLandmark,
+      this.senderName,
+      this.senderMobileNo,
+      this.dropOffLatitude,
+      this.dropOffLongitude,
+      this.dropAddress,
+      this.receiverLandmark,
+      this.receiverName,
+      this.receiverMobileNo,
+      this.addressType,
+      this.totalDistance,
+      this.totalTime,
+      this.unitCharge,
+      this.totalCharges,
+      this.createdDateTime});
 
   Ride.fromJson(Map<String, dynamic> json) {
     rideId = json['ride_id'];

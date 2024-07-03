@@ -1,19 +1,14 @@
-
-
-
-
 import 'package:flutter/material.dart';
 import 'package:rider/constant/app_color.dart';
 import 'package:rider/constant/my_size.dart';
 import 'package:rider/screens/provider/new_services/widget_new_services.dart';
 import 'package:rider/widget/auth_app_bar_widget.dart';
 
-
 class PAddNewServices extends StatelessWidget {
   const PAddNewServices({super.key});
   @override
   Widget build(BuildContext context) {
-var selectedIndex = 0;
+    var selectedIndex = 0;
 
     MySize().init(context);
 
@@ -26,8 +21,7 @@ var selectedIndex = 0;
           Expanded(
             child: PageView.builder(
               controller: PageController(),
-              itemCount:
-              2, // Adjust this according to the number of pages
+              itemCount: 2, // Adjust this according to the number of pages
               onPageChanged: (index) {
                 // postProjectBloc.add(PageCh0ange(page: index));
                 selectedIndex = index;
@@ -63,9 +57,9 @@ var selectedIndex = 0;
   Widget _buildPage(int index) {
     switch (index) {
       case 0:
-        // return _buildFirstPage();
+      // return _buildFirstPage();
       case 1:
-        // return _buildSecondPage();
+      // return _buildSecondPage();
       default:
         return Container(); // You can return empty container or handle other cases
     }

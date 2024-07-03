@@ -1,5 +1,3 @@
-
-
 class Validator {
   static RegExp emailRegExp = RegExp(
     r'^[a-zA-Z0-9.!#$%&’+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)$',
@@ -23,7 +21,6 @@ class Validator {
     return null;
   }
 
-
   static String? validatePassword(String value) {
     if (value.isEmpty) {
       return "Please enter Password";
@@ -39,12 +36,14 @@ class Validator {
     }
     return null;
   }
+
   static String? validateUserName(String value) {
     if (value.isEmpty) {
       return "Please enter User Name";
     }
     return null;
   }
+
   static String? validateAddress(String value) {
     if (value.isEmpty) {
       return "Please enter Your Address";
@@ -58,6 +57,7 @@ class Validator {
     }
     return null;
   }
+
   static String? validateConfirmPassword(String value, String val) {
     if (value.isEmpty) {
       return "Please enter Password";
@@ -67,7 +67,7 @@ class Validator {
     return null;
   }
 
-  static  String? validateMobile(String value) {
+  static String? validateMobile(String value) {
     if (value.length != 10) {
       return 'Mobile Number must be of 10 digit';
     } else if (value.isEmpty) {
@@ -75,7 +75,8 @@ class Validator {
     }
     return null;
   }
-  static  String? validateMobileOtp(String value) {
+
+  static String? validateMobileOtp(String value) {
     if (value.length != 4) {
       return 'OTP must be of 4 digit';
     } else if (value.isEmpty) {

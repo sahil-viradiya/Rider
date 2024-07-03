@@ -1,7 +1,3 @@
 import 'package:get/get.dart';
 
-class WalletController extends GetxController {
-
-
-
-}
+class WalletController extends GetxController {}

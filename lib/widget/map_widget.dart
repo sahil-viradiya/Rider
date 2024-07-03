@@ -11,7 +11,8 @@ class MapWidget extends StatefulWidget {
 }
 
 class MapWidgetState extends State<MapWidget> {
-  final Completer<GoogleMapController> _controller = Completer<GoogleMapController>();
+  final Completer<GoogleMapController> _controller =
+      Completer<GoogleMapController>();
   Position? _currentPosition;
 
   static const CameraPosition _kGooglePlex = CameraPosition(
@@ -69,17 +70,18 @@ class MapWidgetState extends State<MapWidget> {
   Widget build(BuildContext context) {
     return _currentPosition != null
         ? GoogleMap(
-      mapType: MapType.hybrid,
-      initialCameraPosition: CameraPosition(
-        target: LatLng(_currentPosition!.latitude, _currentPosition!.longitude),
-        zoom: 14.4746,
-      ),
-      onMapCreated: (GoogleMapController controller) {
-        _controller.complete(controller);
-      },
-      myLocationEnabled: true,
-      myLocationButtonEnabled: true,
-    )
+            mapType: MapType.hybrid,
+            initialCameraPosition: CameraPosition(
+              target: LatLng(
+                  _currentPosition!.latitude, _currentPosition!.longitude),
+              zoom: 14.4746,
+            ),
+            onMapCreated: (GoogleMapController controller) {
+              _controller.complete(controller);
+            },
+            myLocationEnabled: true,
+            myLocationButtonEnabled: true,
+          )
         : const Center(child: CircularProgressIndicator());
   }
 }

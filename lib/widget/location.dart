@@ -8,7 +8,6 @@ import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
-
 import 'package:http/http.dart' as http;
 import 'package:permission_handler/permission_handler.dart';
 import 'package:rider/constant/api_key.dart';
@@ -102,7 +101,8 @@ class _GetLocationScreenState extends State<GetLocationScreen> {
 
   getNearByLocations() async {
     String url =
-        "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=$lat,$lng" "&radius=100&key=${Config.apiKey}";
+        "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=$lat,$lng"
+        "&radius=100&key=${Config.apiKey}";
     print('url:$url');
     http.Response response = await http.get(Uri.parse(url));
     print(response.statusCode);
@@ -294,10 +294,15 @@ class _GetLocationScreenState extends State<GetLocationScreen> {
                                     // ]);
                                   },
                                   child: ListTile(
-                                    title: Text('${ nearByPlaces.value.results![i].name}',textAlign:  TextAlign.start,),
+                                    title: Text(
+                                      '${nearByPlaces.value.results![i].name}',
+                                      textAlign: TextAlign.start,
+                                    ),
 
-
-                                    subtitle:Text('${nearByPlaces.value.results![i].vicinity}',textAlign:  TextAlign.start,),
+                                    subtitle: Text(
+                                      '${nearByPlaces.value.results![i].vicinity}',
+                                      textAlign: TextAlign.start,
+                                    ),
 
                                     // textUtils.poppinsMediumText(
                                     //     nearByPlaces.value.results![i].vicinity,
@@ -338,13 +343,14 @@ class _GetLocationScreenState extends State<GetLocationScreen> {
                         return const SizedBox(
                           height: 150,
                           child: Center(
-                              child: Text("No Places Found"),
+                            child: Text("No Places Found"),
 
                             /*  textUtils.poppinsBoldText(
                                   'No Places Found',
                                   22.0,
                                   Colors.blue,
-                                  TextAlign.center)*/),
+                                  TextAlign.center)*/
+                          ),
                         );
                       }
                     } else {

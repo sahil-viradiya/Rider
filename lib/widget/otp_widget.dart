@@ -4,9 +4,8 @@ import 'package:rider/constant/app_color.dart';
 
 import '../constant/style.dart';
 
-
 class OTPWidget extends StatelessWidget {
-  const OTPWidget({super.key,this.controller,this.validator});
+  const OTPWidget({super.key, this.controller, this.validator});
   final TextEditingController? controller;
   final String? Function(String?)? validator;
 
@@ -17,7 +16,7 @@ class OTPWidget extends StatelessWidget {
       length: 4,
       // mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.center,
-      validator:validator,
+      validator: validator,
       isCursorAnimationEnabled: true,
       pinAnimationType: PinAnimationType.fade,
       closeKeyboardWhenCompleted: true,

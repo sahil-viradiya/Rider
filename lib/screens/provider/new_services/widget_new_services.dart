@@ -1,6 +1,5 @@
 // ignore_for_file: deprecated_member_use
 
-
 import 'package:dotted_border/dotted_border.dart';
 import 'package:easy_date_timeline/easy_date_timeline.dart';
 import 'package:flutter/material.dart';
@@ -12,7 +11,6 @@ import 'package:rider/constant/my_size.dart';
 import 'package:rider/constant/style.dart';
 import 'package:rider/widget/app_text_field.dart';
 import 'package:rider/widget/custom_button.dart';
-
 
 class WidgetAddNewServices extends StatefulWidget {
   const WidgetAddNewServices({super.key});
@@ -98,7 +96,7 @@ class _WidgetAddNewServicesState extends State<WidgetAddNewServices> {
                     color: primaryShade,
                     borderRadius: BorderRadius.circular(10)),
                 height: MySize.size80!,
-                width: MySize.scaleFactorWidth*70,
+                width: MySize.scaleFactorWidth * 70,
                 activeDayDecoration: const BoxDecoration(
                   color: primary,
                   borderRadius: BorderRadius.all(
@@ -329,7 +327,6 @@ class _WidgetAddNewServicesState extends State<WidgetAddNewServices> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       CustomButton(
-
                         borderSide: const BorderSide(color: primary),
                         color: Colors.white,
                         text: "AppString.cancel",
@@ -340,7 +337,6 @@ class _WidgetAddNewServicesState extends State<WidgetAddNewServices> {
                       ),
                       CustomButton(
                         borderSide: const BorderSide(color: primary),
-
                         text: "AppString.upload",
                         style: Styles.boldwhite712,
                         fun: () {},
@@ -360,7 +356,7 @@ class _WidgetAddNewServicesState extends State<WidgetAddNewServices> {
                   borderSide: const BorderSide(color: red),
                   color: Colors.white,
                   text: "AppString.cancel",
-                 style: Styles.boldRed712,
+                  style: Styles.boldRed712,
                   fun: () {},
                   borderCircular: 12,
                 ),

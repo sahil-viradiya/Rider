@@ -30,7 +30,7 @@ class ResatePasswordController extends GetxController {
       var response = await dioClient
           .post('${Config.baseUrl}reset_password.php', data: formData)
           .then(
-            (respo) async {
+        (respo) async {
           // var respo = jsonDecode(respo);
 
           // model = respo['data'].map<CreateAccountModel>((json){
@@ -70,7 +70,6 @@ class ResatePasswordController extends GetxController {
       isLoading(false);
     }
   }
-
 
   @override
   void onClose() {}

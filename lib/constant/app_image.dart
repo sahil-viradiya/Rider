@@ -38,7 +38,4 @@ class AppImage {
   static String RATING = "assets/images/svg/rating.svg";
   static String REQUEST = "assets/images/svg/request.svg";
   static String STAR = "assets/images/svg/star.svg";
-
-
 }
-

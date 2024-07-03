@@ -15,7 +15,6 @@ import '../../../main.dart';
 import '../../../model/create_account_model.dart';
 import '../../../route/app_route.dart';
 
-
 class SignInController extends GetxController {
   final count = 0.obs;
   RxBool isLoading = false.obs;
@@ -54,7 +53,7 @@ class SignInController extends GetxController {
         data: formData,
       )
           .then(
-            (respo) async {
+        (respo) async {
           // var respo = jsonDecode(respo);
           log("================================${respo['data']}===============");
 
@@ -111,7 +110,7 @@ class SignInController extends GetxController {
         ),
       )
           .then(
-            (respo) async {
+        (respo) async {
           // var respo = jsonDecode(respo);
           model = CreateAccountModel.fromJson(respo['data']);
           _saveUserData(model);

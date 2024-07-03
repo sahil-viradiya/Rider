@@ -70,7 +70,8 @@ class OrderHistoryScreen extends GetView<OrderHistoryController> {
                                 scrollDirection: Axis.vertical,
                                 itemBuilder: (context, index) => InkWell(
                                   onTap: () {
-                                    Get.toNamed(AppRoutes.ORDERSTATUS,arguments: controller.model[index]);
+                                    Get.toNamed(AppRoutes.ORDERSTATUS,
+                                        arguments: controller.model[index]);
                                   },
                                   child: transcation(
                                       context: context,

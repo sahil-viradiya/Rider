@@ -60,27 +60,29 @@ class RequestScreen extends GetView<RequestController> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Gap(Get.height/3),
+                      Gap(Get.height / 3),
                       const CircularProgressIndicator(
-                          color: primary,
-                        ),
+                        color: primary,
+                      ),
                     ],
                   ),
                 );
               } else {
                 return Expanded(
-                      child: FadeInAnimation(
-                        delay: .5,
-                        child: AnimatedList(
-                          initialItemCount: controller.ride.length,
-                          shrinkWrap: true,
-                          physics: const BouncingScrollPhysics(),
-                          itemBuilder: (context, index, animation) {
-                            return  RequestItemWidget(index: index,);
-                          },
-                        ),
-                      ),
-                    );
+                  child: FadeInAnimation(
+                    delay: .5,
+                    child: AnimatedList(
+                      initialItemCount: controller.ride.length,
+                      shrinkWrap: true,
+                      physics: const BouncingScrollPhysics(),
+                      itemBuilder: (context, index, animation) {
+                        return RequestItemWidget(
+                          index: index,
+                        );
+                      },
+                    ),
+                  ),
+                );
               }
             })
           ],

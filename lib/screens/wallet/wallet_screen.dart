@@ -17,14 +17,13 @@ class WalletScreen extends GetView<WalletController> {
     return Scaffold(
       backgroundColor: white,
       appBar: appbarSmall1(context, "Wallet"),
-      body:
-      Column(
+      body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           _withdrawCard(context),
           Gap(MySize.size18!),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal:  12.0),
+            padding: const EdgeInsets.symmetric(horizontal: 12.0),
             child: Text(
               'Transaction ',
               style: Styles.boldBlue615,
@@ -44,7 +43,6 @@ class WalletScreen extends GetView<WalletController> {
       ),
     );
   }
-
 
   _withdrawCard(BuildContext context) {
     return Stack(
@@ -108,20 +106,20 @@ class WalletScreen extends GetView<WalletController> {
             ),
             child: Center(
                 child: Text(
-                  "Withdraw",
-                  textAlign: TextAlign.center,
-                  style: Styles.boldWhite414,
-                )),
+              "Withdraw",
+              textAlign: TextAlign.center,
+              style: Styles.boldWhite414,
+            )),
           ),
         ),
       ],
     );
   }
-
 }
-Widget   transcationWallet(context) {
+
+Widget transcationWallet(context) {
   return Container(
-    padding: const EdgeInsets.symmetric(vertical: 10,horizontal: 18),
+    padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 18),
     margin: const EdgeInsets.only(bottom: 6),
     decoration: BoxDecoration(
       color: white,

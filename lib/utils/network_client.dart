@@ -22,6 +22,7 @@ class DioExceptions {
       ),
     );
   }
+
   static void showMessage(BuildContext context, String message) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
@@ -34,39 +35,41 @@ class DioExceptions {
       ),
     );
   }
+
   static late String message;
   static int statusCode = -1;
-DioExceptions.fromDioError(
+  DioExceptions.fromDioError(
       {required DioException dioError, required String? errorFrom}) {
     _prettyPrintError(dioError: dioError, errorFrom: errorFrom);
     if (dioError.error is SocketException) {
       message = 'No Internet Connection';
     } else {
-    switch (dioError.type) {
-      case DioExceptionType.cancel:
-        message = "Request to API server was cancelled";
-        break;
-      case DioException.connectionTimeout:
-        message = "Connection timeout with API server";
-        break;
-      case DioException.receiveTimeout:
-        message = "Receive timeout in connection with API server";
-        break;
-      case DioExceptionType.badResponse:
-        message = _handleError(
-          dioError.response?.statusCode,
-          dioError.response?.data,
-        );
-        statusCode = dioError.response?.statusCode ?? -1;
-        break;
-      case DioException.sendTimeout:
-        message = "Send timeout in connection with API server";
-        break;
-      default:
-        message = "Something went wrong";
-        break;
+      switch (dioError.type) {
+        case DioExceptionType.cancel:
+          message = "Request to API server was cancelled";
+          break;
+        case DioException.connectionTimeout:
+          message = "Connection timeout with API server";
+          break;
+        case DioException.receiveTimeout:
+          message = "Receive timeout in connection with API server";
+          break;
+        case DioExceptionType.badResponse:
+          message = _handleError(
+            dioError.response?.statusCode,
+            dioError.response?.data,
+          );
+          statusCode = dioError.response?.statusCode ?? -1;
+          break;
+        case DioException.sendTimeout:
+          message = "Send timeout in connection with API server";
+          break;
+        default:
+          message = "Something went wrong";
+          break;
+      }
     }
-  }}
+  }
 
   String _handleError(int? statusCode, dynamic error) {
     switch (statusCode) {
@@ -118,4 +121,3 @@ DioExceptions.fromDioError(
     }
   }
 }
-

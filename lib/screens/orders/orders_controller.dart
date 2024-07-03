@@ -46,12 +46,22 @@ class OrdersController extends GetxController {
             } else {
               customerAddressController.startRideModel =
                   StartRideModel.fromJson(respo['data']);
-              customerAddressController.pickupLat.value =double.parse( customerAddressController.startRideModel.pickUpLatitude.toString());
-              customerAddressController.pickupLng.value =double.parse( customerAddressController.startRideModel.pickUpLongitude.toString());
+              customerAddressController.pickupLat.value = double.parse(
+                  customerAddressController.startRideModel.pickUpLatitude
+                      .toString());
+              customerAddressController.pickupLng.value = double.parse(
+                  customerAddressController.startRideModel.pickUpLongitude
+                      .toString());
               DioExceptions.showMessage(Get.context!, message);
               log("================================${customerAddressController.startRideModel.deliveryAddress}===============");
-              Get.toNamed(AppRoutes.CUSTOMER_ADDRESS,arguments: [double.parse( customerAddressController.startRideModel.pickUpLatitude.toString()),double.parse( customerAddressController.startRideModel.pickUpLongitude.toString())]);
-
+              Get.toNamed(AppRoutes.CUSTOMER_ADDRESS, arguments: [
+                double.parse(customerAddressController
+                    .startRideModel.pickUpLatitude
+                    .toString()),
+                double.parse(customerAddressController
+                    .startRideModel.pickUpLongitude
+                    .toString())
+              ]);
             }
           } catch (e) {
             print('Error parsing JSON or accessing message: $e');

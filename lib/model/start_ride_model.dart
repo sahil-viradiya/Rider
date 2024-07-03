@@ -10,13 +10,13 @@ class StartRideModel {
 
   StartRideModel(
       {this.orderID,
-        this.customerName,
-        this.pickUpLatitude,
-        this.pickUpLongitude,
-        this.dropOffLatitude,
-        this.dropOffLongitude,
-        this.deliveryTime,
-        this.deliveryAddress});
+      this.customerName,
+      this.pickUpLatitude,
+      this.pickUpLongitude,
+      this.dropOffLatitude,
+      this.dropOffLongitude,
+      this.deliveryTime,
+      this.deliveryAddress});
 
   StartRideModel.fromJson(Map<String, dynamic> json) {
     orderID = json['Order ID'];

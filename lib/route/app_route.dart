@@ -1,5 +1,3 @@
-
-
 import 'package:get/get.dart';
 import 'package:rider/screens/auth/create_account/sign_up_screen.dart';
 import 'package:rider/screens/auth/forgot_password/forgot_otp_screen.dart';
@@ -48,7 +46,6 @@ class AppRoutes {
   static String WITHDRAW_AMOUNT = '/withdraw_amount';
 
   static List<GetPage> pages = [
-
     // GetPage(
     //   name: splashScreen,
     //   page: () => const SplashScreen(),
@@ -62,55 +59,64 @@ class AppRoutes {
       bindings: const [
         // SplashBinding(),
       ],
-    ),GetPage(
+    ),
+    GetPage(
       name: CUSTOMER_ADDRESS,
       page: () => const CustomerAddressScreen(),
-      bindings:  [
+      bindings: [
         CustomerAddressBinding(),
       ],
-    ),GetPage(
+    ),
+    GetPage(
       name: WITHDRAW_AMOUNT,
       page: () => const WithdrawamountScreen(),
-      bindings:  [
+      bindings: [
         WithdrawamountBinding(),
       ],
-    ),GetPage(
+    ),
+    GetPage(
       name: ORDER,
       page: () => const OrdersScreen(),
-      bindings:  [
+      bindings: [
         OrdersBinding(),
       ],
-    ),GetPage(
+    ),
+    GetPage(
       name: REQUEST,
       page: () => const RequestScreen(),
-      bindings:  [
+      bindings: [
         RequestBinding(),
       ],
-    ),GetPage(
+    ),
+    GetPage(
       name: FORGOTPASSWORD,
       page: () => ForgotPasswordScreen(),
       bindings: const [
         // SplashBinding(),
       ],
-    ),GetPage(
+    ),
+    GetPage(
       name: FORGOTOTP,
       page: () => ForgotOtpScreen(),
       bindings: const [
         // SplashBinding(),
       ],
-    ),GetPage(
+    ),
+    GetPage(
       name: RESATEPASSWORD,
-      page: () =>  ResetPasswordScreen(),
+      page: () => ResetPasswordScreen(),
       bindings: const [
         // SplashBinding(),
       ],
-    ),GetPage(
+    ),
+    GetPage(
       name: SIGNUPSCREEN,
       page: () => SignUpScreen(),
       bindings: const [
         // SplashBinding(),
       ],
-    ),GetPage(
+    ),
+    GetPage(
       name: OTPSCREEN,
       page: () => OtpScreen(),
       bindings: const [
@@ -120,38 +126,37 @@ class AppRoutes {
     GetPage(
       name: HOMESCREEN,
       page: () => const HomeScreen(),
-      bindings:  [
+      bindings: [
         HomeBinding(),
       ],
     ),
     GetPage(
       name: NOTIFICATION,
       page: () => const NotificationScreen(),
-      bindings:  [
+      bindings: [
         NotificationBinding(),
       ],
     ),
     GetPage(
       name: WALLET,
       page: () => const WalletScreen(),
-      bindings:  [
+      bindings: [
         WalletBinding(),
       ],
     ),
     GetPage(
       name: ORDERHISTORY,
       page: () => const OrderHistoryScreen(),
-      bindings:  [
+      bindings: [
         OrderHistoryBinding(),
       ],
     ),
- GetPage(
+    GetPage(
       name: ORDERSTATUS,
       page: () => const OrdersStatusScreen(),
-      bindings:  [
+      bindings: [
         OrdersStatusBinding(),
       ],
     ),
-
   ];
 }

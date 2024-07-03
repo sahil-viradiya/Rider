@@ -16,13 +16,11 @@ import 'package:rider/widget/custom_button.dart';
 
 import '../../../constant/const.dart';
 
-
 class SignInScreen extends StatelessWidget {
   SignInScreen({super.key});
 
   final _formKey = GlobalKey<FormState>();
   final SignInController _controller = Get.put(SignInController());
-
 
   @override
   Widget build(BuildContext context) {
@@ -119,7 +117,6 @@ class SignInScreen extends StatelessWidget {
                   Gap(MySize.size4!),
 
                   CustomPasswordTextFormFieldWidget(
-
                     controller: _controller.passCon,
                     validator: ((value) {
                       return Validator.validatePassword(value!);
@@ -141,7 +138,7 @@ class SignInScreen extends StatelessWidget {
                             activeColor: primary,
                             visualDensity: const VisualDensity(horizontal: -4),
                             materialTapTargetSize:
-                            MaterialTapTargetSize.shrinkWrap,
+                                MaterialTapTargetSize.shrinkWrap,
                             side: const BorderSide(color: primary),
                             // value: boolValue,
                             onChanged: (bool? value) {},

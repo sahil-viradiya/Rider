@@ -17,7 +17,8 @@ class CustomerAddressScreen extends GetView<CustomerAddressController> {
   @override
   Widget build(BuildContext context) {
     var data = Get.arguments;
-    return  const CustomerAddressWidget(/*pickUpLat: data[0]??0.0,pickUpLng: data[1]??0.0,*/);
+    return const CustomerAddressWidget(
+        /*pickUpLat: data[0]??0.0,pickUpLng: data[1]??0.0,*/);
     //   Scaffold(
     //   backgroundColor: white,
     //   appBar: appbarSmall1(context, "Customer Address"),
@@ -214,14 +215,16 @@ class CustomerAddressScreen extends GetView<CustomerAddressController> {
                 ),
                 const Divider(),
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
                   child: Text(
                     "Delivery Address",
                     style: Styles.boldBlack614,
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 1),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 14, vertical: 1),
                   child: Text(
                     "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy",
                     style: Styles.lable414,
@@ -269,7 +272,7 @@ class CustomerAddressScreen extends GetView<CustomerAddressController> {
                         style: Styles.boldwhite712,
                         fun: () {
                           Navigator.of(context).pop();
-                          _delay(context);// Close the dialog
+                          _delay(context); // Close the dialog
                         },
                       ),
                     ),
@@ -396,7 +399,6 @@ class CustomerAddressScreen extends GetView<CustomerAddressController> {
                   }),
                 ),
                 const Gap(8),
-
                 Align(
                   alignment: Alignment.topLeft,
                   child: Padding(
@@ -410,16 +412,13 @@ class CustomerAddressScreen extends GetView<CustomerAddressController> {
                 const Gap(8),
                 const Padding(
                   padding: EdgeInsets.symmetric(horizontal: 14.0),
-
                   child: CustomTextFormFieldWidget(
                     minLine: 5,
                     maxLine: 5,
                   ),
                 ),
-
                 const Divider(),
                 const Gap(8),
-
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -446,7 +445,6 @@ class CustomerAddressScreen extends GetView<CustomerAddressController> {
                   ],
                 ),
                 const Gap(12)
-
               ],
             ),
           ),
@@ -461,7 +459,6 @@ class CustomerAddressScreen extends GetView<CustomerAddressController> {
       'Road Closed Divert New Route',
       'New Delivery Address Diverted By Customer',
       'Other',
-
     ];
     showDialog(
       context: context,
@@ -485,22 +482,21 @@ class CustomerAddressScreen extends GetView<CustomerAddressController> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: List<Widget>.generate(4, (int index) {
                     return Obx(() => RadioListTile<int>(
-                      activeColor: primary,
-                      controlAffinity: ListTileControlAffinity.trailing,
-                      title: Text(
-                        titles[index],
-                        style: Styles.lable414,
-                      ),
-                      value: index,
-                      groupValue: controller.selectedRadio.value,
-                      onChanged: (int? value) {
-                        controller.selectedRadio.value = value!;
-                      },
-                    ));
+                          activeColor: primary,
+                          controlAffinity: ListTileControlAffinity.trailing,
+                          title: Text(
+                            titles[index],
+                            style: Styles.lable414,
+                          ),
+                          value: index,
+                          groupValue: controller.selectedRadio.value,
+                          onChanged: (int? value) {
+                            controller.selectedRadio.value = value!;
+                          },
+                        ));
                   }),
                 ),
                 const Gap(8),
-
                 Align(
                   alignment: Alignment.topLeft,
                   child: Padding(
@@ -514,16 +510,13 @@ class CustomerAddressScreen extends GetView<CustomerAddressController> {
                 const Gap(8),
                 const Padding(
                   padding: EdgeInsets.symmetric(horizontal: 14.0),
-
                   child: CustomTextFormFieldWidget(
                     minLine: 5,
                     maxLine: 5,
                   ),
                 ),
-
                 const Divider(),
                 const Gap(8),
-
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -550,7 +543,6 @@ class CustomerAddressScreen extends GetView<CustomerAddressController> {
                   ],
                 ),
                 const Gap(12)
-
               ],
             ),
           ),
@@ -558,5 +550,4 @@ class CustomerAddressScreen extends GetView<CustomerAddressController> {
       },
     );
   }
-
 }

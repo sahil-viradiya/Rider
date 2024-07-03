@@ -25,7 +25,6 @@ class SignUpScreen extends GetView<SignUpController> {
   @override
   final SignUpController controller = Get.put(SignUpController());
 
-
   @override
   Widget build(BuildContext context) {
     MySize().init(context);
@@ -39,7 +38,7 @@ class SignUpScreen extends GetView<SignUpController> {
           physics: const BouncingScrollPhysics(),
           child: Padding(
             padding:
-            EdgeInsets.symmetric(horizontal: MySize.getScaledSizeWidth(25)),
+                EdgeInsets.symmetric(horizontal: MySize.getScaledSizeWidth(25)),
             child: Column(
               // crossAxisAlignment: CrossAxisAlignment.center,
               children: [
@@ -152,7 +151,6 @@ class SignUpScreen extends GetView<SignUpController> {
                   validator: ((value) {
                     return Validator.validateMobile(value!);
                   }),
-
                   hintRpadding: 17.76,
                 ),
 
@@ -176,7 +174,6 @@ class SignUpScreen extends GetView<SignUpController> {
                   validator: ((value) {
                     return Validator.validatePassword(value!);
                   }),
-
                   obscureText: true,
                   suffixTap: () {},
                 ),
@@ -200,7 +197,6 @@ class SignUpScreen extends GetView<SignUpController> {
                         value!, controller.password.text);
                   }),
                   controller: controller.conformPassword,
-
                   obscureText: true,
                   suffixTap: () {},
                 ),

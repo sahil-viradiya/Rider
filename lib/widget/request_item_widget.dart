@@ -20,9 +20,7 @@ class RequestItemWidget extends GetView<RequestController> {
       padding: const EdgeInsets.all(8),
       decoration: BoxDecoration(
           border: Border.all(color: primary),
-          borderRadius: BorderRadius.circular(8)
-      ),
-
+          borderRadius: BorderRadius.circular(8)),
       margin: const EdgeInsets.only(bottom: 34),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -58,14 +56,14 @@ class RequestItemWidget extends GetView<RequestController> {
               Expanded(
                 child: Obx(() {
                   return CustomButton(
-                    isLoading: controller.rejectLoading[index]??false,
+                    isLoading: controller.rejectLoading[index] ?? false,
                     color: const Color(0xFFFA5E5E),
                     height: 35,
                     borderCircular: 6,
                     text: "Reject",
                     fun: () {
-                      controller.rideReject(id: controller.ride[index].rideId,index: index);
-
+                      controller.rideReject(
+                          id: controller.ride[index].rideId, index: index);
                     },
                   );
                 }),
@@ -79,10 +77,9 @@ class RequestItemWidget extends GetView<RequestController> {
                     height: 35,
                     text: "Accept",
                     fun: () {
-                      log("RIDE ID +++++++++++++++++++ ${controller.ride[index]
-                          .rideId}");
-                      controller.rideAccept(id: controller.ride[index].rideId,
-                          index: index);
+                      log("RIDE ID +++++++++++++++++++ ${controller.ride[index].rideId}");
+                      controller.rideAccept(
+                          id: controller.ride[index].rideId, index: index);
                     },
                   );
                 }),

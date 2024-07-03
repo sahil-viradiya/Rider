@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 
-
 class SharedPref {
 // Save data to local storage
 //   static saveProfileToLocalStorage(CustomerProfile profile) async {

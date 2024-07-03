@@ -50,20 +50,20 @@ class ProfileAppbar extends StatelessWidget implements PreferredSizeWidget {
           height: MySize.size266,
           width: double.infinity,
           decoration: const BoxDecoration(
-            // image: DecorationImage(
-            //   image: AssetImage(
-            //     AppImage.authAppImage,
-            //   ),
-            //   fit: BoxFit.cover,
-            // ),
-          ),
+              // image: DecorationImage(
+              //   image: AssetImage(
+              //     AppImage.authAppImage,
+              //   ),
+              //   fit: BoxFit.cover,
+              // ),
+              ),
         ),
         Container(
           height: MySize.size95,
           width: double.infinity,
           decoration: const BoxDecoration(
-            //color: Colors.amber,
-          ),
+              //color: Colors.amber,
+              ),
         ),
       ],
     );
@@ -74,9 +74,9 @@ class ProfileAppbar extends StatelessWidget implements PreferredSizeWidget {
 }
 
 appbarSmall1(BuildContext context, String title,
-    {PreferredSizeWidget? bottom,Color? backgroundColor}) {
+    {PreferredSizeWidget? bottom, Color? backgroundColor}) {
   return AppBar(
-    backgroundColor:backgroundColor?? scaffoldColor,
+    backgroundColor: backgroundColor ?? scaffoldColor,
     bottom: bottom,
     forceMaterialTransparency: true,
     automaticallyImplyLeading: false,
@@ -98,19 +98,21 @@ appbarSmall1(BuildContext context, String title,
     ),
     centerTitle: true,
   );
-
-
 }
+
 bottomAppbarSmall(BuildContext context, String title,
-    {PreferredSizeWidget? bottom,Color? backgroundColor}) {
+    {PreferredSizeWidget? bottom, Color? backgroundColor}) {
   return AppBar(
-    backgroundColor:backgroundColor?? scaffoldColor,
+    backgroundColor: backgroundColor ?? scaffoldColor,
     bottom: bottom,
     automaticallyImplyLeading: false,
     leading: Align(
       alignment: Alignment.topLeft,
       child: IconButton(
-        icon: const Icon(Icons.menu,color: primary,),
+        icon: const Icon(
+          Icons.menu,
+          color: primary,
+        ),
         onPressed: () {
           Scaffold.of(context).openDrawer();
         },

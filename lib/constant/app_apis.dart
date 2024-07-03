@@ -1,5 +1,4 @@
-class Api{
-
+class Api {
   static String baseUrl = "https://sos.notionprojects.tech/api/";
 
   static String getCountry = "get_country";
@@ -15,5 +14,5 @@ class Api{
   static String getServiceCategory = "get_service_category";
   static String providerGetCategory = "get_category";
   static String providerGetSubCategory = "get_sub_category";
-  static String providerUpdateProfile= "provider_update_profile";
+  static String providerUpdateProfile = "provider_update_profile";
 }

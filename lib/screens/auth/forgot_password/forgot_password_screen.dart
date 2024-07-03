@@ -11,13 +11,12 @@ import 'package:rider/widget/app_text_field.dart';
 import 'package:rider/widget/auth_app_bar_widget.dart';
 import 'package:rider/widget/custom_button.dart';
 
-
 class ForgotPasswordScreen extends StatelessWidget {
   ForgotPasswordScreen({super.key});
 
   final _formKey = GlobalKey<FormState>();
   final ForgotPasswordController _controller =
-  Get.put(ForgotPasswordController());
+      Get.put(ForgotPasswordController());
   @override
   Widget build(BuildContext context) {
     MySize().init(context);
@@ -56,19 +55,18 @@ class ForgotPasswordScreen extends StatelessWidget {
                   Gap(MySize.size30!),
                   Align(
                     alignment: Alignment.topLeft,
-                    child:
-                    Text("Email", style: Styles.boldBlack614,
-                      textAlign: TextAlign.left,),
-
+                    child: Text(
+                      "Email",
+                      style: Styles.boldBlack614,
+                      textAlign: TextAlign.left,
+                    ),
                   ),
                   Gap(MySize.size4!),
-
                   CustomTextFormFieldWidget(
                     controller: _controller.emailCon,
                     validator: (value) {
                       return Validator.validateEmails(value!);
                     },
-
                   ),
                   Gap(MySize.size24!),
                   Obx(() {
@@ -77,10 +75,10 @@ class ForgotPasswordScreen extends StatelessWidget {
                         text: 'Submit',
                         fun: _controller.isLoading.value != true
                             ? () {
-                          if (_formKey.currentState!.validate()) {
-                            _controller.forgotPassword();
-                          }
-                        }
+                                if (_formKey.currentState!.validate()) {
+                                  _controller.forgotPassword();
+                                }
+                              }
                             : () {});
                   }),
                   Gap(MySize.size24!),
@@ -97,7 +95,6 @@ class ForgotPasswordScreen extends StatelessWidget {
               ),
             ),
           ),
-        )
-    );
+        ));
   }
 }

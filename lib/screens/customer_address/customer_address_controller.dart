@@ -88,7 +88,7 @@ class CustomerAddressController extends GetxController {
     try {
       dio.FormData formData = dio.FormData.fromMap({
         'ride_id': id,
-        'description' : issueDesdetails.text + issueDes.value
+        'description': issueDesdetails.text + issueDes.value
       });
       var response = await dioClient
           .post(
@@ -137,13 +137,12 @@ class CustomerAddressController extends GetxController {
     }
   }
 
-
- Future<dynamic> delayRide({required var id}) async {
+  Future<dynamic> delayRide({required var id}) async {
     isLoading(true);
     try {
       dio.FormData formData = dio.FormData.fromMap({
         'ride_id': id,
-        'description' : issueDesdetails.text + issueDes.value
+        'description': issueDesdetails.text + issueDes.value
       });
       var response = await dioClient
           .post(

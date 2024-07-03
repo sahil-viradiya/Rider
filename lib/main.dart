@@ -10,17 +10,14 @@ import 'package:rider/utils/api_client.dart';
 import 'constant/const.dart';
 import 'route/app_route.dart';
 
-
-void main()async {
+void main() async {
   // if (defaultTargetPlatform == TargetPlatform.android) {
   //   AndroidGoogleMapsFlutter.useAndroidViewSurface = true;
   // }
   WidgetsFlutterBinding.ensureInitialized();
 
-
   String? token = await getToken();
   String? userID = await getUserId();
-
 
   // final dio = Dio();
   // final dioClient = DioClient('https://sos.notionprojects.tech/', dio);
@@ -30,7 +27,8 @@ void main()async {
 
 final dio = Dio();
 final dioClient =
-DioClient('https://ride.notionprojects.tech/api/customer/', dio);
+    DioClient('https://ride.notionprojects.tech/api/customer/', dio);
+
 class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
@@ -44,6 +42,7 @@ class _MyAppState extends State<MyApp> {
     startProcess();
     super.initState();
   }
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -109,9 +108,7 @@ class _MyAppState extends State<MyApp> {
         // Show a dialog to the user if they decline to enable location services
         _showLocationServicesDialog();
       }
-    } else {
-
-    }
+    } else {}
   }
 
   void _showLocationServicesDialog() {

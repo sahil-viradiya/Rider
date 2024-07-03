@@ -164,8 +164,8 @@ class HomeScreen extends GetView<HomeController> {
               Obx(() {
                 return controller.orderHisCon.isLoading.value
                     ? const CircularProgressIndicator(
-                  color: primary,
-                )
+                        color: primary,
+                      )
                     : controller.orderHisCon.model.isEmpty
                         ? Text(
                             "Data Is Empty",

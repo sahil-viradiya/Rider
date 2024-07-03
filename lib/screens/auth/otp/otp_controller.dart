@@ -19,33 +19,35 @@ class OtpController extends GetxController {
   Future<dynamic> verifyOtp({required String userId}) async {
     dio.FormData formData = dio.FormData.fromMap({
       'driver_id': userId.toString(),
-      'otp':otpCon.text.toString(),
+      'otp': otpCon.text.toString(),
     });
     log('============= Form DAta ${formData.fields}');
     isLoading(true);
     try {
-      var response = await dioClient.post(
+      var response = await dioClient
+          .post(
         '${Config.baseUrl}verify_register_otp.php',
         data: formData,
-      ).then((respo) {
-        // var res = jsonDecode(respo);
-        print("${respo['status']}-----------------");
-        var message = respo['message'];
-        try {
-          if (respo['status'] == false) {
-            DioExceptions.showErrorMessage(Get.context!, message);
-            print('Message: $message');
-          } else {
-            DioExceptions.showMessage(Get.context!, message);
+      )
+          .then(
+        (respo) {
+          // var res = jsonDecode(respo);
+          print("${respo['status']}-----------------");
+          var message = respo['message'];
+          try {
+            if (respo['status'] == false) {
+              DioExceptions.showErrorMessage(Get.context!, message);
+              print('Message: $message');
+            } else {
+              DioExceptions.showMessage(Get.context!, message);
 
-            Get.toNamed(AppRoutes.LOGIN);
+              Get.toNamed(AppRoutes.LOGIN);
+            }
+          } catch (e) {
+            print('Error parsing JSON or accessing message: $e');
           }
-        } catch (e) {
-          print('Error parsing JSON or accessing message: $e');
-        }
-      },);
-
-
+        },
+      );
     } on dio.DioException catch (e) {
       print("status Code ${e.response?.statusCode}");
       print('Error $e');

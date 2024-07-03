@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:rider/constant/app_color.dart';
 import 'package:rider/constant/font-family.dart';
 
-
-
 class Styles {
   static TextStyle boldBlue720 = TextStyle(
     color: primary,
@@ -28,7 +26,8 @@ class Styles {
     fontSize: 12,
     fontFamily: FontFamily.primary,
     fontWeight: FontWeight.w400,
-  );static TextStyle normalBlue413 = TextStyle(
+  );
+  static TextStyle normalBlue413 = TextStyle(
     color: primary,
     fontSize: 13,
     fontFamily: FontFamily.primary,
@@ -52,7 +51,8 @@ class Styles {
     fontSize: 15,
     fontFamily: FontFamily.primary,
     fontWeight: FontWeight.w700,
-  ); static TextStyle boldDarkGrey60012 = TextStyle(
+  );
+  static TextStyle boldDarkGrey60012 = TextStyle(
     color: darkGrey,
     fontSize: 12,
     fontFamily: FontFamily.primary,
@@ -135,7 +135,8 @@ class Styles {
     fontSize: 20,
     fontFamily: FontFamily.primary,
     fontWeight: FontWeight.w700,
-  );static TextStyle white740 = TextStyle(
+  );
+  static TextStyle white740 = TextStyle(
     color: primaryWhite,
     fontSize: 40,
     fontFamily: FontFamily.primary,
@@ -152,7 +153,8 @@ class Styles {
     fontSize: 12,
     fontFamily: FontFamily.primary,
     fontWeight: FontWeight.w400,
-  ); static TextStyle hint413 = TextStyle(
+  );
+  static TextStyle hint413 = TextStyle(
     color: liteHint,
     fontSize: 13,
     fontFamily: FontFamily.primary,
@@ -283,7 +285,8 @@ class Styles {
     fontSize: 11,
     fontFamily: FontFamily.primary,
     fontWeight: FontWeight.w400,
-  );static TextStyle lable612 = TextStyle(
+  );
+  static TextStyle lable612 = TextStyle(
     color: lableColor,
     fontSize: 12,
     fontFamily: FontFamily.primary,
@@ -399,7 +402,8 @@ class Styles {
     fontSize: 18,
     fontFamily: FontFamily.primary,
     fontWeight: FontWeight.w700,
-  );static TextStyle boldWhite712 = TextStyle(
+  );
+  static TextStyle boldWhite712 = TextStyle(
     color: primaryWhite,
     fontSize: 12,
     fontFamily: FontFamily.primary,

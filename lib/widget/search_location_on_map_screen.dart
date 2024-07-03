@@ -12,7 +12,6 @@ import 'package:google_maps_webservice/places.dart';
 import 'package:rider/constant/api_key.dart';
 import 'package:rider/constant/app_color.dart';
 
-
 class SearchLocationOnMapScreen extends StatefulWidget {
   const SearchLocationOnMapScreen({super.key});
 
