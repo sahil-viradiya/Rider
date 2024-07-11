@@ -56,14 +56,25 @@ dependencies:
   dio: ^5.4.3+1
 
   google_maps_webservice: any
+  flutter_staggered_animations: ^1.1.1
+  change_app_package_name: ^1.2.0
+  firebase_messaging: ^15.0.2
+  firebase_core: ^3.1.1
+  flutter_local_notifications: ^17.2.1
   http: any
   location: ^6.0.2
   flutter_polyline_points: ^1.0.0
   url_launcher: ^6.3.0
   google_maps_widget: any
+  dart_style: ^2.3.6
+  connectivity_plus: ^6.0.3
+  talker_dio_logger: ^4.3.2
+  logger: ^2.3.0
+  talker_flutter: ^4.3.2
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  test: ^1.25.2
 dependency_overrides:
   google_maps_widget: 1.0.5+1
   dio: ^5.4.3+1

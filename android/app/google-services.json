@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "605598587853",
+    "project_id": "redda-driver",
+    "storage_bucket": "redda-driver.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:605598587853:android:eb9307e63d832474a40284",
+        "android_client_info": {
+          "package_name": "com.example.redda.driver"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCGbDjNyBh7yy0XzZIX7bNwFeF_S8_R6J8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

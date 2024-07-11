@@ -14,9 +14,13 @@ import 'package:rider/utils/network_client.dart';
 class OrdersController extends GetxController {
   final count = 0.obs;
   RxBool isLoading = false.obs;
-  RideAcceptModel rideAcceptModel = RideAcceptModel();
   CustomerAddressController customerAddressController =
       Get.put(CustomerAddressController());
+
+
+
+
+
   Future<dynamic> startDelivery({required var id}) async {
     isLoading(true);
     try {

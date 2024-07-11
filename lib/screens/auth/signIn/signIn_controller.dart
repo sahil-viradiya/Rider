@@ -14,6 +14,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../../main.dart';
 import '../../../model/create_account_model.dart';
 import '../../../route/app_route.dart';
+import 'dart:async';
 
 class SignInController extends GetxController {
   final count = 0.obs;
@@ -24,7 +25,10 @@ class SignInController extends GetxController {
   TextEditingController passCon = TextEditingController();
 
   @override
-  void onReady() {}
+  void onReady() {
+   
+  }
+
   Future<void> loadUserData() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? userData = prefs.getString('userData');

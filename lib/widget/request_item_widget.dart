@@ -78,8 +78,8 @@ class RequestItemWidget extends GetView<RequestController> {
                     text: "Accept",
                     fun: () {
                       log("RIDE ID +++++++++++++++++++ ${controller.ride[index].rideId}");
-                      controller.rideAccept(
-                          id: controller.ride[index].rideId, index: index);
+                      controller.acceptRide(
+                          id: controller.ride[index].rideId??0, index: index);
                     },
                   );
                 }),

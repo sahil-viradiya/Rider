@@ -3,6 +3,9 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
+import 'package:talker_dio_logger/talker_dio_logger_interceptor.dart';
+import 'package:talker_dio_logger/talker_dio_logger_settings.dart';
+import 'package:talker_flutter/talker_flutter.dart';
 
 const _defaultConnectTimeout = Duration.millisecondsPerMinute;
 const _defaultReceiveTimeout = Duration.millisecondsPerMinute;
@@ -19,6 +22,7 @@ class DioClient {
     Dio dio, {
     this.interceptors,
   }) {
+    final talker = Talker();
     _dio = dio;
     _dio
       ..options.baseUrl = baseUrl
@@ -32,13 +36,25 @@ class DioClient {
       _dio.interceptors.addAll(interceptors!);
     }
     if (kDebugMode) {
-      _dio.interceptors.add(LogInterceptor(
-          responseBody: true,
-          error: true,
-          requestHeader: false,
-          responseHeader: false,
-          request: false,
-          requestBody: false));
+      _dio.interceptors.add(
+        TalkerDioLogger(
+          talker: talker,
+          settings: TalkerDioLoggerSettings(
+            requestPen: AnsiPen()..cyan(),
+            // Green http responses logs in console
+            responsePen: AnsiPen()..green(),
+            // Error http logs in console
+            errorPen: AnsiPen()..red(),
+            printResponseData: true,
+            // All http requests disabled for console logging
+            printRequestData: false,
+            // Reposnse logs including http - headers
+            printResponseHeaders: true,
+            // Request logs without http - headersa
+            printRequestHeaders: false,
+          ),
+        ),
+      );
     }
   }
 

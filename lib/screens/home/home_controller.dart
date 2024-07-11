@@ -1,13 +1,23 @@
 import 'package:get/get.dart';
 import 'package:rider/screens/order_history/order_history_controller.dart';
+import 'package:rider/widget/check_internate_connection.dart';
 
 class HomeController extends GetxController {
   final count = 0.obs;
 
   final orderHisCon = Get.put(OrderHistoryController());
+@override
+  void onInit() {
+  MyConnectivity.instance.initialise();
+    
+    // TODO: implement onInit
+    super.onInit();
+  }
 
   @override
-  void onReady() {}
+  void onReady() {
+    
+  }
 
   @override
   void onClose() {}

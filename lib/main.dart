@@ -1,20 +1,42 @@
 import 'dart:developer';
 
 import 'package:dio/dio.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:rider/utils/api_client.dart';
+import 'package:rider/widget/check_internate_connection.dart';
 import 'constant/const.dart';
+import 'notification/notification_handler.dart';
 import 'route/app_route.dart';
+import 'package:dart_style/dart_style.dart';
+
+RxBool isOn = false.obs;
 
 void main() async {
   // if (defaultTargetPlatform == TargetPlatform.android) {
   //   AndroidGoogleMapsFlutter.useAndroidViewSurface = true;
   // }
   WidgetsFlutterBinding.ensureInitialized();
+  MyConnectivity.instance.initialise();
+  await Firebase.initializeApp();
+  FirebaseMessagingHandler();
+  final formatter = DartFormatter();
+
+  try {
+    print(formatter.format("""
+    library an_entire_compilation_unit;
+
+    class SomeClass {}
+    """));
+
+    print(formatter.formatStatement("aSingle(statement);"));
+  } on FormatterException catch (ex) {
+    print(ex);
+  }
 
   String? token = await getToken();
   String? userID = await getUserId();
@@ -26,8 +48,11 @@ void main() async {
 }
 
 final dio = Dio();
-final dioClient =
-    DioClient('https://ride.notionprojects.tech/api/customer/', dio);
+final dioClient = DioClient(
+  'https://ride.notionprojects.tech/api/customer/',
+  dio,
+);
+
 
 class MyApp extends StatefulWidget {
   const MyApp({super.key});

@@ -1,4 +1,4 @@
-package com.example.rider
+package com.example.redda.driver
 
 import io.flutter.embedding.android.FlutterActivity
 

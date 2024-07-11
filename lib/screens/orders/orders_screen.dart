@@ -3,6 +3,7 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:rider/constant/app_color.dart';
 import 'package:rider/constant/style.dart';
+import 'package:rider/screens/request/request_controller.dart';
 import 'package:rider/widget/auth_app_bar_widget.dart';
 import 'package:rider/widget/custom_button.dart';
 import 'orders_controller.dart';
@@ -12,6 +13,7 @@ class OrdersScreen extends GetView<OrdersController> {
 
   @override
   Widget build(BuildContext context) {
+    final RequestController requestController = Get.find();
     var id = Get.arguments;
     return Scaffold(
       backgroundColor: white,
@@ -40,7 +42,7 @@ class OrdersScreen extends GetView<OrdersController> {
                       ),
                       const Gap(48),
                       Text(
-                        controller.rideAcceptModel.orderID.toString(),
+                       requestController.rideAcceptModel.value?.orderId .toString() ?? "",
                         style: Styles.lable414,
                       ),
                     ],
@@ -64,7 +66,7 @@ class OrdersScreen extends GetView<OrdersController> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              controller.rideAcceptModel.riderStatus.toString(),
+                           requestController.rideAcceptModel.value?.rideStatus.toString() ?? "",
                               style: Styles.lable414,
                             ),
                             CustomButton(
@@ -116,7 +118,7 @@ class OrdersScreen extends GetView<OrdersController> {
                           ),
                           const Gap(6),
                           Text(
-                            controller.rideAcceptModel.deliveryTime.toString(),
+                   requestController.rideAcceptModel.value?.deliveryTime.toString() ?? "",
                             style: Styles.lable414,
                           ),
                           // Gap(4),
@@ -151,7 +153,7 @@ class OrdersScreen extends GetView<OrdersController> {
                   padding:
                       const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
                   child: Text(
-                    controller.rideAcceptModel.deliveryAddress.toString(),
+                   requestController.rideAcceptModel.value?.deliveryAddress.toString() ?? "",
                     style: Styles.lable414,
                   ),
                 ),
@@ -169,7 +171,7 @@ class OrdersScreen extends GetView<OrdersController> {
                     horizontal: 14,
                   ),
                   child: Text(
-                    controller.rideAcceptModel.itemDetails.toString(),
+                requestController.rideAcceptModel.value?.itemDetails.toString() ?? "",
                     style: Styles.lable414,
                   ),
                 ),
