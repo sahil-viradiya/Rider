@@ -14,12 +14,9 @@ import 'package:rider/utils/network_client.dart';
 class OrdersController extends GetxController {
   final count = 0.obs;
   RxBool isLoading = false.obs;
-  CustomerAddressController customerAddressController =
-      Get.put(CustomerAddressController());
 
-
-
-
+  StartRideModel startRideModel = StartRideModel();
+  Rxn<StartRideModel> startModel = Rxn<StartRideModel>();
 
   Future<dynamic> startDelivery({required var id}) async {
     isLoading(true);
@@ -48,23 +45,18 @@ class OrdersController extends GetxController {
               DioExceptions.showErrorMessage(Get.context!, message);
               print('Message: $message');
             } else {
-              customerAddressController.startRideModel =
-                  StartRideModel.fromJson(respo['data']);
-              customerAddressController.pickupLat.value = double.parse(
-                  customerAddressController.startRideModel.pickUpLatitude
-                      .toString());
-              customerAddressController.pickupLng.value = double.parse(
-                  customerAddressController.startRideModel.pickUpLongitude
-                      .toString());
+              startRideModel = StartRideModel.fromJson(respo['data']);
+              // customerAddressController.pickupLat.value = double.parse(
+              //     customerAddressController.startRideModel.pickUpLatitude
+              //         .toString());
+              // customerAddressController.pickupLng.value = double.parse(
+              //     customerAddressController.startRideModel.pickUpLongitude
+              // .toString());
               DioExceptions.showMessage(Get.context!, message);
-              log("================================${customerAddressController.startRideModel.deliveryAddress}===============");
+              log("================================${startRideModel.deliveryAddress}===============");
               Get.toNamed(AppRoutes.CUSTOMER_ADDRESS, arguments: [
-                double.parse(customerAddressController
-                    .startRideModel.pickUpLatitude
-                    .toString()),
-                double.parse(customerAddressController
-                    .startRideModel.pickUpLongitude
-                    .toString())
+                double.parse(startRideModel.pickUpLatitude.toString()),
+                double.parse(startRideModel.pickUpLongitude.toString())
               ]);
             }
           } catch (e) {

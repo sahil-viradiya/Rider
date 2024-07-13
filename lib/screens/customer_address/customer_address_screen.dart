@@ -17,40 +17,8 @@ class CustomerAddressScreen extends GetView<CustomerAddressController> {
   @override
   Widget build(BuildContext context) {
     var data = Get.arguments;
-    return const CustomerAddressWidget(
-        /*pickUpLat: data[0]??0.0,pickUpLng: data[1]??0.0,*/);
-    //   Scaffold(
-    //   backgroundColor: white,
-    //   appBar: appbarSmall1(context, "Customer Address"),
-    //   body: Stack(
-    //     alignment: Alignment.bottomCenter,
-    //     children: [
-    //
-    //       // Container(
-    //       //   padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 18),
-    //       //   decoration: BoxDecoration(
-    //       //     color: white,
-    //       //     borderRadius: BorderRadius.circular(20),
-    //       //     boxShadow: [
-    //       //       const BoxShadow(
-    //       //         blurRadius: 8,
-    //       //         spreadRadius: 4,
-    //       //         color: Colors.black12,
-    //       //       )
-    //       //     ],
-    //       //   ),
-    //       //   child: CustomButton(
-    //       //     width: Get.width,
-    //       //     height: 35,
-    //       //     borderCircular: 6,
-    //       //     text: "Start Delivery",
-    //       //     fun: () {
-    //       //       _showStartDeliveryDialog(context);
-    //       //     },
-    //       //   ),
-    //       // ),
-    //     ],
-    //   ),
+    return  GoogleMapLocation();
+    //  CustomerAddressWidget(
     // );
   }
 
