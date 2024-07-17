@@ -72,6 +72,7 @@ dependencies:
   logger: ^2.3.0
   talker_flutter: ^4.3.2
   device_info_plus: ^10.1.0
+  maps_curved_line: ^1.0.2
 dev_dependencies:
   flutter_test:
     sdk: flutter
