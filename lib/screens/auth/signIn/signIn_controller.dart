@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:dio/dio.dart' as dio;
 import 'package:rider/constant/api_key.dart';
 import 'package:rider/constant/const.dart';
+import 'package:rider/services/platform_info.dart';
 import 'package:rider/utils/network_client.dart';
 import 'package:rider/utils/pref.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -29,6 +30,14 @@ class SignInController extends GetxController {
    
   }
 
+   var deviceType = ''.obs;
+  final DeviceInfoService _deviceInfoService = DeviceInfoService();
+
+  Future<void> getDeviceType(BuildContext context) async {
+    String type = await _deviceInfoService.getDeviceType(context);
+    deviceType.value = type;
+  }
+
   Future<void> loadUserData() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? userData = prefs.getString('userData');
@@ -43,9 +52,11 @@ class SignInController extends GetxController {
     await prefs.setString('userData', jsonEncode(model.toJson()));
   }
 
-  Future<dynamic> signIn() async {
+  Future<dynamic> signIn({required String deviceToken,required String deviceType}) async {
     dio.FormData formData = dio.FormData.fromMap({
       'email': emailCon.text,
+      'device_token':deviceToken,
+      'device_type': deviceType,
       'password': passCon.text,
     });
     log('============= Form DAta ${formData.fields}');

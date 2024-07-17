@@ -22,15 +22,21 @@ class DioExceptions {
     );
   }
 
-  static void showMessage(BuildContext context, String message) {
+ static void showMessage(BuildContext context, String message) {
+    ScaffoldMessenger.of(context).clearSnackBars(); // Clear existing SnackBars
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         behavior: SnackBarBehavior.floating,
+        duration: const Duration(seconds: 1),
         content: Text(
           message,
           style: const TextStyle(color: Colors.white),
         ),
         backgroundColor: primary,
+        animation: CurvedAnimation(
+          parent: kAlwaysDismissedAnimation,
+          curve: Curves.easeInOut,
+        ),
       ),
     );
   }

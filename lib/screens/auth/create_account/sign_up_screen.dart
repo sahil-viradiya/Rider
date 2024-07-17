@@ -260,98 +260,98 @@ class SignUpScreen extends GetView<SignUpController> {
                   ),
                 ),
 
-                Gap(MySize.size24!),
-                Row(
-                  children: [
-                    const Expanded(
-                      child: DottedLine(
-                        direction: Axis.horizontal,
-                        alignment: WrapAlignment.center,
-                        //lineLength: double.infinity,
-                        lineThickness: 1.0,
-                        dashLength: 4.0,
-                        dashColor: Colors.black,
-                        dashRadius: 0.0,
-                        dashGapLength: 4.0,
-                        dashGapColor: Colors.transparent,
-                        dashGapRadius: 0.0,
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.symmetric(
-                          horizontal: MySize.getScaledSizeWidth(16.00)),
-                      child: Text(
-                        'OR',
-                        style: Styles.noramalBlack614,
-                      ),
-                    ),
-                    const Expanded(
-                      child: DottedLine(
-                        direction: Axis.horizontal,
-                        alignment: WrapAlignment.center,
-                        //lineLength: double.infinity,
-                        lineThickness: 1.0,
-                        dashLength: 4.0,
-                        dashColor: Colors.black,
-                        dashRadius: 0.0,
-                        dashGapLength: 4.0,
-                        dashGapColor: Colors.transparent,
-                        dashGapRadius: 0.0,
-                      ),
-                    ),
-                  ],
-                ),
-                Gap(MySize.size10!),
-                Container(
-                  alignment: Alignment.center,
-                  height: MySize.size50,
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(3.0),
-                    border: Border.all(
-                      color: primary,
-                    ),
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      SvgPicture.asset(
-                        AppImage.FACEBOOK,
-                        fit: BoxFit.fill,
-                      ),
-                      Text(
-                        "  Login With Facebook",
-                        style: Styles.boldBlue712,
-                      ),
-                    ],
-                  ),
-                ),
-                Gap(MySize.size10!),
-                Container(
-                  alignment: Alignment.center,
-                  height: MySize.size50,
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(3.0),
-                    border: Border.all(
-                      color: primary,
-                    ),
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      SvgPicture.asset(
-                        AppImage.GOOGLE,
-                        fit: BoxFit.fill,
-                      ),
-                      Text(
-                        "  Login With Google",
-                        style: Styles.boldBlue712,
-                      ),
-                    ],
-                  ),
-                ),
-                Gap(MySize.size30!),
+                // Gap(MySize.size24!),
+                // Row(
+                //   children: [
+                //     const Expanded(
+                //       child: DottedLine(
+                //         direction: Axis.horizontal,
+                //         alignment: WrapAlignment.center,
+                //         //lineLength: double.infinity,
+                //         lineThickness: 1.0,
+                //         dashLength: 4.0,
+                //         dashColor: Colors.black,
+                //         dashRadius: 0.0,
+                //         dashGapLength: 4.0,
+                //         dashGapColor: Colors.transparent,
+                //         dashGapRadius: 0.0,
+                //       ),
+                //     ),
+                //     Padding(
+                //       padding: EdgeInsets.symmetric(
+                //           horizontal: MySize.getScaledSizeWidth(16.00)),
+                //       child: Text(
+                //         'OR',
+                //         style: Styles.noramalBlack614,
+                //       ),
+                //     ),
+                //     const Expanded(
+                //       child: DottedLine(
+                //         direction: Axis.horizontal,
+                //         alignment: WrapAlignment.center,
+                //         //lineLength: double.infinity,
+                //         lineThickness: 1.0,
+                //         dashLength: 4.0,
+                //         dashColor: Colors.black,
+                //         dashRadius: 0.0,
+                //         dashGapLength: 4.0,
+                //         dashGapColor: Colors.transparent,
+                //         dashGapRadius: 0.0,
+                //       ),
+                //     ),
+                //   ],
+                // ),
+                // Gap(MySize.size10!),
+                // Container(
+                //   alignment: Alignment.center,
+                //   height: MySize.size50,
+                //   width: double.infinity,
+                //   decoration: BoxDecoration(
+                //     borderRadius: BorderRadius.circular(3.0),
+                //     border: Border.all(
+                //       color: primary,
+                //     ),
+                //   ),
+                //   child: Row(
+                //     mainAxisAlignment: MainAxisAlignment.center,
+                //     children: [
+                //       SvgPicture.asset(
+                //         AppImage.FACEBOOK,
+                //         fit: BoxFit.fill,
+                //       ),
+                //       Text(
+                //         "  Login With Facebook",
+                //         style: Styles.boldBlue712,
+                //       ),
+                //     ],
+                //   ),
+                // ),
+                // Gap(MySize.size10!),
+                // Container(
+                //   alignment: Alignment.center,
+                //   height: MySize.size50,
+                //   width: double.infinity,
+                //   decoration: BoxDecoration(
+                //     borderRadius: BorderRadius.circular(3.0),
+                //     border: Border.all(
+                //       color: primary,
+                //     ),
+                //   ),
+                //   child: Row(
+                //     mainAxisAlignment: MainAxisAlignment.center,
+                //     children: [
+                //       SvgPicture.asset(
+                //         AppImage.GOOGLE,
+                //         fit: BoxFit.fill,
+                //       ),
+                //       Text(
+                //         "  Login With Google",
+                //         style: Styles.boldBlue712,
+                //       ),
+                //     ],
+                //   ),
+                // ),
+                // Gap(MySize.size30!),
               ],
             ),
           ),

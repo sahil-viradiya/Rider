@@ -10,7 +10,7 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:rider/utils/api_client.dart';
 import 'package:rider/widget/check_internate_connection.dart';
 import 'constant/const.dart';
-import 'notification/notification_handler.dart';
+import 'services/notification_handler.dart';
 import 'route/app_route.dart';
 import 'package:dart_style/dart_style.dart';
 

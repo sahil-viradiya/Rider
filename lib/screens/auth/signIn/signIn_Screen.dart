@@ -9,6 +9,7 @@ import 'package:rider/constant/my_size.dart';
 import 'package:rider/constant/style.dart';
 import 'package:rider/constant/validation.dart';
 import 'package:rider/main.dart';
+import 'package:rider/services/notification_handler.dart';
 import 'package:rider/route/app_route.dart';
 import 'package:rider/screens/auth/signIn/signIn_controller.dart';
 import 'package:rider/widget/app_text_field.dart';
@@ -28,6 +29,7 @@ class SignInScreen extends StatelessWidget {
     MySize().init(
       context,
     );
+    _controller.getDeviceType(context);
 
     return Scaffold(
       backgroundColor: primaryWhite,
@@ -185,13 +187,13 @@ class SignInScreen extends StatelessWidget {
                               fun: () {
                                 if (_formKey.currentState!.validate()) {
                                   debugPrint("TOKEN____________$token");
-                                  _controller.signIn();
+                                  debugPrint("FMC TOKEN____________$fmcToken");
+                                  debugPrint(
+                                      "Device Type____________${_controller.deviceType.value}");
+                                  _controller.signIn(
+                                      deviceToken: fmcToken,
+                                      deviceType: _controller.deviceType.value);
                                 }
-                                // Navigator.push(
-                                //   context,
-                                //   MaterialPageRoute(
-                                //       builder: (context) => BottomBarScreen()),
-                                // );
                               });
                         }),
                         Gap(MySize.size24!),
@@ -204,98 +206,98 @@ class SignInScreen extends StatelessWidget {
                             style: Styles.normalBlue612U,
                           ),
                         ),
-                        Gap(MySize.size24!),
-                        Row(
-                          children: [
-                            const Expanded(
-                              child: DottedLine(
-                                direction: Axis.horizontal,
-                                alignment: WrapAlignment.center,
-                                //lineLength: double.infinity,
-                                lineThickness: 1.0,
-                                dashLength: 4.0,
-                                dashColor: Colors.black,
-                                dashRadius: 0.0,
-                                dashGapLength: 4.0,
-                                dashGapColor: Colors.transparent,
-                                dashGapRadius: 0.0,
-                              ),
-                            ),
-                            Padding(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: MySize.getScaledSizeWidth(16.00)),
-                              child: Text(
-                                'OR',
-                                style: Styles.noramalBlack416,
-                              ),
-                            ),
-                            const Expanded(
-                              child: DottedLine(
-                                direction: Axis.horizontal,
-                                alignment: WrapAlignment.center,
-                                //lineLength: double.infinity,
-                                lineThickness: 1.0,
-                                dashLength: 4.0,
-                                dashColor: Colors.black,
-                                dashRadius: 0.0,
-                                dashGapLength: 4.0,
-                                dashGapColor: Colors.transparent,
-                                dashGapRadius: 0.0,
-                              ),
-                            ),
-                          ],
-                        ),
-                        Gap(MySize.size10!),
-                        Container(
-                          alignment: Alignment.center,
-                          height: MySize.size50,
-                          width: double.infinity,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(3.0),
-                            border: Border.all(
-                              color: primary,
-                            ),
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              SvgPicture.asset(
-                                AppImage.FACEBOOK,
-                                fit: BoxFit.fill,
-                              ),
-                              Text(
-                                ' Login With Facebook',
-                                style: Styles.boldBlue712,
-                              ),
-                            ],
-                          ),
-                        ),
-                        Gap(MySize.size10!),
-                        Container(
-                          alignment: Alignment.center,
-                          height: MySize.size50,
-                          width: double.infinity,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(3.0),
-                            border: Border.all(
-                              color: primary,
-                            ),
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              SvgPicture.asset(
-                                AppImage.GOOGLE,
-                                fit: BoxFit.fill,
-                              ),
-                              Text(
-                                ' Login With Google',
-                                style: Styles.boldBlue712,
-                              ),
-                            ],
-                          ),
-                        ),
-                        Gap(MySize.size30!),
+                        // Gap(MySize.size24!),
+                        // Row(
+                        //   children: [
+                        //     const Expanded(
+                        //       child: DottedLine(
+                        //         direction: Axis.horizontal,
+                        //         alignment: WrapAlignment.center,
+                        //         //lineLength: double.infinity,
+                        //         lineThickness: 1.0,
+                        //         dashLength: 4.0,
+                        //         dashColor: Colors.black,
+                        //         dashRadius: 0.0,
+                        //         dashGapLength: 4.0,
+                        //         dashGapColor: Colors.transparent,
+                        //         dashGapRadius: 0.0,
+                        //       ),
+                        //     ),
+                        //     Padding(
+                        //       padding: EdgeInsets.symmetric(
+                        //           horizontal: MySize.getScaledSizeWidth(16.00)),
+                        //       child: Text(
+                        //         'OR',
+                        //         style: Styles.noramalBlack416,
+                        //       ),
+                        //     ),
+                        //     const Expanded(
+                        //       child: DottedLine(
+                        //         direction: Axis.horizontal,
+                        //         alignment: WrapAlignment.center,
+                        //         //lineLength: double.infinity,
+                        //         lineThickness: 1.0,
+                        //         dashLength: 4.0,
+                        //         dashColor: Colors.black,
+                        //         dashRadius: 0.0,
+                        //         dashGapLength: 4.0,
+                        //         dashGapColor: Colors.transparent,
+                        //         dashGapRadius: 0.0,
+                        //       ),
+                        //     ),
+                        //   ],
+                        // ),
+                        // Gap(MySize.size10!),
+                        // Container(
+                        //   alignment: Alignment.center,
+                        //   height: MySize.size50,
+                        //   width: double.infinity,
+                        //   decoration: BoxDecoration(
+                        //     borderRadius: BorderRadius.circular(3.0),
+                        //     border: Border.all(
+                        //       color: primary,
+                        //     ),
+                        //   ),
+                        //   child: Row(
+                        //     mainAxisAlignment: MainAxisAlignment.center,
+                        //     children: [
+                        //       SvgPicture.asset(
+                        //         AppImage.FACEBOOK,
+                        //         fit: BoxFit.fill,
+                        //       ),
+                        //       Text(
+                        //         ' Login With Facebook',
+                        //         style: Styles.boldBlue712,
+                        //       ),
+                        //     ],
+                        //   ),
+                        // ),
+                        // Gap(MySize.size10!),
+                        // Container(
+                        //   alignment: Alignment.center,
+                        //   height: MySize.size50,
+                        //   width: double.infinity,
+                        //   decoration: BoxDecoration(
+                        //     borderRadius: BorderRadius.circular(3.0),
+                        //     border: Border.all(
+                        //       color: primary,
+                        //     ),
+                        //   ),
+                        //   child: Row(
+                        //     mainAxisAlignment: MainAxisAlignment.center,
+                        //     children: [
+                        //       SvgPicture.asset(
+                        //         AppImage.GOOGLE,
+                        //         fit: BoxFit.fill,
+                        //       ),
+                        //       Text(
+                        //         ' Login With Google',
+                        //         style: Styles.boldBlue712,
+                        //       ),
+                        //     ],
+                        //   ),
+                        // ),
+                        // Gap(MySize.size30!),
                       ],
                     ),
                   ),

@@ -71,6 +71,7 @@ dependencies:
   talker_dio_logger: ^4.3.2
   logger: ^2.3.0
   talker_flutter: ^4.3.2
+  device_info_plus: ^10.1.0
 dev_dependencies:
   flutter_test:
     sdk: flutter
