@@ -7,6 +7,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:rider/services/location_servies.dart';
 import 'package:rider/utils/api_client.dart';
 import 'package:rider/widget/check_internate_connection.dart';
 import 'constant/const.dart';
@@ -24,6 +25,7 @@ void main() async {
   MyConnectivity.instance.initialise();
   await Firebase.initializeApp();
   FirebaseMessagingHandler();
+  LocationServices();
   final formatter = DartFormatter();
 
   try {

@@ -9,6 +9,7 @@ import 'package:rider/constant/my_size.dart';
 import 'package:rider/constant/style.dart';
 import 'package:rider/main.dart';
 import 'package:rider/route/app_route.dart';
+import 'package:rider/services/location_servies.dart';
 import 'home_controller.dart';
 
 class HomeScreen extends GetView<HomeController> {
@@ -32,6 +33,7 @@ class HomeScreen extends GetView<HomeController> {
       title4: "Star rating" ?? "",
     );
     return Scaffold(
+      // key: LocationServices().locationWidgetKey.value,
       backgroundColor: white,
       drawer: drawer(context),
       appBar: AppBar(
@@ -49,13 +51,20 @@ class HomeScreen extends GetView<HomeController> {
                   style: Styles.lable414,
                 ),
                 Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     SvgPicture.asset(AppImage.LOCATION),
                     const Gap(6),
-                    Text(
-                      "Kalupur, Ahmedabad",
-                      style: Styles.boldDarkGrey60012,
-                    ),
+                    Obx(() => SizedBox(
+                            width: MySize.safeWidth! / 2,
+                      child: Text(
+                            LocationServices.currentLocation.value,
+                            
+                            style: Styles.boldDarkGrey60012,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                    )),
                   ],
                 ),
               ],

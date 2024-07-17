@@ -53,7 +53,7 @@ class CustomerAddressController extends GetxController {
   int _animationIndex = 0;
 
    List<LatLng> destinations = [
-    LatLng(23.051301906461998, 72.51890182451041),
+    LatLng(23.025233605892193, 72.50720234028906),
     // Add more destinations here
   ];
 
@@ -214,14 +214,14 @@ class CustomerAddressController extends GetxController {
     markers.add(const Marker(
       markerId: MarkerId("destination Location"),
       icon: BitmapDescriptor.defaultMarker,
-      position: LatLng(23.051301906461998, 72.51890182451041),
+      position: LatLng(23.025233605892193, 72.50720234028906),
     ));
   }
 
 
   void startMarkerAnimation() {
     if (polylines.isNotEmpty) {
-      _animationTimer = Timer.periodic(Duration(seconds: 1), (timer) {
+      _animationTimer = Timer.periodic(const Duration(seconds: 1), (timer) {
         if (_animationIndex < polylines.values.first.points.length) {
           final nextPoint = polylines.values.first.points[_animationIndex];
           _movingMarker = _movingMarker.copyWith(
