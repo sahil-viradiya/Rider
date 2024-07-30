@@ -1,26 +1,97 @@
 {
   "project_info": {
-    "project_number": "605598587853",
-    "project_id": "redda-driver",
-    "storage_bucket": "redda-driver.appspot.com"
+    "project_number": "108110314500",
+    "project_id": "redda-203f8",
+    "storage_bucket": "redda-203f8.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:605598587853:android:eb9307e63d832474a40284",
+        "mobilesdk_app_id": "1:108110314500:android:18e2a4aeeac57272270951",
         "android_client_info": {
-          "package_name": "com.example.redda.driver"
+          "package_name": "com.example.redda.customer"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "108110314500-3sam4gav6h09c8u7ihmch8ikgp92bl1n.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.redda.customer",
+            "certificate_hash": "0f6fa9c3b10476fda5d4c59d862bead6021e29fd"
+          }
+        },
+        {
+          "client_id": "108110314500-i28fue0trrasdmcohhk2fp28ffgc8n02.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.redda.customer",
+            "certificate_hash": "7c20cc81974be69bdbc324aa170f25affa03a134"
+          }
+        },
+        {
+          "client_id": "108110314500-qlc8a3c4rdhjgd6r21t5252fvcnjp1b3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.redda.customer",
+            "certificate_hash": "c8fb42808573909c656d3a37100bf7f2fc033488"
+          }
+        },
+        {
+          "client_id": "108110314500-s92hn9lnkudq5k709uqums0hgeo5puoj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
-          "current_key": "AIzaSyCGbDjNyBh7yy0XzZIX7bNwFeF_S8_R6J8"
+          "current_key": "AIzaSyAK03Iu-GMxdAOf8KtNhuZ6HEzKcpkNeY4"
         }
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "108110314500-s92hn9lnkudq5k709uqums0hgeo5puoj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:108110314500:android:d0a0acd8f472c8e6270951",
+        "android_client_info": {
+          "package_name": "com.example.redda.driver"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "108110314500-udgcc1i1795j2cr4bgr7gtptlgep9srg.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.redda.driver",
+            "certificate_hash": "7c20cc81974be69bdbc324aa170f25affa03a134"
+          }
+        },
+        {
+          "client_id": "108110314500-s92hn9lnkudq5k709uqums0hgeo5puoj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAK03Iu-GMxdAOf8KtNhuZ6HEzKcpkNeY4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "108110314500-s92hn9lnkudq5k709uqums0hgeo5puoj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }
