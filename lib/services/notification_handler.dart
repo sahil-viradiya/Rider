@@ -1,86 +1,58 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:rider/utils/app_logger.dart';
-var fmcToken = "";  
-class FirebaseMessagingHandler {
-  final FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
-  final FlutterLocalNotificationsPlugin _flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+import 'package:get/get.dart';
+import 'package:rider/route/app_route.dart';
 
-  FirebaseMessagingHandler() {
-    _initialize();
-  }
+var fmcToken = '';
 
-  void _initialize() async {
-    // Request permission for iOS
-    await _requestPermission();
+class NotificationService {
+  static final FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
+  static final FlutterLocalNotificationsPlugin _flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
 
-    // Get FCM token
+  // Initialize Firebase and set up messaging handlers
+  static Future<void> initialize() async {
+    await Firebase.initializeApp();
     _firebaseMessaging.getToken().then((token) {
       fmcToken = token.toString();
-      AppLogger.logger.f ("FCM Token: $token");
+      print("FCM Token: $token");
     });
 
-    _initializeLocalNotifications();
-    _setupForegroundNotificationListener();
-    _setupBackgroundNotificationListener();
-  }
+    // Initialize local notifications
+    const AndroidInitializationSettings initializationSettingsAndroid = AndroidInitializationSettings('@mipmap/ic_launcher');
+    const InitializationSettings initializationSettings = InitializationSettings(android: initializationSettingsAndroid);
+    await _flutterLocalNotificationsPlugin.initialize(initializationSettings);
 
-  Future<void> _requestPermission() async {
-    NotificationSettings settings = await _firebaseMessaging.requestPermission(
-      alert: true,
-      announcement: true,
-      badge: true,
-      carPlay: false,
-      criticalAlert: false,
-      provisional: false,
-      sound: true,
-    );
-
-    if (settings.authorizationStatus == AuthorizationStatus.authorized) {
-      print('User granted permission');
-    } else if (settings.authorizationStatus == AuthorizationStatus.provisional) {
-      print('User granted provisional permission');
-    } else {
-      print('User declined or has not accepted permission');
-    }
-  }
-
-  void _initializeLocalNotifications() {
-    const AndroidInitializationSettings initializationSettingsAndroid =
-    AndroidInitializationSettings('@mipmap/ic_launcher');
-
-    const InitializationSettings initializationSettings = InitializationSettings(
-      android: initializationSettingsAndroid,
-    );
-
-    _flutterLocalNotificationsPlugin.initialize(initializationSettings);
-  }
-
-  void _setupForegroundNotificationListener() {
+    // Handle foreground messages
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+      print('Received a message while in the foreground: ${message.messageId}');
       _showNotification(message);
     });
-  }
 
-  void _setupBackgroundNotificationListener() {
+    // Handle background messages
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
-      print('Message clicked!');
+      print('Message clicked in background: ${message.messageId}');
+      _handleMessage(message);
     });
 
-    FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+    // Handle terminated state
+    FirebaseMessaging.instance.getInitialMessage().then((RemoteMessage? message) {
+      if (message != null) {
+        print('App launched from terminated state: ${message.messageId}');
+        _handleMessage(message);
+      }
+    });
+
+    // Request permissions for iOS
+    _requestPermissions();
   }
 
-  static Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-    await Firebase.initializeApp();
-    print("Handling a background message: ${message.messageId}");
-  }
-
-  Future<void> _showNotification(RemoteMessage message) async {
-    const AndroidNotificationDetails androidPlatformChannelSpecifics =
-    AndroidNotificationDetails(
+  // Display notification
+  static Future<void> _showNotification(RemoteMessage message) async {
+    const AndroidNotificationDetails androidPlatformChannelSpecifics = AndroidNotificationDetails(
       'your_channel_id',
-      'your_channel_name',
+      'Your Channel Name',
       importance: Importance.max,
       priority: Priority.high,
     );
@@ -94,6 +66,42 @@ class FirebaseMessagingHandler {
       message.notification?.title,
       message.notification?.body,
       platformChannelSpecifics,
+    );
+    Get.toNamed(AppRoutes.REQUEST);
+
+  }
+
+  // Handle navigation based on message
+  static Future<void> _handleMessage(RemoteMessage message)async {
+     const AndroidNotificationDetails androidPlatformChannelSpecifics = AndroidNotificationDetails(
+      'your_channel_id',
+      'Your Channel Name',
+      importance: Importance.max,
+      priority: Priority.high,
+    );
+
+     const NotificationDetails platformChannelSpecifics = NotificationDetails(
+      android: androidPlatformChannelSpecifics,
+    );
+
+     await _flutterLocalNotificationsPlugin.show(
+      message.hashCode,
+      message.notification?.title,
+      message.notification?.body,
+      platformChannelSpecifics,
+    );
+    // Navigate to a specific screen or perform an action
+    // Example:
+    Get.toNamed(AppRoutes.REQUEST);
+    // Navigator.pushNamed(context, '/message', arguments: message.data);
+  }
+
+  // Request notification permissions on iOS
+  static void _requestPermissions() {
+    _firebaseMessaging.requestPermission(
+      alert: true,
+      badge: true,
+      sound: true,
     );
   }
 }

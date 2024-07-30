@@ -35,9 +35,7 @@ class SignInScreen extends StatelessWidget {
       backgroundColor: primaryWhite,
       appBar: Appbar(),
       body: Obx(
-        () => isOn.value == false
-            ? const Scaffold(body: Text("You are offline"))
-            : Form(
+        () => Form(
                 key: _formKey,
                 child: SingleChildScrollView(
                   child: Padding(

@@ -1,12 +1,14 @@
 import 'dart:developer';
 
 import 'package:dio/dio.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:rider/screens/home/home_controller.dart';
 import 'package:rider/services/location_servies.dart';
 import 'package:rider/utils/api_client.dart';
 import 'package:rider/widget/check_internate_connection.dart';
@@ -21,10 +23,16 @@ void main() async {
   // if (defaultTargetPlatform == TargetPlatform.android) {
   //   AndroidGoogleMapsFlutter.useAndroidViewSurface = true;
   // }
+
   WidgetsFlutterBinding.ensureInitialized();
   MyConnectivity.instance.initialise();
   await Firebase.initializeApp();
-  FirebaseMessagingHandler();
+  await NotificationService.initialize();
+  FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+  analytics.logEvent(
+    name: 'my_event',
+    parameters: {'key': 'value'},
+  );
   LocationServices();
   final formatter = DartFormatter();
 
@@ -55,7 +63,6 @@ final dioClient = DioClient(
   dio,
 );
 
-
 class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
@@ -67,6 +74,7 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     startProcess();
+    Get.put(HomeController());
     super.initState();
   }
 

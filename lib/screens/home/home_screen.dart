@@ -101,160 +101,175 @@ class HomeScreen extends GetView<HomeController> {
           ),
         ),
         body: GetBuilder<HomeController>(
-          init: HomeController(),
-          builder: (logic) {
-          return Obx(
-            () => isOn.value == false
-                ? const Scaffold(body: Text("You are offline"))
-                : Padding(
-                    padding: const EdgeInsets.all(14.0),
-                    child: Column(
-                      children: [
-                        GridView.builder(
-                          shrinkWrap: true,
-                          gridDelegate:
-                              const SliverGridDelegateWithFixedCrossAxisCount(
-                                  crossAxisCount: 2,
-                                  crossAxisSpacing: 14,
-                                  mainAxisSpacing: 14,
-                                  childAspectRatio: 0.96),
-                          itemCount: 4,
-                          itemBuilder: (context, index) {
-                            String title;
-                            String img;
-                            String cnt;
-                            switch (index) {
-                              case 0:
-                                title = myTitle.title1;
-                                cnt = myTitle.count1;
-                                img = myTitle.img1;
-                                break;
-                              case 1:
-                                title = myTitle.title2;
-                                cnt = myTitle.count2;
-
-                                img = myTitle.img2;
-
-                                break;
-                              case 2:
-                                title = myTitle.title3;
-                                cnt = myTitle.count3;
-
-                                img = myTitle.img3;
-
-                                break;
-                              case 3:
-                                title = myTitle.title4;
-                                cnt = myTitle.count4;
-                                img = myTitle.img4;
-
-                                break;
-                              default:
-                                img = AppImage.VISA;
-                                cnt = "0";
-                                title =
-                                    ''; // Handle the case for unexpected indices
-                            }
-                            return GestureDetector(
-                              onTap: () {
-                                if (index == 0) {
-                                  Get.toNamed(AppRoutes.REQUEST);
-                                }
-                              },
-                              child: _projectContainer(
-                                  myTitle: title,
-                                  imges: img,
-                                  count: cnt,
-                                  index: index),
-                            );
-                          },
-                        ),
-                        const Gap(24),
-                        Row(
+            init: HomeController(),
+            builder: (logic) {
+              return Obx(
+                () => isOn.value == false
+                    ? const Scaffold(body: Text("You are offline"))
+                    : Padding(
+                        padding: const EdgeInsets.all(14.0),
+                        child: Column(
                           children: [
-                            Text(
-                              "Recent orders",
-                              style: Styles.boldBlack616,
-                            ),
-                            const Spacer(),
-                            Text(
-                              "View All",
-                              style: Styles.boldBlue612,
-                            ),
-                          ],
-                        ),
-                        //============================RECENT ORDER===============================
-                        Obx(() {
-                          return controller.orderHisCon.isLoading.value
-                              ? const CircularProgressIndicator(
-                                  color: primary,
+                            controller.isLoading.value
+                                ?  Padding(
+                                  padding: EdgeInsets.symmetric(vertical: MySize.size150!),
+                                  child: const CircularProgressIndicator(color: primary,),
                                 )
-                              : controller.orderHisCon.model.isEmpty
-                                  ? Text(
-                                      "Data Is Empty",
-                                      style: Styles.boldBlue614,
+                                : GridView.builder(
+                                    shrinkWrap: true,
+                                    gridDelegate:
+                                        const SliverGridDelegateWithFixedCrossAxisCount(
+                                            crossAxisCount: 2,
+                                            crossAxisSpacing: 14,
+                                            mainAxisSpacing: 14,
+                                            childAspectRatio: 0.96),
+                                    itemCount: 4,
+                                    itemBuilder: (context, index) {
+                                      String title;
+                                      String img;
+                                      String cnt;
+                                      switch (index) {
+                                        case 0:
+                                          title = myTitle.title1;
+                                          cnt = controller.noOfReq.value
+                                              .toString();
+                                          img = myTitle.img1;
+                                          break;
+                                        case 1:
+                                          title = myTitle.title2;
+                                          cnt = controller.noOfRideAccept.value
+                                              .toString();
+
+                                          img = myTitle.img2;
+
+                                          break;
+                                        case 2:
+                                          title = myTitle.title3;
+                                          cnt = controller.revanue.value
+                                              .toString();
+
+                                          img = myTitle.img3;
+
+                                          break;
+                                        case 3:
+                                          title = myTitle.title4;
+                                          cnt = controller.rating.value
+                                              .toString();
+                                          img = myTitle.img4;
+
+                                          break;
+                                        default:
+                                          img = AppImage.VISA;
+                                          cnt = "0";
+                                          title =
+                                              ''; // Handle the case for unexpected indices
+                                      }
+                                      return GestureDetector(
+                                        onTap: () {
+                                          if (index == 0) {
+                                            Get.toNamed(AppRoutes.REQUEST);
+                                          }
+                                        },
+                                        child: _projectContainer(
+                                            myTitle: title,
+                                            imges: img,
+                                            count: cnt,
+                                            index: index),
+                                      );
+                                    },
+                                  ),
+                            const Gap(24),
+                            Row(
+                              children: [
+                                Text(
+                                  "Recent orders",
+                                  style: Styles.boldBlack616,
+                                ),
+                                const Spacer(),
+                                Text(
+                                  "View All",
+                                  style: Styles.boldBlue612,
+                                ),
+                              ],
+                            ),
+                            //============================RECENT ORDER===============================
+                            Obx(() {
+                              return controller.orderHisCon.isLoading.value
+                                  ? const CircularProgressIndicator(
+                                      color: primary,
                                     )
-                                  : Expanded(
-                                      child: AnimatedList(
-                                        physics: const BouncingScrollPhysics(),
-                                        shrinkWrap: true,
-                                        initialItemCount:
-                                            controller.orderHisCon.model.length,
-                                        itemBuilder:
-                                            (context, index, animation) {
-                                          return Container(
-                                            margin: const EdgeInsets.only(
-                                                bottom: 8),
-                                            padding: const EdgeInsets.all(14),
-                                            decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(10),
-                                                border:
-                                                    Border.all(color: primary)),
-                                            child: Column(
-                                              children: [
-                                                Row(
+                                  : controller.orderHisCon.model.isEmpty
+                                      ? Text(
+                                          "Data Is Empty",
+                                          style: Styles.boldBlue614,
+                                        )
+                                      : Expanded(
+                                          child: AnimatedList(
+                                            physics:
+                                                const BouncingScrollPhysics(),
+                                            shrinkWrap: true,
+                                            initialItemCount: controller
+                                                .orderHisCon.model.length,
+                                            itemBuilder:
+                                                (context, index, animation) {
+                                              return Container(
+                                                margin: const EdgeInsets.only(
+                                                    bottom: 8),
+                                                padding:
+                                                    const EdgeInsets.all(14),
+                                                decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            10),
+                                                    border: Border.all(
+                                                        color: primary)),
+                                                child: Column(
                                                   children: [
-                                                    Expanded(
-                                                      child: Text(
-                                                        "Order ID",
-                                                        style:
-                                                            Styles.boldBlack612,
-                                                      ),
+                                                    Row(
+                                                      children: [
+                                                        Expanded(
+                                                          child: Text(
+                                                            "Order ID",
+                                                            style: Styles
+                                                                .boldBlack612,
+                                                          ),
+                                                        ),
+                                                        Text(
+                                                          "${controller.orderHisCon.model[index].orderTime}",
+                                                          style:
+                                                              Styles.lable411,
+                                                        )
+                                                      ],
                                                     ),
-                                                    Text(
-                                                      "${controller.orderHisCon.model[index].orderTime}",
-                                                      style: Styles.lable411,
+                                                    const Gap(8),
+                                                    Row(
+                                                      children: [
+                                                        Expanded(
+                                                          child: Text(
+                                                            "${controller.orderHisCon.model[index].orderId}",
+                                                            style:
+                                                                Styles.lable414,
+                                                          ),
+                                                        ),
+                                                        Text(
+                                                          "${controller.orderHisCon.model[index].rideStatus}",
+                                                          style:
+                                                              Styles.boldRed712,
+                                                        )
+                                                      ],
                                                     )
                                                   ],
                                                 ),
-                                                const Gap(8),
-                                                Row(
-                                                  children: [
-                                                    Expanded(
-                                                      child: Text(
-                                                        "${controller.orderHisCon.model[index].orderId}",
-                                                        style: Styles.lable414,
-                                                      ),
-                                                    ),
-                                                    Text(
-                                                      "${controller.orderHisCon.model[index].rideStatus}",
-                                                      style: Styles.boldRed712,
-                                                    )
-                                                  ],
-                                                )
-                                              ],
-                                            ),
-                                          );
-                                        },
-                                      ),
-                                    );
-                        })
-                      ],
-                    ),
-                  ),
-          );
-        }),
+                                              );
+                                            },
+                                          ),
+                                        );
+                            })
+                          ],
+                        ),
+                      ),
+              );
+            }),
       ),
     );
   }

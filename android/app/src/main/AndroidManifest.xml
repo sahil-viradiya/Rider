@@ -10,7 +10,11 @@
 
     <application
         android:icon="@mipmap/ic_launcher"
-        android:label="rider">
+        android:label="rider"
+        android:usesCleartextTraffic="true">
+         <meta-data
+            android:name="com.google.firebase.messaging.default_notification_channel_id"
+            android:value="your_channel_id" />
         <activity
             android:name=".MainActivity"
             android:allowBackup="false"
@@ -24,9 +28,7 @@
             <meta-data
                 android:name="io.flutter.embedding.android.NormalTheme"
                 android:resource="@style/NormalTheme" />
-            <meta-data
-                android:name="com.google.firebase.messaging.default_notification_channel_id"
-                android:value="high_importance_channel" />
+           
             <intent-filter>
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
                 <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
