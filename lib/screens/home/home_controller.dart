@@ -1,6 +1,5 @@
 import 'package:dio/dio.dart' as dio;
 import 'package:get/get.dart';
-import 'package:get/get_rx/get_rx.dart';
 import 'package:rider/constant/api_key.dart';
 import 'package:rider/constant/const.dart';
 import 'package:rider/main.dart';
@@ -30,6 +29,7 @@ RxString rating = '0'.obs;
   }
 
     Future<void> fetchDashboardData() async {
+      await getToken();
     isLoading(true);
     try {
       final response = await dioClient.get(

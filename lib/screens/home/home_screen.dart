@@ -17,6 +17,8 @@ class HomeScreen extends GetView<HomeController> {
 
   @override
   Widget build(BuildContext context) {
+    final LocationController locationController = Get.put(LocationController());
+
     MySize().init(context);
     StringTitle myTitle = StringTitle(
       img1: AppImage.REQUEST,
@@ -33,245 +35,262 @@ class HomeScreen extends GetView<HomeController> {
       title4: "Star rating" ?? "",
     );
     return WillPopScope(
-      onWillPop: () async {
-        return false;
-      },
-      child: Scaffold(
-        // key: LocationServices().locationWidgetKey.value,
-        backgroundColor: white,
-        drawer: drawer(context),
-        appBar: AppBar(
-          backgroundColor: white,
-          forceMaterialTransparency: true,
-          title: Row(
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  //=========================Current Location==============
-
-                  Text(
-                    "Current Location",
-                    style: Styles.lable414,
-                  ),
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.start,
+        onWillPop: () async {
+          return false;
+        },
+        child: GetBuilder<HomeController>(
+            init: HomeController(),
+            initState: (_) {},
+            builder: (_) {
+              return Scaffold(
+                // key: LocationServices().locationWidgetKey.value,
+                backgroundColor: white,
+                drawer: drawer(context),
+                appBar: AppBar(
+                  backgroundColor: white,
+                  forceMaterialTransparency: true,
+                  title: Row(
                     children: [
-                      SvgPicture.asset(AppImage.LOCATION),
-                      const Gap(6),
-                      Obx(() => SizedBox(
-                            width: MySize.safeWidth! / 2,
-                            child: Text(
-                              LocationServices.currentLocation.value,
-                              style: Styles.boldDarkGrey60012,
-                              overflow: TextOverflow.ellipsis,
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          //=========================Current Location==============
+
+                          Text(
+                            "Current Location",
+                            style: Styles.lable414,
+                          ),
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              SvgPicture.asset(AppImage.LOCATION),
+                              const Gap(6),
+                              Obx(() => SizedBox(
+                                    width: MySize.safeWidth! / 2,
+                                    child: Text(
+                                      locationController.currentLocation.value,
+                                      style: Styles.boldDarkGrey60012,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                  )),
+                            ],
+                          ),
+                        ],
+                      ),
+                      const Spacer(),
+                      Container(
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          border: Border.all(
+                            color: Colors.white, // Set the border color
+                            width: 3.0, // Set the border width
+                          ),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(0.3),
+                              // Set the shadow color
+                              blurRadius: 10.0,
+                              // Set the shadow blur radius
+                              offset:
+                                  const Offset(0, 5), // Set the shadow offset
                             ),
-                          )),
+                          ],
+                        ),
+                        child: const CircleAvatar(
+                          radius: 20.0,
+                          backgroundImage: NetworkImage(
+                            'https://picsum.photos/id/237/300/300',
+                          ),
+                        ),
+                      ),
                     ],
                   ),
-                ],
-              ),
-              const Spacer(),
-              Container(
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  border: Border.all(
-                    color: Colors.white, // Set the border color
-                    width: 3.0, // Set the border width
-                  ),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(0.3),
-                      // Set the shadow color
-                      blurRadius: 10.0,
-                      // Set the shadow blur radius
-                      offset: const Offset(0, 5), // Set the shadow offset
-                    ),
-                  ],
                 ),
-                child: const CircleAvatar(
-                  radius: 20.0,
-                  backgroundImage: NetworkImage(
-                    'https://picsum.photos/id/237/300/300',
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-        body: GetBuilder<HomeController>(
-            init: HomeController(),
-            builder: (logic) {
-              return Obx(
-                () => isOn.value == false
-                    ? const Scaffold(body: Text("You are offline"))
-                    : Padding(
-                        padding: const EdgeInsets.all(14.0),
-                        child: Column(
-                          children: [
-                            controller.isLoading.value
-                                ?  Padding(
-                                  padding: EdgeInsets.symmetric(vertical: MySize.size150!),
-                                  child: const CircularProgressIndicator(color: primary,),
-                                )
-                                : GridView.builder(
-                                    shrinkWrap: true,
-                                    gridDelegate:
-                                        const SliverGridDelegateWithFixedCrossAxisCount(
-                                            crossAxisCount: 2,
-                                            crossAxisSpacing: 14,
-                                            mainAxisSpacing: 14,
-                                            childAspectRatio: 0.96),
-                                    itemCount: 4,
-                                    itemBuilder: (context, index) {
-                                      String title;
-                                      String img;
-                                      String cnt;
-                                      switch (index) {
-                                        case 0:
-                                          title = myTitle.title1;
-                                          cnt = controller.noOfReq.value
-                                              .toString();
-                                          img = myTitle.img1;
-                                          break;
-                                        case 1:
-                                          title = myTitle.title2;
-                                          cnt = controller.noOfRideAccept.value
-                                              .toString();
-
-                                          img = myTitle.img2;
-
-                                          break;
-                                        case 2:
-                                          title = myTitle.title3;
-                                          cnt = controller.revanue.value
-                                              .toString();
-
-                                          img = myTitle.img3;
-
-                                          break;
-                                        case 3:
-                                          title = myTitle.title4;
-                                          cnt = controller.rating.value
-                                              .toString();
-                                          img = myTitle.img4;
-
-                                          break;
-                                        default:
-                                          img = AppImage.VISA;
-                                          cnt = "0";
-                                          title =
-                                              ''; // Handle the case for unexpected indices
-                                      }
-                                      return GestureDetector(
-                                        onTap: () {
-                                          if (index == 0) {
-                                            Get.toNamed(AppRoutes.REQUEST);
-                                          }
-                                        },
-                                        child: _projectContainer(
-                                            myTitle: title,
-                                            imges: img,
-                                            count: cnt,
-                                            index: index),
-                                      );
-                                    },
-                                  ),
-                            const Gap(24),
-                            Row(
-                              children: [
-                                Text(
-                                  "Recent orders",
-                                  style: Styles.boldBlack616,
-                                ),
-                                const Spacer(),
-                                Text(
-                                  "View All",
-                                  style: Styles.boldBlue612,
-                                ),
-                              ],
-                            ),
-                            //============================RECENT ORDER===============================
-                            Obx(() {
-                              return controller.orderHisCon.isLoading.value
-                                  ? const CircularProgressIndicator(
-                                      color: primary,
-                                    )
-                                  : controller.orderHisCon.model.isEmpty
-                                      ? Text(
-                                          "Data Is Empty",
-                                          style: Styles.boldBlue614,
-                                        )
-                                      : Expanded(
-                                          child: AnimatedList(
-                                            physics:
-                                                const BouncingScrollPhysics(),
+                body: GetBuilder<HomeController>(
+                    init: HomeController(),
+                    builder: (logic) {
+                      return Obx(
+                        () => isOn.value == false
+                            ? const Scaffold(body: Text("You are offline"))
+                            : Padding(
+                                padding: const EdgeInsets.all(14.0),
+                                child: Column(
+                                  children: [
+                                    controller.isLoading.value
+                                        ? Padding(
+                                            padding: EdgeInsets.symmetric(
+                                                vertical: MySize.size150!),
+                                            child:
+                                                const CircularProgressIndicator(
+                                              color: primary,
+                                            ),
+                                          )
+                                        : GridView.builder(
                                             shrinkWrap: true,
-                                            initialItemCount: controller
-                                                .orderHisCon.model.length,
-                                            itemBuilder:
-                                                (context, index, animation) {
-                                              return Container(
-                                                margin: const EdgeInsets.only(
-                                                    bottom: 8),
-                                                padding:
-                                                    const EdgeInsets.all(14),
-                                                decoration: BoxDecoration(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            10),
-                                                    border: Border.all(
-                                                        color: primary)),
-                                                child: Column(
-                                                  children: [
-                                                    Row(
-                                                      children: [
-                                                        Expanded(
-                                                          child: Text(
-                                                            "Order ID",
-                                                            style: Styles
-                                                                .boldBlack612,
-                                                          ),
-                                                        ),
-                                                        Text(
-                                                          "${controller.orderHisCon.model[index].orderTime}",
-                                                          style:
-                                                              Styles.lable411,
-                                                        )
-                                                      ],
-                                                    ),
-                                                    const Gap(8),
-                                                    Row(
-                                                      children: [
-                                                        Expanded(
-                                                          child: Text(
-                                                            "${controller.orderHisCon.model[index].orderId}",
-                                                            style:
-                                                                Styles.lable414,
-                                                          ),
-                                                        ),
-                                                        Text(
-                                                          "${controller.orderHisCon.model[index].rideStatus}",
-                                                          style:
-                                                              Styles.boldRed712,
-                                                        )
-                                                      ],
-                                                    )
-                                                  ],
-                                                ),
+                                            gridDelegate:
+                                                const SliverGridDelegateWithFixedCrossAxisCount(
+                                                    crossAxisCount: 2,
+                                                    crossAxisSpacing: 14,
+                                                    mainAxisSpacing: 14,
+                                                    childAspectRatio: 0.96),
+                                            itemCount: 4,
+                                            itemBuilder: (context, index) {
+                                              String title;
+                                              String img;
+                                              String cnt;
+                                              switch (index) {
+                                                case 0:
+                                                  title = myTitle.title1;
+                                                  cnt = controller.noOfReq.value
+                                                      .toString();
+                                                  img = myTitle.img1;
+                                                  break;
+                                                case 1:
+                                                  title = myTitle.title2;
+                                                  cnt = controller
+                                                      .noOfRideAccept.value
+                                                      .toString();
+
+                                                  img = myTitle.img2;
+
+                                                  break;
+                                                case 2:
+                                                  title = myTitle.title3;
+                                                  cnt = controller.revanue.value
+                                                      .toString();
+
+                                                  img = myTitle.img3;
+
+                                                  break;
+                                                case 3:
+                                                  title = myTitle.title4;
+                                                  cnt = controller.rating.value
+                                                      .toString();
+                                                  img = myTitle.img4;
+
+                                                  break;
+                                                default:
+                                                  img = AppImage.VISA;
+                                                  cnt = "0";
+                                                  title =
+                                                      ''; // Handle the case for unexpected indices
+                                              }
+                                              return GestureDetector(
+                                                onTap: () {
+                                                  if (index == 0) {
+                                                    Get.toNamed(
+                                                        AppRoutes.REQUEST);
+                                                  }
+                                                },
+                                                child: _projectContainer(
+                                                    myTitle: title,
+                                                    imges: img,
+                                                    count: cnt,
+                                                    index: index),
                                               );
                                             },
                                           ),
-                                        );
-                            })
-                          ],
-                        ),
-                      ),
+                                    const Gap(24),
+                                    Row(
+                                      children: [
+                                        Text(
+                                          "Recent orders",
+                                          style: Styles.boldBlack616,
+                                        ),
+                                        const Spacer(),
+                                        Text(
+                                          "View All",
+                                          style: Styles.boldBlue612,
+                                        ),
+                                      ],
+                                    ),
+                                    //============================RECENT ORDER===============================
+                                    Obx(() {
+                                      return controller
+                                              .orderHisCon.isLoading.value
+                                          ? const CircularProgressIndicator(
+                                              color: primary,
+                                            )
+                                          : controller.orderHisCon.model.isEmpty
+                                              ? Text(
+                                                  "Data Is Empty",
+                                                  style: Styles.boldBlue614,
+                                                )
+                                              : Expanded(
+                                                  child: AnimatedList(
+                                                    physics:
+                                                        const BouncingScrollPhysics(),
+                                                    shrinkWrap: true,
+                                                    initialItemCount: controller
+                                                        .orderHisCon
+                                                        .model
+                                                        .length,
+                                                    itemBuilder: (context,
+                                                        index, animation) {
+                                                      return Container(
+                                                        margin: const EdgeInsets
+                                                            .only(bottom: 8),
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .all(14),
+                                                        decoration: BoxDecoration(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        10),
+                                                            border: Border.all(
+                                                                color:
+                                                                    primary)),
+                                                        child: Column(
+                                                          children: [
+                                                            Row(
+                                                              children: [
+                                                                Expanded(
+                                                                  child: Text(
+                                                                    "Order ID",
+                                                                    style: Styles
+                                                                        .boldBlack612,
+                                                                  ),
+                                                                ),
+                                                                Text(
+                                                                  "${controller.orderHisCon.model[index].orderTime}",
+                                                                  style: Styles
+                                                                      .lable411,
+                                                                )
+                                                              ],
+                                                            ),
+                                                            const Gap(8),
+                                                            Row(
+                                                              children: [
+                                                                Expanded(
+                                                                  child: Text(
+                                                                    "${controller.orderHisCon.model[index].orderId}",
+                                                                    style: Styles
+                                                                        .lable414,
+                                                                  ),
+                                                                ),
+                                                                Text(
+                                                                  "${controller.orderHisCon.model[index].rideStatus}",
+                                                                  style: Styles
+                                                                      .boldRed712,
+                                                                )
+                                                              ],
+                                                            )
+                                                          ],
+                                                        ),
+                                                      );
+                                                    },
+                                                  ),
+                                                );
+                                    })
+                                  ],
+                                ),
+                              ),
+                      );
+                    }),
               );
-            }),
-      ),
-    );
+            }));
   }
 
   Widget drawer(

@@ -1,8 +1,6 @@
 // ignore_for_file: must_be_immutable
 
-import 'package:dotted_line/dotted_line.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:rider/constant/app_color.dart';
@@ -16,7 +14,6 @@ import 'package:rider/widget/app_text_field.dart';
 import 'package:rider/widget/auth_app_bar_widget.dart';
 import 'package:rider/widget/custom_button.dart';
 
-import '../../../constant/app_image.dart';
 
 class SignUpScreen extends GetView<SignUpController> {
   SignUpScreen({super.key});

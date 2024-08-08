@@ -17,7 +17,7 @@ class CustomerAddressScreen extends GetView<CustomerAddressController> {
   @override
   Widget build(BuildContext context) {
     var data = Get.arguments;
-    return  GoogleMapLocation();
+    return  const GoogleMapLocation();
     //  CustomerAddressWidget(
     // );
   }

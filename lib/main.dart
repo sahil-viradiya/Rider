@@ -33,7 +33,7 @@ void main() async {
     name: 'my_event',
     parameters: {'key': 'value'},
   );
-  LocationServices();
+  Get.put(LocationController());
   final formatter = DartFormatter();
 
   try {
@@ -74,7 +74,9 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     startProcess();
-    Get.put(HomeController());
+    if (token != null && token!.isNotEmpty) {
+      Get.put(HomeController());
+    }
     super.initState();
   }
 

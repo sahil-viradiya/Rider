@@ -53,7 +53,7 @@ class CustomerAddressController extends GetxController {
   int _animationIndex = 0;
 
    List<LatLng> destinations = [
-    LatLng(23.025233605892193, 72.50720234028906),
+    const LatLng(23.025233605892193, 72.50720234028906),
     // Add more destinations here
   ];
 
@@ -174,7 +174,7 @@ class CustomerAddressController extends GetxController {
             width: 2,
             //latlng is List<LatLng>
             patterns: [PatternItem.dash(30), PatternItem.gap(10)],
-            points: MapsCurvedLines.getPointsOnCurve(LatLng(currentLat.value,currentLng.value),LatLng(23.051301906461998, 72.51890182451041)), // Invoke lib to get curved line points
+            points: MapsCurvedLines.getPointsOnCurve(LatLng(currentLat.value,currentLng.value),const LatLng(23.051301906461998, 72.51890182451041)), // Invoke lib to get curved line points
             color: Colors.blue,
         );
    final  polyline1 = Polyline(

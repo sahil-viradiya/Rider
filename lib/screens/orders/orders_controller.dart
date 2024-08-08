@@ -5,10 +5,8 @@ import 'package:get/get.dart';
 import 'package:rider/constant/api_key.dart';
 import 'package:rider/constant/const.dart';
 import 'package:rider/main.dart';
-import 'package:rider/model/ride_accept_model.dart';
 import 'package:rider/model/start_ride_model.dart';
 import 'package:rider/route/app_route.dart';
-import 'package:rider/screens/customer_address/customer_address_controller.dart';
 import 'package:rider/utils/network_client.dart';
 
 class OrdersController extends GetxController {
