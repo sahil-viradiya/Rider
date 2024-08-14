@@ -9,6 +9,7 @@ import 'package:rider/constant/my_size.dart';
 import 'package:rider/constant/style.dart';
 import 'package:rider/main.dart';
 import 'package:rider/route/app_route.dart';
+import 'package:rider/screens/order_history/order_history_screen.dart';
 import 'package:rider/services/location_servies.dart';
 import 'home_controller.dart';
 
@@ -228,58 +229,11 @@ class HomeScreen extends GetView<HomeController> {
                                                         .length,
                                                     itemBuilder: (context,
                                                         index, animation) {
-                                                      return Container(
-                                                        margin: const EdgeInsets
-                                                            .only(bottom: 8),
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .all(14),
-                                                        decoration: BoxDecoration(
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        10),
-                                                            border: Border.all(
-                                                                color:
-                                                                    primary)),
-                                                        child: Column(
-                                                          children: [
-                                                            Row(
-                                                              children: [
-                                                                Expanded(
-                                                                  child: Text(
-                                                                    "Order ID",
-                                                                    style: Styles
-                                                                        .boldBlack612,
-                                                                  ),
-                                                                ),
-                                                                Text(
-                                                                  "${controller.orderHisCon.model[index].orderTime}",
-                                                                  style: Styles
-                                                                      .lable411,
-                                                                )
-                                                              ],
-                                                            ),
-                                                            const Gap(8),
-                                                            Row(
-                                                              children: [
-                                                                Expanded(
-                                                                  child: Text(
-                                                                    "${controller.orderHisCon.model[index].orderId}",
-                                                                    style: Styles
-                                                                        .lable414,
-                                                                  ),
-                                                                ),
-                                                                Text(
-                                                                  "${controller.orderHisCon.model[index].rideStatus}",
-                                                                  style: Styles
-                                                                      .boldRed712,
-                                                                )
-                                                              ],
-                                                            )
-                                                          ],
-                                                        ),
-                                                      );
+                                                      return transcation(
+                                                          context: context,
+                                                          model: controller
+                                                              .orderHisCon
+                                                              .model[index]);
                                                     },
                                                   ),
                                                 );

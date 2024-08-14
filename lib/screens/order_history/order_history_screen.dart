@@ -99,7 +99,7 @@ Widget transcation(
         return greenolive;
       case 'completed':
         return green;
-      case 'rejected':
+      case 'reject':
         return red;
       default:
         return primary;
