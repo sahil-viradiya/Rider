@@ -91,6 +91,7 @@ class RequestController extends GetxController {
         DioExceptions.showErrorMessage(Get.context!, message);
       } else {
         final rideAcceptData = response['data'];
+        AppLogger.logger.i(rideAcceptData);
         rideAcceptModel.value = RideAcceptModel.fromJson(rideAcceptData);
         AppLogger.logger
             .d("rideAcceptModel: ${rideAcceptModel.value?.itemDetails}");

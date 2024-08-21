@@ -1,5 +1,7 @@
+
 class RideAcceptModel {
-  int? orderId;
+  String? orderId;
+  int? riderId;
   String? rideStatus;
   String? deliveryTime;
   String? deliveryAddress;
@@ -7,6 +9,7 @@ class RideAcceptModel {
 
   RideAcceptModel(
       {this.orderId,
+      this.riderId,
       this.rideStatus,
       this.deliveryTime,
       this.deliveryAddress,
@@ -14,6 +17,7 @@ class RideAcceptModel {
 
   RideAcceptModel.fromJson(Map<String, dynamic> json) {
     orderId = json['order_id'];
+    riderId=json['ride_id'];
     rideStatus = json['ride_status'];
     deliveryTime = json['delivery_time'];
     deliveryAddress = json['delivery_address'];
