@@ -118,80 +118,94 @@ class HomeScreen extends GetView<HomeController> {
                                 padding: const EdgeInsets.all(14.0),
                                 child: Column(
                                   children: [
-                                    controller.isLoading.value
-                                        ? Padding(
-                                            padding: EdgeInsets.symmetric(
-                                                vertical: MySize.size150!),
-                                            child:
-                                                const CircularProgressIndicator(
-                                              color: primary,
-                                            ),
-                                          )
-                                        : GridView.builder(
-                                            shrinkWrap: true,
-                                            gridDelegate:
-                                                const SliverGridDelegateWithFixedCrossAxisCount(
-                                                    crossAxisCount: 2,
-                                                    crossAxisSpacing: 14,
-                                                    mainAxisSpacing: 14,
-                                                    childAspectRatio: 0.96),
-                                            itemCount: 4,
-                                            itemBuilder: (context, index) {
-                                              String title;
-                                              String img;
-                                              String cnt;
-                                              switch (index) {
-                                                case 0:
-                                                  title = myTitle.title1;
-                                                  cnt = controller.noOfReq.value
-                                                      .toString();
-                                                  img = myTitle.img1;
-                                                  break;
-                                                case 1:
-                                                  title = myTitle.title2;
-                                                  cnt = controller
-                                                      .noOfRideAccept.value
-                                                      .toString();
+                                    if (controller.isLoading.value)
+                                      Padding(
+                                        padding: EdgeInsets.symmetric(
+                                            vertical: MySize.size150!),
+                                        child: const CircularProgressIndicator(
+                                          color: primary,
+                                        ),
+                                      )
+                                    else
+                                      StreamBuilder(
+                                        stream: controller.fetchDashboardData(),
+                                        builder: (context, snapshot) {
+                                          if (snapshot.hasError) {
+                                            return Text(
+                                                'Error: ${snapshot.error}');
+                                          } else if (snapshot.hasData) {
+                                            final data = snapshot.data
+                                                as Map<String, dynamic>;
+                                            // Access the values from the map
+                                            final noOfReq = data['noOfReq'];
+                                            final noOfRideAccept =
+                                                data['noOfRideAccept'];
+                                            final revanue = data['revanue'];
+                                            final rating = data['rating'];
+                                            return GridView.builder(
+                                              shrinkWrap: true,
+                                              gridDelegate:
+                                                  const SliverGridDelegateWithFixedCrossAxisCount(
+                                                      crossAxisCount: 2,
+                                                      crossAxisSpacing: 14,
+                                                      mainAxisSpacing: 14,
+                                                      childAspectRatio: 0.96),
+                                              itemCount: 4,
+                                              itemBuilder: (context, index) {
+                                                String title;
+                                                String img;
+                                                String cnt;
+                                                switch (index) {
+                                                  case 0:
+                                                    title = myTitle.title1;
+                                                    cnt = noOfReq.toString();
+                                                    img = myTitle.img1;
+                                                    break;
+                                                  case 1:
+                                                    title = myTitle.title2;
+                                                    cnt = noOfRideAccept.toString();
 
-                                                  img = myTitle.img2;
+                                                    img = myTitle.img2;
 
-                                                  break;
-                                                case 2:
-                                                  title = myTitle.title3;
-                                                  cnt = controller.revanue.value
-                                                      .toString();
+                                                    break;
+                                                  case 2:
+                                                    title = myTitle.title3;
+                                                    cnt = revanue.toString();
 
-                                                  img = myTitle.img3;
+                                                    img = myTitle.img3;
 
-                                                  break;
-                                                case 3:
-                                                  title = myTitle.title4;
-                                                  cnt = controller.rating.value
-                                                      .toString();
-                                                  img = myTitle.img4;
+                                                    break;
+                                                  case 3:
+                                                    title = myTitle.title4;
+                                                    cnt = rating.toString();
+                                                    img = myTitle.img4;
 
-                                                  break;
-                                                default:
-                                                  img = AppImage.VISA;
-                                                  cnt = "0";
-                                                  title =
-                                                      ''; // Handle the case for unexpected indices
-                                              }
-                                              return GestureDetector(
-                                                onTap: () {
-                                                  if (index == 0) {
-                                                    Get.toNamed(
-                                                        AppRoutes.REQUEST);
-                                                  }
-                                                },
-                                                child: _projectContainer(
-                                                    myTitle: title,
-                                                    imges: img,
-                                                    count: cnt,
-                                                    index: index),
-                                              );
-                                            },
-                                          ),
+                                                    break;
+                                                  default:
+                                                    img = AppImage.VISA;
+                                                    cnt = "0";
+                                                    title =
+                                                        ''; // Handle the case for unexpected indices
+                                                }
+                                                return GestureDetector(
+                                                  onTap: () {
+                                                    if (index == 0) {
+                                                      Get.toNamed(
+                                                          AppRoutes.REQUEST);
+                                                    }
+                                                  },
+                                                  child: _projectContainer(
+                                                      myTitle: title,
+                                                      imges: img,
+                                                      count: cnt,
+                                                      index: index),
+                                                );
+                                              },
+                                            );
+                                          }
+                                          return const Text('No data');
+                                        },
+                                      ),
                                     const Gap(24),
                                     Row(
                                       children: [

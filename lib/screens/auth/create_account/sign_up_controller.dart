@@ -70,7 +70,7 @@ class SignUpController extends GetxController {
           await SharedPref.saveString(
               Config.userId, response['data']['user_id'].toString());
           Get.toNamed(AppRoutes.OTPSCREEN,
-              arguments: {'userId': response['data']['driver_id']});
+              arguments: {'userId': response['data']['user_id']});
         }
       } catch (e) {
         print('Error parsing JSON or accessing message: $e');

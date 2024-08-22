@@ -53,7 +53,7 @@ class RequestItemWidget extends GetView<RequestController> {
                 style: Styles.boldBlack612,
               ),
               const Gap(14),
-              Visibility(
+           controller.ride[index].rideStatus=="a"?const SizedBox.shrink():   Visibility(
                 visible: controller.isAccepted[index] ?? true,
                 child: _acceptRejectRow(),
               ),

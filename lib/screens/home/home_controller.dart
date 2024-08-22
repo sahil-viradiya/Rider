@@ -10,15 +10,15 @@ import 'package:rider/widget/check_internate_connection.dart';
 class HomeController extends GetxController {
   final count = 0.obs;
   RxBool isLoading = false.obs;
-RxInt noOfReq = 0.obs;
-RxInt noOfRideAccept = 0.obs;
-RxInt revanue = 0.obs;
-RxString rating = '0'.obs;
+  RxInt noOfReq = 0.obs;
+  RxInt noOfRideAccept = 0.obs;
+  RxInt revanue = 0.obs;
+  RxString rating = '0'.obs;
   final orderHisCon = Get.put(OrderHistoryController());
-@override
+  @override
   void onInit() {
-  MyConnectivity.instance.initialise();
-    
+    MyConnectivity.instance.initialise();
+
     // TODO: implement onInit
     super.onInit();
   }
@@ -28,18 +28,35 @@ RxString rating = '0'.obs;
     fetchDashboardData();
   }
 
-    Future<void> fetchDashboardData() async {
-      await getToken();
-    isLoading(true);
+  bool _isFirstTimeLoading = true; // A flag to track the first call
+
+  Stream<dynamic> fetchDashboardData() async* {
+    if (_isFirstTimeLoading) {
+      isLoading(true); // Show loading indicator only on the first call
+    }
+
+    await getToken(); // Get the token before making the API call
+
     try {
+      // Delay added for polling; can be customized as per your requirement
+       if (!_isFirstTimeLoading) {
+      await Future.delayed(const Duration(minutes: 1));
+
+    }
+
       final response = await dioClient.get(
         '${Config.baseUrl}driver_dashboard.php',
         options: dio.Options(headers: {'Authorization': 'Bearer $token'}),
       );
-     noOfReq.value = response['data']['no_of_received_request'];
-     noOfRideAccept.value = response['data']['no_of_ride_accept'];
-     revanue.value = response['data']['revanue'];
-     rating.value = response['data']['star_rating'];
+
+      // Emit the values to the stream
+      yield {
+        'noOfReq': response['data']['no_of_received_request'],
+        'noOfRideAccept': response['data']['no_of_ride_accept'],
+        'revanue': response['data']['revanue'],
+        'rating': response['data']['star_rating'],
+      };
+
       DioExceptions.showMessage(Get.context!, response['message']);
     } on dio.DioException catch (e) {
       DioExceptions.showErrorMessage(
@@ -48,9 +65,14 @@ RxString rating = '0'.obs;
                   dioError: e, errorFrom: "GET WALLET BALANCE")
               .errorMessage());
     } finally {
-      isLoading(false);
+      if (_isFirstTimeLoading) {
+        isLoading(false); // Stop loading indicator after the first call
+        _isFirstTimeLoading =
+            false; // Reset the flag to prevent further loading
+      }
     }
   }
+
   @override
   void onClose() {}
 
