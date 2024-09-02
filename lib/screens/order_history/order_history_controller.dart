@@ -17,11 +17,14 @@ var logger = Logger();
 
   @override
   void onReady() {
+    if (token!=null) {
     orderHistory();
+      
+    }
   }
 
  Future<void> orderHistory() async {
-  await getToken();
+   getToken();
   if (token == null) {
     if (kDebugMode) {
       print("Token is null");

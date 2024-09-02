@@ -236,7 +236,7 @@ class SignUpScreen extends GetView<SignUpController> {
                             DioExceptions.showErrorMessage(
                                 context, "Please Check terms and conditions");
                           } else {
-                            controller.signUp();
+                            controller.verifyNumber();
                           }
                         }
 

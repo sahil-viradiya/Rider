@@ -6,10 +6,13 @@ import 'package:rider/utils/pref.dart';
 import 'api_key.dart';
 
 String? token;
-Future<String?> getToken() async {
-  token = await SharedPref.readString(Config.kAuth);
-  print("TOKEN=========>> $token");
-  return token;
+void getToken() async {
+ token = await SharedPref.getToken();
+  if (token != null) {
+    print("Fetched token: $token");
+  } else {
+    print("Token is not available.");
+  }
 }
 
 String? userId;

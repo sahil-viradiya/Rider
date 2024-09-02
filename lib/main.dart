@@ -33,6 +33,7 @@ void main() async {
     name: 'my_event',
     parameters: {'key': 'value'},
   );
+  getToken();
   Get.put(LocationController());
   final formatter = DartFormatter();
 
@@ -48,8 +49,8 @@ void main() async {
     print(ex);
   }
 
-  String? token = await getToken();
-  String? userID = await getUserId();
+
+  // String? userID = await getUserId();
 
   // final dio = Dio();
   // final dioClient = DioClient('https://sos.notionprojects.tech/', dio);

@@ -120,7 +120,7 @@ static String? validateAccountNumber(String value) {
   }
 
   static String? validateMobileOtp(String value) {
-    if (value.length != 4) {
+    if (value.length != 6) {
       return 'OTP must be of 4 digit';
     } else if (value.isEmpty) {
       return "Please enter OTP";

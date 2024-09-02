@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:dio/dio.dart' as dio;
 import 'package:get/get.dart';
 import 'package:rider/constant/api_key.dart';
@@ -25,50 +27,45 @@ class HomeController extends GetxController {
 
   @override
   void onReady() {
-    fetchDashboardData();
+    if (token != null) {
+      fetchDashboardData();
+      startPeriodicFetch();
+    }
   }
 
-  bool _isFirstTimeLoading = true; // A flag to track the first call
+  void startPeriodicFetch() {
+    Stream.periodic(const Duration(seconds: 30)).listen((_) {
+      fetchDashboardData(
+          showLoading:
+              false); // 30 seconds me data fetch karega bina loading ke
+    });
+  }
 
-  Stream<dynamic> fetchDashboardData() async* {
-    if (_isFirstTimeLoading) {
-      isLoading(true); // Show loading indicator only on the first call
+  void fetchDashboardData({bool showLoading = true}) async {
+    if (showLoading) {
+      isLoading(true); // Show loading indicator only on first call
     }
-
-    await getToken(); // Get the token before making the API call
 
     try {
-      // Delay added for polling; can be customized as per your requirement
-       if (!_isFirstTimeLoading) {
-      await Future.delayed(const Duration(minutes: 1));
-
-    }
-
+      getToken();
       final response = await dioClient.get(
         '${Config.baseUrl}driver_dashboard.php',
         options: dio.Options(headers: {'Authorization': 'Bearer $token'}),
       );
 
-      // Emit the values to the stream
-      yield {
-        'noOfReq': response['data']['no_of_received_request'],
-        'noOfRideAccept': response['data']['no_of_ride_accept'],
-        'revanue': response['data']['revanue'],
-        'rating': response['data']['star_rating'],
-      };
-
-      DioExceptions.showMessage(Get.context!, response['message']);
+      noOfReq.value = response['data']['no_of_received_request'];
+      noOfRideAccept.value = response['data']['no_of_ride_accept'];
+      revanue.value = response['data']['revanue'];
+      rating.value = response['data']['star_rating'];
     } on dio.DioException catch (e) {
       DioExceptions.showErrorMessage(
           Get.context!,
           DioExceptions.fromDioError(
-                  dioError: e, errorFrom: "GET WALLET BALANCE")
+                  dioError: e, errorFrom: "GET DASHBOARD DATA")
               .errorMessage());
     } finally {
-      if (_isFirstTimeLoading) {
+      if (showLoading) {
         isLoading(false); // Stop loading indicator after the first call
-        _isFirstTimeLoading =
-            false; // Reset the flag to prevent further loading
       }
     }
   }

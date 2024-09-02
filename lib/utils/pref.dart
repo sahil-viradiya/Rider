@@ -1,25 +1,41 @@
 import 'dart:convert';
+import 'dart:developer';
+import 'package:rider/constant/api_key.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SharedPref {
-// Save data to local storage
-//   static saveProfileToLocalStorage(CustomerProfile profile) async {
-//     SharedPreferences prefs = await SharedPreferences.getInstance();
-//     prefs.setString('customerProfile', jsonEncode(profile.toJson()));
-//   }
-//   static saveProviderProfileToLocalStorage(ProviderGetProfileModel profile) async {
-//     log("shared  == ${profile.username}");
-//     SharedPreferences prefs = await SharedPreferences.getInstance();
-//     prefs.setString('providerProfile', jsonEncode(profile.toJson()));
-//   }
+  static final String kAuthKey = Config.kAuth;
 
-  static readObject(String key) async {
-    final prefs = await SharedPreferences.getInstance();
-    if (prefs.get(key) != null) {
-      return prefs.get(key);
-    } else {
+  static Future<void> setToken(String token) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString(kAuthKey, token);
+    log("Token saved: $token");
+  }
+
+  static Future<String?> getToken() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? token = prefs.getString(kAuthKey);
+    if (token == null || token.isEmpty) {
+      log("No token found or token is empty.");
       return null;
     }
+    log("Retrieved token: $token");
+    return token;
+  }
+
+  static Future<Map<String, dynamic>?> readObject(String key) async {
+    final prefs = await SharedPreferences.getInstance();
+    String? jsonString = prefs.getString(key);
+    if (jsonString != null) {
+      try {
+        // Decode the JSON string to a Map<String, dynamic>
+        return jsonDecode(jsonString) as Map<String, dynamic>;
+      } catch (e) {
+        print('Error decoding JSON: $e');
+        return null;
+      }
+    }
+    return null; // Return null if the key does not exist
   }
 
   static readString(String key) async {

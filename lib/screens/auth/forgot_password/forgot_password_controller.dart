@@ -21,7 +21,7 @@ class ForgotPasswordController extends GetxController {
   void onReady() {}
 
   Future<dynamic> forgotPassword() async {
-    await getToken();
+     getToken();
 
     isLoading(true);
     try {

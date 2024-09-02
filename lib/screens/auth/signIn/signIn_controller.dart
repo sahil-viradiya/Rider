@@ -80,9 +80,7 @@ class SignInController extends GetxController {
             } else {
               DioExceptions.showMessage(Get.context!, message);
               // log("================================${ respo['data']['api_token']}===============");
-              await SharedPref.saveString(
-                  Config.kAuth, respo['data']['api_token'].toString());
-              Get.toNamed(AppRoutes.HOMESCREEN);
+              saveApiToken(respo);
 
               // await SharedPref.saveString(Config.status, model.userType);
               // getProfile();
@@ -109,9 +107,17 @@ class SignInController extends GetxController {
       isLoading(false);
     }
   }
+ void saveApiToken(Map<String, dynamic> respo) async {
+  String token = respo['data']['api_token'].toString();
+  await SharedPref.setToken(token);
+  getToken();
+Get.toNamed(AppRoutes.HOMESCREEN);
+
+}
+
 
   Future<dynamic> getProfile() async {
-    await getToken();
+     getToken();
 
     isLoading(true);
     try {

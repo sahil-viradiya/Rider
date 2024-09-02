@@ -13,7 +13,7 @@ class OTPWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Pinput(
       //controller: controller.smsCode,
-      length: 4,
+      length: 6,
       // mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.center,
       validator: validator,

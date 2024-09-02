@@ -32,7 +32,7 @@ class RequestController extends GetxController {
   }
 
   Future<dynamic> getAllRide() async {
-    await getToken();
+     getToken();
     isLoading(true);
     try {
       var response = await dioClient.post('${Config.baseUrl}ride_requests.php',
@@ -108,7 +108,7 @@ class RequestController extends GetxController {
   }
 
   Future<dynamic> rideReject({required final id, required final index}) async {
-    await getToken();
+     getToken();
     dio.FormData formData = dio.FormData.fromMap({
       'ride_id': id,
     });
