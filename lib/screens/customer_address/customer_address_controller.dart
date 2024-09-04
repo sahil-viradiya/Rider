@@ -34,11 +34,13 @@ class CustomerAddressController extends GetxController {
 
   final locationController = loc.Location();
 
-   RxDouble currentLat = 0.0.obs;
+  RxDouble currentLat = 0.0.obs;
   RxDouble currentLng = 0.0.obs;
 
   RxDouble pickupLat = 0.0.obs;
   RxDouble pickupLng = 0.0.obs;
+  RxDouble dropLat = 0.0.obs;
+  RxDouble dropLng = 0.0.obs;
 
   LatLng? currentPosition;
   Map<PolylineId, Polyline> polylines = {};
@@ -52,13 +54,20 @@ class CustomerAddressController extends GetxController {
   Timer? _animationTimer;
   int _animationIndex = 0;
 
-   List<LatLng> destinations = [
-    const LatLng(23.025233605892193, 72.50720234028906),
-    // Add more destinations here
-  ];
+  List<LatLng> destinations = [];
 
   @override
   void onReady() {
+    var data = Get.arguments;
+    if (data != null) {
+      destinations.add(LatLng(data[0], data[1]));
+      log("dest-----$destinations");
+
+      update();
+      dropLat.value = data[0];
+      
+      dropLng.value = data[1];
+    }
     getCurrentLocation();
     WidgetsBinding.instance
         .addPostFrameCallback((_) async => await initializeMap());
@@ -70,7 +79,7 @@ class CustomerAddressController extends GetxController {
     startMarkerAnimation();
   }
 
-   // Get current location
+  // Get current location
   Future getCurrentLocation() async {
     try {
       bool serviceEnabled;
@@ -103,10 +112,8 @@ class CustomerAddressController extends GetxController {
       throw Exception("Get Current Location Exception:- $error");
     }
   }
-  
-  
-  
- Future<void> fetchLocationUpdates() async {
+
+  Future<void> fetchLocationUpdates() async {
     bool serviceEnabled;
     LocationPermission permissionGranted;
 
@@ -147,7 +154,7 @@ class CustomerAddressController extends GetxController {
         travelMode: TravelMode.driving,
         Config.apiKey!,
         PointLatLng(currentLat.value, currentLng.value),
-        PointLatLng(destination.latitude, destination.longitude),
+        PointLatLng(dropLat.value, dropLng.value),
       );
 
       if (result.points.isNotEmpty) {
@@ -161,23 +168,25 @@ class CustomerAddressController extends GetxController {
       }
     }
   }
- 
- Future<void> generatePolyLineFromPoints(
+
+  Future<void> generatePolyLineFromPoints(
       List<LatLng> polylineCoordinates) async {
     const id = PolylineId('polyline');
     const id2 = PolylineId('polyline2');
 
- 
-   final  polyline2 =   Polyline(
-            polylineId: id2,
-            visible: true,
-            width: 2,
-            //latlng is List<LatLng>
-            patterns: [PatternItem.dash(30), PatternItem.gap(10)],
-            points: MapsCurvedLines.getPointsOnCurve(LatLng(currentLat.value,currentLng.value),const LatLng(23.051301906461998, 72.51890182451041)), // Invoke lib to get curved line points
-            color: Colors.blue,
-        );
-   final  polyline1 = Polyline(
+    final polyline2 = Polyline(
+      polylineId: id2,
+      visible: true,
+      width: 2,
+      //latlng is List<LatLng>
+      patterns: [PatternItem.dash(30), PatternItem.gap(10)],
+      points: MapsCurvedLines.getPointsOnCurve(
+          LatLng(currentLat.value, currentLng.value),
+          LatLng(dropLat.value,
+              dropLng.value)), // Invoke lib to get curved line points
+      color: Colors.blue,
+    );
+    final polyline1 = Polyline(
       geodesic: true,
       consumeTapEvents: true,
       jointType: JointType.bevel,
@@ -187,23 +196,18 @@ class CustomerAddressController extends GetxController {
       startCap: Cap.roundCap,
       endCap: Cap.squareCap,
       color: primary,
-      points:  polylineCoordinates,
+      points: polylineCoordinates,
       width: 2,
     );
-
 
     polylines[id] = polyline1;
     polylines[id2] = polyline2;
 
-   
-
     refresh();
     update();
   }
- 
- 
- 
-   void updateMarkers() {
+
+  void updateMarkers() {
     markers.clear();
     markers.add(Marker(
       markerId: const MarkerId("source Location"),
@@ -211,13 +215,12 @@ class CustomerAddressController extends GetxController {
       icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueCyan),
       position: LatLng(currentLat.value, currentLng.value),
     ));
-    markers.add(const Marker(
-      markerId: MarkerId("destination Location"),
+    markers.add(Marker(
+      markerId: const MarkerId("destination Location"),
       icon: BitmapDescriptor.defaultMarker,
-      position: LatLng(23.025233605892193, 72.50720234028906),
+      position: LatLng(dropLat.value, dropLng.value),
     ));
   }
-
 
   void startMarkerAnimation() {
     if (polylines.isNotEmpty) {
@@ -236,8 +239,6 @@ class CustomerAddressController extends GetxController {
       });
     }
   }
-
-
 
   Future<dynamic> completeRide({required var id}) async {
     isLoading(true);
@@ -405,5 +406,6 @@ class CustomerAddressController extends GetxController {
     _animationTimer?.cancel();
     super.onClose();
   }
+
   increment() => count.value++;
 }

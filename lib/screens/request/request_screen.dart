@@ -35,10 +35,10 @@ class RequestScreen extends GetView<RequestController> {
                         "Total Services :",
                         style: Styles.lable414,
                       ),
-                      Text(
-                        "  12",
-                        style: Styles.boldBlue12,
-                      ),
+                      Obx(() => Text(
+                            "${controller.ride.length}",
+                            style: Styles.boldBlue12,
+                          )),
                       const Spacer(),
                       SizedBox(
                         width: MySize.size200!,

@@ -41,7 +41,6 @@ class OrdersController extends GetxController {
           try {
             if (respo['status'] == false) {
               DioExceptions.showErrorMessage(Get.context!, message);
-              print('Message: $message');
             } else {
               startRideModel = StartRideModel.fromJson(respo['data']);
               // customerAddressController.pickupLat.value = double.parse(
@@ -51,10 +50,10 @@ class OrdersController extends GetxController {
               //     customerAddressController.startRideModel.pickUpLongitude
               // .toString());
               DioExceptions.showMessage(Get.context!, message);
-              log("================================${startRideModel.deliveryAddress}===============");
+              log("=====================Customer Response===========${startRideModel.deliveryAddress}===============");
               Get.toNamed(AppRoutes.CUSTOMER_ADDRESS, arguments: [
-                double.parse(startRideModel.pickUpLatitude.toString()),
-                double.parse(startRideModel.pickUpLongitude.toString())
+                double.parse(startRideModel.dropOffLatitude.toString()),
+                double.parse(startRideModel.dropOffLongitude.toString())
               ]);
             }
           } catch (e) {
