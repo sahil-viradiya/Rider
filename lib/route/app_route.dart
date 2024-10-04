@@ -46,18 +46,12 @@ class AppRoutes {
   static String WITHDRAW_AMOUNT = '/withdraw_amount';
 
   static List<GetPage> pages = [
-    // GetPage(
-    //   name: splashScreen,
-    //   page: () => const SplashScreen(),
-    //   bindings: [
-    //     SplashBinding(),
-    //   ],
-
+    
     GetPage(
       name: initialRoute,
       page: () => SignInScreen(),
       bindings: const [
-        // SplashBinding(),
+        
       ],
     ),
     GetPage(
@@ -92,35 +86,35 @@ class AppRoutes {
       name: FORGOTPASSWORD,
       page: () => ForgotPasswordScreen(),
       bindings: const [
-        // SplashBinding(),
+        
       ],
     ),
     GetPage(
       name: FORGOTOTP,
       page: () => ForgotOtpScreen(),
       bindings: const [
-        // SplashBinding(),
+        
       ],
     ),
     GetPage(
       name: RESATEPASSWORD,
       page: () => ResetPasswordScreen(),
       bindings: const [
-        // SplashBinding(),
+        
       ],
     ),
     GetPage(
       name: SIGNUPSCREEN,
       page: () => SignUpScreen(),
       bindings: const [
-        // SplashBinding(),
+        
       ],
     ),
     GetPage(
       name: OTPSCREEN,
       page: () => OtpScreen(),
       bindings: const [
-        // SplashBinding(),
+        
       ],
     ),
     GetPage(

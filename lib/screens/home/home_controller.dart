@@ -17,6 +17,7 @@ class HomeController extends GetxController {
   RxInt revanue = 0.obs;
   RxString rating = '0'.obs;
   final orderHisCon = Get.put(OrderHistoryController());
+
   @override
   void onInit() {
     MyConnectivity.instance.initialise();

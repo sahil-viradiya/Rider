@@ -34,10 +34,10 @@ class OrderHistoryScreen extends GetView<OrderHistoryController> {
                       'Total Order: ',
                       style: Styles.boldBlack612,
                     ),
-                    Text(
-                      '122',
-                      style: Styles.boldBlack612.copyWith(color: primary),
-                    ),
+                    Obx(() => Text(
+                          controller.totalOrder.value.toString(),
+                          style: Styles.boldBlack612.copyWith(color: primary),
+                        )),
                   ],
                 ),
                 const Gap(10),

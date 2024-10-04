@@ -12,6 +12,7 @@ import 'package:rider/utils/network_client.dart';
 
 class OrderHistoryController extends GetxController {
   RxBool isLoading = false.obs;
+  RxString totalOrder = '0'.obs;
   List<OrderHistoryModel> model = [];
 var logger = Logger();
 
@@ -64,6 +65,7 @@ var logger = Logger();
 
       if (model.isNotEmpty) {
         AppLogger.logger.i("First order status: ${model[0].rideStatus}");
+        totalOrder.value = model.length.toString();
       }
       DioExceptions.showMessage(Get.context!, message);
     } else {

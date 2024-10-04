@@ -60,23 +60,25 @@ class CustomerAddressController extends GetxController {
   void onReady() {
     var data = Get.arguments;
     if (data != null) {
-      destinations.add(LatLng(data[0], data[1]));
+      destinations.add(LatLng(data[2], data[3]));
       log("dest-----$destinations");
 
       update();
-      dropLat.value = data[0];
-      
-      dropLng.value = data[1];
+      currentLat.value = data[0];
+      currentLng.value = data[1];
+      dropLat.value = data[2];
+
+      dropLng.value = data[3];
     }
-    getCurrentLocation();
+    // getCurrentLocation();
     WidgetsBinding.instance
         .addPostFrameCallback((_) async => await initializeMap());
   }
 
   Future<void> initializeMap() async {
-    await fetchLocationUpdates();
+    // await fetchLocationUpdates();
     await fetchPolylinePoints();
-    startMarkerAnimation();
+    // startMarkerAnimation();
   }
 
   // Get current location
@@ -184,7 +186,7 @@ class CustomerAddressController extends GetxController {
           LatLng(currentLat.value, currentLng.value),
           LatLng(dropLat.value,
               dropLng.value)), // Invoke lib to get curved line points
-      color: Colors.blue,
+      color: primary,
     );
     final polyline1 = Polyline(
       geodesic: true,
@@ -212,11 +214,13 @@ class CustomerAddressController extends GetxController {
     markers.add(Marker(
       markerId: const MarkerId("source Location"),
       visible: true,
+      infoWindow: const InfoWindow(title: "pickup Location"),
       icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueCyan),
       position: LatLng(currentLat.value, currentLng.value),
     ));
     markers.add(Marker(
       markerId: const MarkerId("destination Location"),
+      infoWindow: const InfoWindow(title: "drop Location"),
       icon: BitmapDescriptor.defaultMarker,
       position: LatLng(dropLat.value, dropLng.value),
     ));

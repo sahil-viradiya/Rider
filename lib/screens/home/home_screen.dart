@@ -112,9 +112,7 @@ class HomeScreen extends GetView<HomeController> {
                     init: HomeController(),
                     builder: (logic) {
                       return Obx(
-                        () => isOn.value == false
-                            ? const Scaffold(body: Text("You are offline"))
-                            : Padding(
+                        () =>  Padding(
                                 padding: const EdgeInsets.all(14.0),
                                 child: Column(
                                   children: [

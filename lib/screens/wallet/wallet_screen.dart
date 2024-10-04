@@ -216,7 +216,7 @@ Widget transcationWallet(context, TranscationHistoryModel model) {
           ],
         ),
         Text(
-          "+ \$${model.amount}",
+          "+ ₹${model.amount}",
           style: TextStyle(
             color: green,
             fontSize: 12,

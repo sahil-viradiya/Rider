@@ -50,8 +50,10 @@ class OrdersController extends GetxController {
               //     customerAddressController.startRideModel.pickUpLongitude
               // .toString());
               DioExceptions.showMessage(Get.context!, message);
-              log("=====================Customer Response===========${startRideModel.deliveryAddress}===============");
+              log("=====================Customer Response===========$startRideModel===============");
               Get.toNamed(AppRoutes.CUSTOMER_ADDRESS, arguments: [
+                double.parse(startRideModel.pickUpLatitude.toString()),
+                double.parse(startRideModel.pickUpLongitude.toString()),
                 double.parse(startRideModel.dropOffLatitude.toString()),
                 double.parse(startRideModel.dropOffLongitude.toString())
               ]);
